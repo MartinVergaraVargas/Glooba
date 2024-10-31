@@ -1,0 +1,62 @@
+# Entornos virtuales
+envCalcu/
+*.env
+
+# Archivos de compilación
+__pycache__/
+*.py[cod]
+*.so
+
+# Archivos de migración de bases de datos locales
+migrations/
+instance/
+diagramaDeClases.dia
+diagramaDeClases.dia.autosave
+
+# Archivos de configuración de IDEs y sistemas operativos
+.vscode/
+.idea/
+.DS_Store
+
+# Bases de datos SQLite
+*.sqlite
+*.db
+
+token.txt
+
+# Entornos virtuales
+envCalcu/
+env/
+venv/
+ENV/
+
+# Variables de entorno
+.env
+.env.*
+!.env.example
+
+# Archivos de compilación
+__pycache__/
+*.py[cod]
+*.so
+
+# Archivos de migración de bases de datos locales
+migrations/
+instance/
+diagramaDeClases.dia
+diagramaDeClases.dia.autosave
+
+# Archivos de configuración de IDEs y sistemas operativos
+.vscode/
+.idea/
+.DS_Store
+
+# Bases de datos SQLite
+*.sqlite
+*.db
+
+token.txt
+
+# Logs
+logs/
+*.log

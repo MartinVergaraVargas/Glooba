@@ -1,0 +1,17 @@
+[Unit]
+Description=Glooba web application
+After=network.target
+
+[Service]
+User=juan
+WorkingDirectory=/home/juan/glooba
+Environment="PATH=/home/juan/glooba/venv/bin"
+Environment="FLASK_ENV=production"
+Environment="FLASK_APP=glooba"
+Environment="DATABASE_URL=postgresql://usuario:contraseña@localhost:5432/glooba_db"
+Environment="SECRET_KEY=your-secret-key-here"
+ExecStart=/home/juan/glooba/venv/bin/gunicorn -w 4 -b 127.0.0.1:8000 wsgi:app
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
