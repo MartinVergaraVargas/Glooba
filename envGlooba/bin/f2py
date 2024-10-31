@@ -1,4 +1,6 @@
-#!/home/martin/Tesis/Desarrollo/envCalcu/bin/python3
+#!/bin/sh
+'''exec' "/home/martin/Tesis/Produccion Glooba/envGlooba/bin/python3" "$0" "$@"
+' '''
 # -*- coding: utf-8 -*-
 import re
 import sys

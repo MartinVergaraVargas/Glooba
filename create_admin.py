@@ -1,6 +1,6 @@
 # create_admin.py
-from appCalcu import create_app, db
-from appCalcu.models import Administrador
+from Glooba import create_app, db
+from Glooba.models import Administrador
 from werkzeug.security import generate_password_hash
 from getpass import getpass
 import sys
