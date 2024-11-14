@@ -1,11 +1,11 @@
-# Entornos virtuales
-envCalcu/
-*.env
-
 # Archivos de compilación
 __pycache__/
 *.py[cod]
 *.so
+
+# archivos CSV
+archivos_csv/*.csv
+archivos_csv/.~lock.*
 
 # Archivos de migración de bases de datos locales
 migrations/
@@ -26,9 +26,11 @@ token.txt
 
 # Entornos virtuales
 envCalcu/
+envGlooba/
 env/
 venv/
 ENV/
+*.env
 
 # Variables de entorno
 .env
