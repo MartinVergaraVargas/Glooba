@@ -8,6 +8,38 @@
     --gradient-body: linear-gradient(#88fbd6, #0d8ba7);
 }
 
+.offcanvas-header {
+    background: var(--gradient-navbar);
+}
+
+.offcanvas-header .offcanvas-title {
+    color: white;
+}
+
+.offcanvas-body {
+    background: var(--gradient-body);
+}
+
+/* Estilos para el menú desplegable */
+.dropdown-menu {
+    background: var(--gradient-body);
+    border: none;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.dropdown-item {
+    color: white;
+    transition: color 0.3s ease;
+}    
+
+.dropdown-item:hover {
+    color: var(--primary-calipso);
+}
+
+.dropdown-item.active {
+    background-color: var(--primary-cyan-dark);
+}
+
 /* Navbar mejorada */
 .navbar {
     background: var(--gradient-navbar);
@@ -456,5 +488,9 @@ body {
     .right-aligned p,
     .left-aligned p {
         margin: 0 auto;
+    }
+
+    .offcanvas.offcanvas-end {
+        width: 75% !important; /* Ocupa la mitad de la pantalla en dispositivos móviles */
     }
 }
