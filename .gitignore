@@ -62,3 +62,13 @@ token.txt
 # Logs
 logs/
 *.log
+
+# Carpetas innecesarias
+__pycache__/
+venv/
+env/
+ENV/
+node_modules/
+dist/
+build/
+Archivos%20de%20configuracion%20del%20servidor/
