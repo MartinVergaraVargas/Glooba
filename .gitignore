@@ -1,74 +1,59 @@
-# Archivos de compilación
-__pycache__/
-*.py[cod]
-*.so
-
-# archivos CSV
-archivos_csv/*.csv
-archivos_csv/.~lock.*
-
-# Archivos de migración de bases de datos locales
-migrations/
-instance/
-diagramaDeClases.dia
-diagramaDeClases.dia.autosave
-
-# Archivos de configuración de IDEs y sistemas operativos
-.vscode/
-.idea/
-.DS_Store
-
-# Bases de datos SQLite
-*.sqlite
-*.db
-
-token.txt
-
-# Entornos virtuales
-envCalcu/
+# Entorno virtual
 envGlooba/
-env/
 venv/
-ENV/
-*.env
+env/
+.env/
 
-# Variables de entorno
+# Variables de entorno y configuración
 .env
-.env.*
-!.env.example
+.flaskenv
 
-# Archivos de compilación
+# Python
 __pycache__/
 *.py[cod]
+*$py.class
 *.so
-
-# Archivos de migración de bases de datos locales
-migrations/
-instance/
-diagramaDeClases.dia
-diagramaDeClases.dia.autosave
-
-# Archivos de configuración de IDEs y sistemas operativos
-.vscode/
-.idea/
-.DS_Store
-
-# Bases de datos SQLite
-*.sqlite
-*.db
-
-token.txt
-
-# Logs
-logs/
-*.log
-
-# Carpetas innecesarias
-__pycache__/
-venv/
-env/
-ENV/
-node_modules/
-dist/
+.Python
 build/
-Archivos%20de%20configuracion%20del%20servidor/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Archivos de base de datos
+*.db
+*.sqlite3
+
+# Archivos de log
+*.log
+logs/
+
+# Archivos generados por IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+.vs/
+*.sublime-workspace
+*.sublime-project
+
+# Archivos de sistema operativo
+.DS_Store
+Thumbs.db
+
+# Directorio de archivos subidos
+archivos_csv/*
+!archivos_csv/.gitkeep
+
+# Archivos de configuración local
+instance/

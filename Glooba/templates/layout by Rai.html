@@ -7,41 +7,34 @@
     <!-- Incluir el CSS personalizado -->
     <link href="{{ url_for('static', filename='css/estilo.css') }}" rel="stylesheet">
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous"> -->
-
 </head>
 {% block head %}
 {% endblock %}
-<!-- <body> -->
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-            <!-- Botón izquierdo: Logo y nombre de la app -->
-            <a class="navbar-brand d-flex align-items-center" href="{{ url_for('main.index') }}">
-                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" class="me-2" width="30" height="24">
-                <span>Glooba</span>
-            </a>
 
-            <!-- Botón hamburguesa -->
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-    
-            <!-- Botones de navegación a la izquierda -->
+<!-- Main Navbar -->
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+        <!-- Brand logo and name -->
+        <a class="navbar-brand d-flex align-items-center" href="{{ url_for('main.index') }}">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" class="me-2" width="30" height="24">
+            <span>Glooba</span>
+        </a>
+
+        <!-- Toggler for Sidebar (Offcanvas) -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSidebar" aria-controls="offcanvasSidebar" aria-expanded="false" aria-label="Toggle sidebar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Regular navbar items visible only on larger screens -->
+        <div class="collapse navbar-collapse d-none d-lg-flex">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('main.nosotros') }}">Nosotros</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Mapa</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('main.empresas') }}">Socios</a>
-                </li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('main.nosotros') }}">Nosotros</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('main.empresas') }}">Socios</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Mapa</a></li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Ofertas
-                    </a>
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Ofertas</a>
                     <ul class="dropdown-menu">
                         {% if current_user.is_authenticated and current_user.__class__.__name__ == "CommonUser" %}
                             <li><a class="dropdown-item" href="{{ url_for('main.index') }}">Favoritos</a></li>
@@ -52,98 +45,83 @@
                         <li><a class="dropdown-item" href="{{ url_for('main.index') }}">Todas las ofertas</a></li>
                     </ul>
                 </li>
-                
-                
             </ul>
-
-            <!-- Buscador centrado -->
-            <div class="search-container">
+            <!-- Centered search bar for larger screens -->
+            <div class="search-container mx-auto">
                 <input type="search" class="form-control" placeholder="Buscar...">
             </div>
-            <!-- Barra de búsqueda centrada
-            <form class="d-flex mx-auto" role="search">
-                <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Buscar</button>
-            </form> -->
-            
-
-            <!-- Botones a la derecha -->
+            <!-- Right-aligned nav items -->
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex align-items-center">
-                <!-- Guest User -->
                 {% if not current_user.is_authenticated or current_user.is_anonymous %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('auth.signup') }}">Registro</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('auth.login') }}">Iniciar sesión</a>
-                    </li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('auth.signup') }}">Registro</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('auth.login') }}">Iniciar sesión</a></li>
                 {% endif %}
-
-                <!-- Common User -->
-                {% if current_user.is_authenticated and current_user.__class__.__name__ == 'CommonUser' %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Notificaciones</a>
-                    </li>
-                    
-                    <!-- Dropdown de opciones de usuario -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Opciones de usuario
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="{{ url_for('perfil.ver_perfil') }}">Configuración</a></li>
-                            <li><a class="dropdown-item" href="#">Hazte socio</a></li>
-                            <li><a class="dropdown-item" href="#">Sugerencias</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="{{ url_for('auth.logout') }}">Cerrar sesión</a></li>
-                        </ul>
-                    </li>                    
-                {% endif %}
-
-                <!-- Empresa User -->
-                {% if current_user.is_authenticated and current_user.__class__.__name__ == 'Empresa' %}                
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Notificaciones</a>
-                    </li>
-
-                    <!-- Dropdown de opciones de usuario -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Opciones de usuario
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="{{ url_for('perfil.ver_perfil') }}">Configuración</a></li>
-                            <li><a class="dropdown-item" href="#">Sugerencias</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="{{ url_for('admin.dashboard') }}">Dashboard</a></li>
-                            <li><a class="dropdown-item" href="{{ url_for('auth.logout') }}">Cerrar sesión</a></li>
-                        </ul>
-                    </li>
-                {% endif %}
-
-                <!-- Administrator User -->
-                {% if current_user.is_authenticated and current_user.__class__.__name__ == 'Administrador' %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Notificaciones</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('admin.dashboard') }}">Dashboard</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('auth.logout') }}">Logout</a>
-                    </li>
-                {% endif %}
-    
-                <!-- Ayuda -->
-                {% if current_user.is_authenticated and current_user.__class__.__name__ != 'Administrador' %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Ayuda</a>
-                    </li>
-                {% endif %}
-
+                <!-- Add authenticated user nav items here as needed -->
             </ul>
         </div>
-    </nav>
+    </div>
+</nav>
+
+<!-- Offcanvas Sidebar for Mobile -->
+<div class="offcanvas offcanvas-end bg-light shadow-sm rounded-3" id="offcanvasSidebar" tabindex="-1" aria-labelledby="offcanvasSidebarLabel">
+    <div class="offcanvas-header">
+        <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" class="me-2" width="30" height="24">
+        <h5 class="offcanvas-title" id="offcanvasSidebarLabel">Glooba</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <ul class="nav nav-pills flex-column mb-auto">
+            <li class="nav-item mb-2">
+                <a href="{{ url_for('main.index') }}" class="nav-link link-dark fw-semibold" aria-current="page">Inicio</a>
+            </li>
+            <li class="mb-2">
+                <a href="{{ url_for('main.nosotros') }}" class="nav-link link-dark fw-semibold">Nosotros</a>
+            </li>
+            <li class="mb-2">
+                <a href="{{ url_for('main.empresas') }}" class="nav-link link-dark fw-semibold">Socios</a>
+            </li>
+            <li class="mb-2">
+                <a href="#" class="nav-link link-dark fw-semibold">Mapa</a>
+            </li>
+            <li class="nav-item dropdown mb-2">
+                <a class="nav-link dropdown-toggle text-dark fw-semibold" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Ofertas
+                </a>
+                <ul class="dropdown-menu border-0 shadow-sm">
+                    {% if current_user.is_authenticated and current_user.__class__.__name__ == "CommonUser" %}
+                        <li><a class="dropdown-item" href="{{ url_for('main.index') }}">Favoritos</a></li>
+                    {% endif %}
+                    <li><a class="dropdown-item" href="{{ url_for('main.index', tipo='descuento') }}">Descuentos</a></li>
+                    <li><a class="dropdown-item" href="{{ url_for('main.index', tipo='producto') }}">Productos</a></li>
+                    <li><a class="dropdown-item" href="{{ url_for('main.index', tipo='servicio') }}">Servicios</a></li>
+                    <li><a class="dropdown-item" href="{{ url_for('main.index') }}">Todas las ofertas</a></li>
+                </ul>
+            </li>
+        </ul>
+        
+        <!-- Additional content for the sidebar -->
+        <hr class="text-muted">
+
+        {%if current_user.is_authenticated %}
+            <div class="dropdown">
+                <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
+                    <strong class="text">Usuario</strong>
+                </a>
+                <ul class="dropdown-menu text-small shadow-sm rounded-3 border-0" aria-labelledby="dropdownUser2">
+                    <li><a class="dropdown-item fw-semibold" href="#">Perfil</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item text-danger fw-semibold" href="#">Cerrar sesión</a></li>
+                </ul>
+            </div>
+        {%else%}
+            <a href="{{ url_for('auth.signup') }}" class="btn btn-dark ">Regístrate</a>
+            <a href="{{ url_for('auth.login') }}"class="btn btn-light ">Iniciar Sesión</a>
+        {%endif%}
+    </div>
+</div>
+
+
 
     <!-- Contenido principal -->
     {% block content %}
@@ -223,7 +201,6 @@
     
     
     <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<!-- </body> -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>    <!-- </body> -->
 
 </html>
