@@ -13,6 +13,10 @@ def bienvenida():
     return render_template('bienvenida.html')
 
 @main_bp.route("/")
+def pagina_principal():
+    return render_template('pagina_principal.html')
+
+@main_bp.route("/ofertas")
 def index():
     # Get pagination parameters
     page = request.args.get('page', 1, type=int)

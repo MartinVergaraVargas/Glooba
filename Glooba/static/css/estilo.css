@@ -20,10 +20,17 @@ img {
     height: auto;
 }
 
+.row {
+    margin: 0 !important; /* Evita márgenes negativos del row */
+}
+
+iframe {
+    max-width: 100% !important; /* Asegura que el iframe no se desborde */
+}
+
 /* Body */
 body {  
     font-family: 'Arial', sans-serif;
-    overflow-x: hidden;
     background: var(--gradient-body);
 }
 
@@ -80,6 +87,11 @@ body {
     color: var(--primary-hover) !important; 
 }
 
+.rounded-img {
+    overflow: hidden; /* Asegura que la imagen no se salga del contenedor */
+    object-fit: cover;
+}
+
 /* Pantallas pequeñas e inferiores a (≥576px) */
 @media (max-width: 767px) {
 
@@ -123,8 +135,6 @@ body {
         border-bottom-left-radius: 0% !important; /* Redondeo en la esquina inferior izquierda */
         border-top-right-radius: 50% !important; /* Mantiene la esquina superior derecha recta */
         border-bottom-right-radius: 0% !important; /* Mantiene la esquina inferior derecha recta */
-        overflow: hidden !important; /* Asegura que la imagen no se salga del contenedor */
-        object-fit: cover !important;
     }
 }
 
@@ -142,9 +152,7 @@ body {
         border-bottom-left-radius: 50% !important; /* Redondeo en la esquina inferior izquierda */
         border-top-right-radius: 0 !important; /* Mantiene la esquina superior derecha recta */
         border-bottom-right-radius: 0 !important; /* Mantiene la esquina inferior derecha recta */
-        overflow: hidden !important; /* Asegura que la imagen no se salga del contenedor */
         height: 500px !important; 
-        object-fit: cover !important;
     }
     #headline {
         font-size: 50px !important;
@@ -165,9 +173,7 @@ body {
         border-bottom-left-radius: 50% !important; /* Redondeo en la esquina inferior izquierda */
         border-top-right-radius: 0 !important; /* Mantiene la esquina superior derecha recta */
         border-bottom-right-radius: 0 !important; /* Mantiene la esquina inferior derecha recta */
-        overflow: hidden !important; /* Asegura que la imagen no se salga del contenedor */
         height: 550px !important; 
-        object-fit: cover !important;
     }
     #headline {
         font-size: 50px !important;
@@ -250,6 +256,10 @@ body {
     text-shadow: var(--shadow) !important;
 }
 
+.pain-point-text {
+    font-size: 20px !important;
+}
+
 /* Estilo para el botón "Iniciar sesión" */
 .btn-login {
     color: black !important;
@@ -287,7 +297,7 @@ body {
 }
 
 .btn-singup-header {
-    color: white;
+    color: white !important;
     background-color: var(--primary-button) !important; 
     box-shadow: var(--shadow) !important;
     transition: outline-color 0.3s, background-color 0.3s !important; /* Transiciones suaves */
