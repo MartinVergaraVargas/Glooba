@@ -8,12 +8,12 @@ from .forms.usuario_forms import UsuarioProfileForm
 
 perfil_bp = Blueprint('perfil', __name__, template_folder='templates')
 
-@perfil_bp.route('/perfil')
+@perfil_bp.route('/')
 @login_required
 def ver_perfil():
     return render_template('ver_perfil.html')
 
-@perfil_bp.route('/perfil/editar', methods=['GET', 'POST'])
+@perfil_bp.route('/editar', methods=['GET', 'POST'])
 @login_required
 def editar_perfil():
     # Seleccionar el formulario correcto según el tipo de usuario

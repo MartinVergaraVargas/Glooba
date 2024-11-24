@@ -7,42 +7,32 @@
     <!-- Incluir el CSS personalizado -->
     <link href="{{ url_for('static', filename='css/estilo.css') }}" rel="stylesheet">
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous"> -->
-
 </head>
 {% block head %}
 {% endblock %}
-<!-- <body> -->
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-            <!-- Botón izquierdo: Logo y nombre de la app -->
-            <a class="navbar-brand d-flex align-items-center" href="{{ url_for('main.index') }}">
-                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" class="me-2" width="30" height="24">
-                <span>Glooba</span>
-            </a>
 
-            <!-- Botón hamburguesa -->
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-    
-            <!-- Botones de navegación a la izquierda -->
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('main.nosotros') }}">Nosotros</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Mapa</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('main.empresas') }}">Socios</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Ofertas
-                    </a>
-                    <ul class="dropdown-menu">
+    <!-- Main Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-spacing sticky-top" id="navbar">
+        <a class="navbar-brand fw-bold px-2" href="{{ url_for('main.pagina_principal') }}">
+            <img src="{{ url_for('static', filename='images/CalcuIco.png') }}" alt="Logo" class="img-fluid me-2 responsive-logo">
+            Glooba
+        </a>                    
+        <!-- Sidebar toggler for mobile -->
+        <button class="btn d-lg-none" type="button" id="toggleSidebar" data-bs-toggle="offcanvas" data-bs-target="#mobileSidebar" aria-controls="mobileSidebar">
+            <i class="bi bi-list fs-1"></i>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item border-end px-4"><a class="nav-link fs-5" href="{{ url_for('main.nosotros') }}">Nosotros</a></li>
+                <li class="nav-item border-end px-4"><a class="nav-link fs-5" href="{{ url_for('main.empresas') }}">Socios</a></li>
+                <li class="nav-item border-end px-4"><a class="nav-link fs-5" href="{{ url_for('mapa.mostrar_mapa') }}">Mapa</a></li>
+                <!-- Dropdown -->
+                <li class="nav-item dropdown px-4">
+                    <a class="nav-link dropdown-toggle fs-5" href="#" id="ofertasDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Ofertas</a>
+                    <ul class="dropdown-menu" id="ofertasDropdownMenu" aria-labelledby="ofertasDropdown">
                         {% if current_user.is_authenticated and current_user.__class__.__name__ == "CommonUser" %}
                             <li><a class="dropdown-item" href="{{ url_for('main.index') }}">Favoritos</a></li>
                         {% endif %}
@@ -52,98 +42,118 @@
                         <li><a class="dropdown-item" href="{{ url_for('main.index') }}">Todas las ofertas</a></li>
                     </ul>
                 </li>
-                
-                
             </ul>
 
-            <!-- Buscador centrado -->
-            <div class="search-container">
-                <input type="search" class="form-control" placeholder="Buscar...">
-            </div>
-            <!-- Barra de búsqueda centrada
-            <form class="d-flex mx-auto" role="search">
-                <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Buscar</button>
-            </form> -->
-            
+            <!-- Login and Register buttons -->
+            {% if not current_user.is_authenticated or current_user.is_anonymous %}
+                <div class="d-flex">
+                    <a href="{{ url_for('auth.login') }}" class="btn btn-login me-2 fs-6">Iniciar sesión</a>
+                    <a href="{{ url_for('auth.signup') }}" class="btn btn-singup fs-6">Regístrate</a>
+                </div>
+            {% endif %}
+            <!-- Common User -->
 
-            <!-- Botones a la derecha -->
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex align-items-center">
-                <!-- Guest User -->
-                {% if not current_user.is_authenticated or current_user.is_anonymous %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('auth.signup') }}">Registro</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('auth.login') }}">Iniciar sesión</a>
-                    </li>
-                {% endif %}
+            {% if current_user.is_authenticated and current_user.__class__.__name__ == 'CommonUser' %}
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Notificaciones</a>
+                </li>
+                
+                <!-- Dropdown de opciones de usuario -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Opciones de usuario
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" href="{{ url_for('perfil.ver_perfil') }}">Configuración</a></li>
+                        <li><a class="dropdown-item" href="#">Hazte socio</a></li>
+                        <li><a class="dropdown-item" href="#">Sugerencias</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="{{ url_for('auth.logout') }}">Cerrar sesión</a></li>
+                    </ul>
+                </li>                    
+            {% endif %}
 
-                <!-- Common User -->
-                {% if current_user.is_authenticated and current_user.__class__.__name__ == 'CommonUser' %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Notificaciones</a>
-                    </li>
-                    
-                    <!-- Dropdown de opciones de usuario -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Opciones de usuario
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="{{ url_for('perfil.ver_perfil') }}">Configuración</a></li>
-                            <li><a class="dropdown-item" href="#">Hazte socio</a></li>
-                            <li><a class="dropdown-item" href="#">Sugerencias</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="{{ url_for('auth.logout') }}">Cerrar sesión</a></li>
-                        </ul>
-                    </li>                    
-                {% endif %}
+            <!-- Empresa User -->
+            {% if current_user.is_authenticated and current_user.__class__.__name__ == 'Empresa' %}                
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Notificaciones</a>
+                </li>
 
-                <!-- Empresa User -->
-                {% if current_user.is_authenticated and current_user.__class__.__name__ == 'Empresa' %}                
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Notificaciones</a>
-                    </li>
+                <!-- Dropdown de opciones de usuario -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Opciones de usuario
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" href="{{ url_for('perfil.ver_perfil') }}">Configuración</a></li>
+                        <li><a class="dropdown-item" href="#">Sugerencias</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="{{ url_for('admin.dashboard') }}">Dashboard</a></li>
+                        <li><a class="dropdown-item" href="{{ url_for('auth.logout') }}">Cerrar sesión</a></li>
+                    </ul>
+                </li>
+            {% endif %}
 
-                    <!-- Dropdown de opciones de usuario -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Opciones de usuario
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="{{ url_for('perfil.ver_perfil') }}">Configuración</a></li>
-                            <li><a class="dropdown-item" href="#">Sugerencias</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="{{ url_for('admin.dashboard') }}">Dashboard</a></li>
-                            <li><a class="dropdown-item" href="{{ url_for('auth.logout') }}">Cerrar sesión</a></li>
-                        </ul>
-                    </li>
-                {% endif %}
+            <!-- Administrator User -->
+            {% if current_user.is_authenticated and current_user.__class__.__name__ == 'Administrador' %}
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Notificaciones</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('admin.dashboard') }}">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('auth.logout') }}">Logout</a>
+                </li>
+            {% endif %}
 
-                <!-- Administrator User -->
-                {% if current_user.is_authenticated and current_user.__class__.__name__ == 'Administrador' %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Notificaciones</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('admin.dashboard') }}">Dashboard</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('auth.logout') }}">Logout</a>
-                    </li>
-                {% endif %}
-    
-                <!-- Ayuda -->
-                {% if current_user.is_authenticated and current_user.__class__.__name__ != 'Administrador' %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Ayuda</a>
-                    </li>
-                {% endif %}
-
-            </ul>
+            <!-- Ayuda -->
+            {% if current_user.is_authenticated and current_user.__class__.__name__ != 'Administrador' %}
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Ayuda</a>
+                </li>
+            {% endif %}
         </div>
     </nav>
+
+
+    <!-- Sidebar for mobile -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="mobileSidebar" aria-labelledby="mobileSidebarLabel">
+        <div class="offcanvas-header">
+            <h1 class="offcanvas-title" id="mobileSidebarLabel">Menú</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <ul class="navbar-nav">
+                <li class="nav-item border-bottom"><a class="nav-link fs-5" href="{{ url_for('main.nosotros') }}">Nosotros</a></li>
+                <li class="nav-item border-bottom"><a class="nav-link fs-5" href="{{ url_for('main.empresas') }}">Socios</a></li>
+                <li class="nav-item border-bottom"><a class="nav-link fs-5" href="{{ url_for('mapa.mostrar_mapa') }}">Mapa</a></li>
+                <!-- Dropdown -->
+                <li class="nav-item dropdown border-bottom">
+                    <a class="nav-link dropdown-toggle fs-5" href="#" id="ofertasDropdownMobile" role="button" data-bs-toggle="dropdown" aria-expanded="false">Ofertas</a>
+                    <ul class="dropdown-menu" aria-labelledby="ofertasDropdownMobile">
+                        {% if current_user.is_authenticated and current_user.__class__.__name__ == "CommonUser" %}
+                            <li><a class="dropdown-item" href="{{ url_for('main.index') }}">Favoritos</a></li>
+                        {% endif %}
+                        <li><a class="dropdown-item" href="{{ url_for('main.index', tipo='descuento') }}">Descuentos</a></li>
+                        <li><a class="dropdown-item" href="{{ url_for('main.index', tipo='producto') }}">Productos</a></li>
+                        <li><a class="dropdown-item" href="{{ url_for('main.index', tipo='servicio') }}">Servicios</a></li>
+                        <li><a class="dropdown-item" href="{{ url_for('main.index') }}">Todas las ofertas</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <!-- Login and Register buttons -->
+            {% if not current_user.is_authenticated or current_user.is_anonymous %}
+                <div class="mt-3">
+                    <a href="{{ url_for('auth.login') }}" class="btn btn-login w-100 mb-2" id="btn-login-sidebar">Iniciar sesión</a>
+                    <a href="{{ url_for('auth.signup') }}" class="btn btn-singup w-100" id="btn-signup-sidebar">Regístrate</a>
+                </div>
+            {% endif %}
+            <!-- Acá va contenido para usuarios registrados/Admin -->
+        </div>
+    </div>
+
+
 
     <!-- Contenido principal -->
     {% block content %}
@@ -179,7 +189,8 @@
                 </div>
                 <div class="col-lg-8">
                     <div class="row">
-                        <div class="col-sm-6 col-lg-3">
+                        <!-- Columna 1 -->
+                        <div class="col-6 col-sm-6 col-lg-3 text-center d-flex align-items-center flex-column">
                             <h5 class="text-light mb-3">Compañía</h5>
                             <ul class="list-unstyled footer-links">
                                 <li><a href="#">Inicio</a></li>
@@ -187,7 +198,8 @@
                                 <li><a href="#">Blog</a></li>
                             </ul>
                         </div>
-                        <div class="col-sm-6 col-lg-3">
+                        <!-- Columna 2 -->
+                        <div class="col-6 col-sm-6 col-lg-3 text-center d-flex align-items-center flex-column">
                             <h5 class="text-light mb-3">Soporte</h5>
                             <ul class="list-unstyled footer-links">
                                 <li><a href="#">Contacto</a></li>
@@ -195,7 +207,8 @@
                                 <li><a href="#">Ayuda</a></li>
                             </ul>
                         </div>
-                        <div class="col-sm-6 col-lg-3">
+                        <!-- Columna 3 -->
+                        <div class="col-6 col-sm-6 col-lg-3 text-center d-flex align-items-center flex-column">
                             <h5 class="text-light mb-3">Legal</h5>
                             <ul class="list-unstyled footer-links">
                                 <li><a href="#">Privacidad</a></li>
@@ -203,7 +216,8 @@
                                 <li><a href="#">Cookies</a></li>
                             </ul>
                         </div>
-                        <div class="col-sm-6 col-lg-3">
+                        <!-- Columna 4 -->
+                        <div class="col-6 col-sm-6 col-lg-3 text-center d-flex align-items-center flex-column">
                             <h5 class="text-light mb-3">Recursos</h5>
                             <ul class="list-unstyled footer-links">
                                 <li><a href="#">Documentación</a></li>
@@ -212,8 +226,7 @@
                             </ul>
                         </div>
                     </div>
-                </div>
-            </div>
+                </div>                
             <hr class="my-4">
             <div class="text-center">
                 <p class="text-muted mb-0">&copy; 2024 EcoSistema. Todos los derechos reservados.</p>
@@ -223,7 +236,6 @@
     
     
     <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<!-- </body> -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>    <!-- </body> -->
 
 </html>

@@ -1,0 +1,258 @@
+{% extends "layout.html" %}
+
+{% block title %}Mapa{% endblock %}
+
+{% block head %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ubicaciones Cercanas - EcoSistema</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
+    <style>
+        #map {
+            height: calc(100vh - 4rem);
+            width: 100%;
+            z-index: 1;
+        }
+
+        .filters-panel {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 2;
+        }
+
+        .filter-badge {
+            transition: all 0.2s ease;
+        }
+
+        .filter-badge:hover {
+            transform: translateY(-1px);
+        }
+
+        .custom-range {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 4px;
+            border-radius: 2px;
+            background: #e5e7eb;
+            outline: none;
+        }
+
+        .custom-range::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #059669;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .custom-range::-webkit-slider-thumb:hover {
+            transform: scale(1.1);
+        }
+
+        .leaflet-popup-content {
+            margin: 0;
+            padding: 0;
+        }
+
+        .location-card {
+            min-width: 250px;
+        }
+
+        @media (max-width: 640px) {
+            .filters-panel {
+                max-height: 50vh;
+                overflow-y: auto;
+            }
+        }
+    </style>
+</head>
+{% endblock %}
+
+{% block content %}
+<div class="h-screen flex flex-col">
+    <!-- Header -->
+    <div class="bg-white shadow-sm h-16 flex items-center px-4 z-10">
+        <div class="max-w-7xl mx-auto w-full flex justify-between items-center">
+            <h1 class="text-xl font-semibold text-gray-900">Ubicaciones Cercanas</h1>
+        </div>
+    </div>
+
+    <!-- Main content -->
+    <div class="flex-1 flex">
+        <!-- Filtros -->
+        <div class="w-72 bg-white p-4 shadow-lg space-y-6">
+            <!-- Tipo de Oferta Dropdown -->
+            <div class="relative">
+                <button class="w-full flex justify-between items-center px-4 py-2 border rounded-lg" onclick="toggleDropdown('tipoOferta')">
+                    <span>Tipo de Oferta</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                    </svg>
+                </button>
+                <div id="tipoOferta" class="hidden absolute w-full bg-white border rounded-lg mt-1 shadow-lg">
+                    <div class="p-2 space-y-2">
+                        <label class="flex items-center">
+                            <input type="checkbox" class="form-checkbox" value="SERVICIO">
+                            <span class="ml-2">Servicios de Reparación</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" class="form-checkbox" value="PRODUCTO">
+                            <span class="ml-2">Productos Ecológicos</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" class="form-checkbox" value="DESCUENTO">
+                            <span class="ml-2">Descuentos</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Rango de Distancia -->
+            <div>
+                <h3 class="text-sm font-medium text-gray-900 mb-3">Rango de Distancia</h3>
+                <input type="range" min="1" max="50" value="10" class="w-full" id="distanceRange">
+                <div class="flex justify-between text-sm text-gray-600">
+                    <span>1 km</span>
+                    <span id="rangeValue">10 km</span>
+                    <span>50 km</span>
+                </div>
+            </div>
+            <!-- Rubro Dropdown -->
+            <div class="relative mb-4">
+                <button class="w-full flex justify-between items-center px-4 py-2 border rounded-lg" onclick="toggleDropdown('rubros')">
+                    <span>Rubro</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                    </svg>
+                </button>
+                <div id="rubros" class="hidden absolute w-full bg-white border rounded-lg mt-1 shadow-lg z-20">
+                    <div class="p-2">
+                        <input type="text" placeholder="Buscar rubro" class="w-full px-3 py-2 border rounded-lg mb-2" onkeyup="filterOptions('rubros')">
+                        <div class="space-y-2 max-h-48 overflow-y-auto">
+                            {% for rubro in ['Limpieza', 'Textil', 'Reparación', 'Reciclaje', 'Alimentación', 'Mascotas', 'Agricultura', 'Higiene personal', 'Construcción', 'Vitivinicultura'] %}
+                            <label class="flex items-center">
+                                <input type="checkbox" class="form-checkbox" value="{{ rubro }}">
+                                <span class="ml-2">{{ rubro }}</span>
+                            </label>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Empresas Dropdown -->
+            <div class="relative mb-4">
+                <button class="w-full flex justify-between items-center px-4 py-2 border rounded-lg" onclick="toggleDropdown('empresas')">
+                    <span>Empresas</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                    </svg>
+                </button>
+                <div id="empresas" class="hidden absolute w-full bg-white border rounded-lg mt-1 shadow-lg z-20">
+                    <div class="p-2">
+                        <input type="text" placeholder="Buscar empresa" class="w-full px-3 py-2 border rounded-lg mb-2" onkeyup="filterOptions('empresas')">
+                        <div class="space-y-2 max-h-48 overflow-y-auto">
+                            {% for empresa in empresas %}
+                            <label class="flex items-center">
+                                <input type="checkbox" class="form-checkbox" value="{{ empresa.id }}">
+                                <span class="ml-2">{{ empresa.nombre }}</span>
+                            </label>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+ 
+
+        <!-- Mapa -->
+        <div class="flex-1">
+            <div id="map" class="w-full h-full"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+function toggleDropdown(id) {
+    const dropdown = document.getElementById(id);
+    dropdown.classList.toggle('hidden');
+}
+
+function initMap() {
+    const talca = { lat: -35.4264, lng: -71.6553 };
+    
+    const map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 13,
+        center: talca,
+        styles: [
+            {
+                featureType: "poi",
+                elementType: "labels",
+                stylers: [{ visibility: "off" }]
+            },
+            {
+                featureType: "transit",
+                elementType: "labels",
+                stylers: [{ visibility: "off" }]
+            }
+        ]
+    });
+
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                const pos = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                };
+                map.setCenter(pos);
+            },
+            () => {
+                console.log("Error: The Geolocation service failed.");
+            }
+        );
+    }
+
+    // Cerrar dropdowns cuando se hace click fuera
+    document.addEventListener('click', function(event) {
+        const dropdowns = document.querySelectorAll('.relative > div:not(.hidden)');
+        dropdowns.forEach(dropdown => {
+            if (!dropdown.parentElement.contains(event.target)) {
+                dropdown.classList.add('hidden');
+            }
+        });
+    });
+}
+
+document.getElementById('distanceRange').addEventListener('input', function(e) {
+    document.getElementById('rangeValue').textContent = `${e.target.value} km`;
+});
+
+function filterOptions(dropdownId) {
+   const searchInput = document.querySelector(`#${dropdownId} input[type="text"]`);
+   const options = document.querySelectorAll(`#${dropdownId} label`);
+   
+   const searchTerm = searchInput.value.toLowerCase();
+   
+   options.forEach(option => {
+       const text = option.textContent.toLowerCase();
+       if (text.includes(searchTerm)) {
+           option.style.display = '';
+       } else {
+           option.style.display = 'none';
+       }
+   });
+}
+
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key={{ api_key }}&callback=initMap" async defer></script>
+
+{% endblock %}

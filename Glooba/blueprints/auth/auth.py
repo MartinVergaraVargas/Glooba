@@ -138,7 +138,7 @@ def login():
             elif isinstance(user, Administrador):
                 next_page = url_for('admin.dashboard')
 
-        flash(f'Bienvenido, {user.nombre}!', 'success')
+        # flash(f'Bienvenido, {user.nombre}!', 'success')
         return redirect(next_page)
 
     return render_template('login.html', form=form)

@@ -17,6 +17,9 @@ class Config:
     DB_PORT = os.environ.get('DB_PORT', '5432')
     DB_NAME = os.environ.get('DB_NAME', 'glooba_db')
 
+    # Google Maps API Key
+    GOOGLE_MAPS_API_KEY = os.environ.get('GOOGLE_MAPS_API_KEY')
+
     # La URL de la base de datos se toma de una variable de entorno
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
         f'postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}'
