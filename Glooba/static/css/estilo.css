@@ -1,15 +1,220 @@
-/* Variables globales para la paleta de colores */
 :root {
+    /* --primary: #0400ff; */
+    --primary-title: black;
+    --primary-hover: #11dfd0;
+    --primary-icon: #0400ff;
+    --primary-button: #0400ff;
+    --secondary-button: black;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    --gradient-navbar: linear-gradient(to right, #4c497d, #0a7591, #0a7591, #4c497d);
+    --gradient-body: linear-gradient(#88fbd6, #0d8ba7);
+    --dropdown: #0a7591;
     --primary-dark: #423a68;
     --primary-cyan-dark: #0d8ba7;
     --primary-cyan-light: #11dfd0;
     --primary-calipso: #88fbd6;
-    --gradient-navbar: linear-gradient(to right, #4c497d, #0a7591, #0a7591, #4c497d);
-    --gradient-body: linear-gradient(#88fbd6, #0d8ba7);
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Body */
+body {  
+    font-family: 'Arial', sans-serif;
+    overflow-x: hidden;
+    background: var(--gradient-body);
+}
+
+/* Seccion header */
+#header-section {
+    background: #d4faff !important;
+}
+
+#text-header {
+    padding-top: 3rem !important;
+    padding-left: 3rem !important;
+    padding-right: 3rem !important;
+    
+}
+
+#singup-button {
+    font-size: 1.25rem !important; /* Tamaño predeterminado */
+}
+
+/* Seccion problem/solution */
+#problem-solution-section {
+    background: #ffffff !important;
+}
+
+/* Seccion benefits */
+#benefits-section {
+    background: #d4faff !important;
+}
+
+#faqs-section {
+    background: #ffffff !important;
+}
+
+.header-container {
+    display: flex !important;
+    flex-direction: column !important; /* Organiza los elementos en columna */
+    align-items: flex-start !important; /* Alinea los elementos a la izquierda (opcional) */
+    gap: 10px !important; /* Espacio entre el botón y el enlace */
+}
+
+/* Tamaño base para pantallas pequeñas */
+.responsive-logo {
+    max-height: 30px !important; /* Altura de la imagen */
+    width: auto !important; /* Mantener proporciones */
+}
+
+.navbar-brand {
+    font-size: 30px !important; /* Tamaño del texto */
+    display: flex;
+    align-items: center; /* Alinea verticalmente los elementos dentro del contenedor */
+}
+
+.navbar-brand:hover {
+    color: var(--primary-hover) !important; 
+}
+
+/* Pantallas pequeñas e inferiores a (≥576px) */
+@media (max-width: 767px) {
+
+    .responsive-logo {
+        max-height: 35px !important;
+    }
+
+    .navbar-brand {
+        font-size: 35px !important;
+    }
+
+    #headline {
+        font-size: 40px !important;
+        text-align: center !important;
+    }
+
+    #subheadline {
+        text-align: center !important;
+    }
+
+    #results-list {
+        display: none !important;
+    }
+
+    #singup-button {
+        display: block !important; /* Centra el botón horizontalmente */
+        margin: 2px auto !important; /* Combina ambas márgenes */
+        border-radius: 25px !important; /* Ajusta este valor para más redondeo */
+        font-size: 1.25rem !important;
+    }
+    
+
+    #learn-more-link {
+        display: none !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+    
+    .rounded-img {
+        border-top-left-radius: 50% !important; /* Redondeo en la esquina superior izquierda */
+        border-bottom-left-radius: 0% !important; /* Redondeo en la esquina inferior izquierda */
+        border-top-right-radius: 50% !important; /* Mantiene la esquina superior derecha recta */
+        border-bottom-right-radius: 0% !important; /* Mantiene la esquina inferior derecha recta */
+        overflow: hidden !important; /* Asegura que la imagen no se salga del contenedor */
+        object-fit: cover !important;
+    }
+}
+
+
+/* Pantallas grandes y superiores (≥992px) */
+@media (min-width: 768px) {
+    .responsive-logo {
+        max-height: 40px !important;
+    }
+    .navbar-brand {
+        font-size: 40px !important;
+    }
+    .rounded-img {
+        border-top-left-radius: 50% !important; /* Redondeo en la esquina superior izquierda */
+        border-bottom-left-radius: 50% !important; /* Redondeo en la esquina inferior izquierda */
+        border-top-right-radius: 0 !important; /* Mantiene la esquina superior derecha recta */
+        border-bottom-right-radius: 0 !important; /* Mantiene la esquina inferior derecha recta */
+        overflow: hidden !important; /* Asegura que la imagen no se salga del contenedor */
+        height: 500px !important; 
+        object-fit: cover !important;
+    }
+    #headline {
+        font-size: 50px !important;
+    }
+}
+
+/* Pantallas extra grandes y superiores (≥1200px) */
+@media (min-width: 1200px) {
+    .responsive-logo {
+        max-height: 45px !important;
+    }
+    .navbar-brand {
+        font-size: 45px !important;
+    }
+    /* Clase personalizada para redondear solo el lado izquierdo */
+    .rounded-img {
+        border-top-left-radius: 50% !important; /* Redondeo en la esquina superior izquierda */
+        border-bottom-left-radius: 50% !important; /* Redondeo en la esquina inferior izquierda */
+        border-top-right-radius: 0 !important; /* Mantiene la esquina superior derecha recta */
+        border-bottom-right-radius: 0 !important; /* Mantiene la esquina inferior derecha recta */
+        overflow: hidden !important; /* Asegura que la imagen no se salga del contenedor */
+        height: 550px !important; 
+        object-fit: cover !important;
+    }
+    #headline {
+        font-size: 50px !important;
+    }
+}
+
+.navbar-spacing {
+    padding: 10px 20px !important; /* Espaciado fijo: 10px arriba/abajo, 20px izquierda/derecha */
+    /* margin-bottom: 40px !important; */
+    max-width: 100% !important; /* Evitar restricciones de ancho responsivo */
+    box-sizing: border-box !important; /* Incluye borde y padding en el ancho */
+}
+
+#toggleSidebar {
+    color: white;
+}
+
+#navbar {
+    background: var(--gradient-navbar) !important;
+    box-shadow: var(--shadow) !important; /* Ajusta la sombra (x desplazamiento, y desplazamiento, difusa, color) */
+}
+
+#navbar, #navbar a, #navbar .navbar-brand, #navbar .nav-link
+{
+    color: white; 
+}
+
+#navbar .nav-link:hover {
+    color: var(--primary-hover) !important; 
+}
+
+#ofertasDropdownMenu {
+    background: var(--dropdown) !important;
+}
+
+#ofertasDropdownMenu a:hover {
+    color: var(--primary-hover) !important;
+}
+
+/* Sidebar */
+
+.offcanvas.offcanvas-end {
+    width: 75% !important; /* Ocupa la mitad de la pantalla en dispositivos móviles */
 }
 
 .offcanvas-header {
-    background: var(--gradient-navbar);
+    background: var(--gradient-navbar) !important;
 }
 
 .offcanvas-header .offcanvas-title {
@@ -17,119 +222,84 @@
 }
 
 .offcanvas-body {
-    background: var(--gradient-body);
-}
-
-/* Estilos para el menú desplegable */
-.dropdown-menu {
-    background: var(--gradient-body);
-    border: none;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-}
-
-.dropdown-item {
-    color: white;
-    transition: color 0.3s ease;
-}    
-
-.dropdown-item:hover {
-    color: var(--primary-calipso);
-}
-
-.dropdown-item.active {
-    background-color: var(--primary-cyan-dark);
-}
-
-/* Navbar mejorada */
-.navbar {
-    background: var(--gradient-navbar);
-    padding: 1rem 0;
-}
-
-/* Ajuste del container-fluid para los márgenes laterales */
-.navbar .container-fluid {
-    width: 90%;
-    max-width: 1400px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-/* Ajustes para el logo y marca */
-.navbar-brand {
-    display: flex;
-    align-items: center;
-    color: white !important;
-    margin-right: 2rem;
-}
-/* Contenedor del menú principal */
-.navbar-collapse {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-grow: 1;
-}
-
-.navbar-brand:hover {
-    color: var(--primary-calipso) !important;
-}
-
-.nav-link {
-    color: white !important;
-    transition: color 0.3s ease;
-}
-
-.nav-link:hover {
-    color: var(--primary-calipso) !important;
-}
-
-/* Lista de navegación */
-.navbar-nav {
-    display: flex;
-    align-items: center;
-    margin-right: auto;
-}
-
-/* Contenedor del buscador */
-.search-container {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    max-width: 300px;
-    margin: 0 auto;
-}
-
-/* Estilos del formulario de búsqueda */
-.form-control {
-    background: rgba(255, 255, 255, 0.9) !important;
-    border: none;
-    border-radius: 20px;
-    padding: 0.5rem 1rem;
-    width: 100%;
-}
-
-.form-control:focus {
     background: white !important;
-    box-shadow: 0 0 0 2px var(--primary-calipso);
+}
+
+#headline {
+    color: var(--primary-title) !important;
+    text-shadow: var(--shadow) !important; /* Ajusta los valores según prefieras */
+}
+
+#learn-more-link {
+    color: black !important;
+    text-decoration: underline !important; /* Opcional: elimina el subrayado */
+}
+
+#learn-more-link:hover {
+    color: var(--primary-hover) !important; /* Cambia a otro color al pasar el cursor */
+    text-decoration: underline !important; /* Opcional: agrega subrayado */
+}
+
+
+.bi-check-circle-fill {
+    color: var(--primary-icon) !important; /* Usa variables predefinidas de Bootstrap */
+}
+
+#problem-solution-header {
+    color: var(--primary-title) !important;
+    text-shadow: var(--shadow) !important;
+}
+
+/* Estilo para el botón "Iniciar sesión" */
+.btn-login {
+    color: black !important;
+    background-color: white !important; /* Cambia el color y grosor del outline según sea necesario */
+    box-shadow: var(--shadow) !important;
+    transition: outline-color 0.3s, background-color 0.3s !important; /* Transiciones suaves */
+}
+
+.btn-login:hover {
+    background-color: var(--secondary-button) !important; /* Fondo al pasar el mouse */
+    color: var(--primary-hover) !important; /* Cambia el color del texto */
+}
+
+/* Estilo para el botón "Regístrate" */
+.btn-singup {
+    color: white !important;
+    background-color: black !important;
+    box-shadow: var(--shadow) !important;
+    transition: outline-color 0.3s, background-color 0.3s !important; /* Transiciones suaves */
+}
+
+.btn-singup:hover {
+    background-color: var(--secondary-button) !important;
+    color: var(--primary-hover) !important; /* Cambia el color del texto */
+}
+
+#btn-login-sidebar:hover {
+    background-color: var(--secondary-button) !important; /* Fondo al pasar el mouse */
+    color: var(--primary-hover) !important; /* Cambia el color del texto */
+}
+
+#btn-singup-sidebar:hover {
+    background-color: var(--secondary-button) !important;
+    color: var(--primary-hover) !important; /* Cambia el color del texto */
+}
+
+.btn-singup-header {
+    color: white;
+    background-color: var(--primary-button) !important; 
+    box-shadow: var(--shadow) !important;
+    transition: outline-color 0.3s, background-color 0.3s !important; /* Transiciones suaves */
+}
+
+.btn-singup-header:hover {
+    background-color: var(--secondary-button) !important;
+    color: var(--primary-hover) !important; /* Cambia el color del texto */
 }
 
 .header{width:100%;
     background-image: linear-gradient(to right, #b92b27, #1565c0);
-}
-
-body{
-    background: 
-    linear-gradient(#0d8ba7, #88fbd6);
-
-    background: 
-    linear-gradient(in lch, #0d8ba7, #88fbd6);
-
-    background: var(--gradient-body);
-    color: white;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
 }
 
 /* ofertas Grid */
@@ -348,17 +518,11 @@ body{
     box-sizing: border-box;
 }
 
-body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
-    line-height: 1.6;
-    color: #333;
-}
-
-.container {
+/* .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 40px 20px;
-}
+} */
 
 /* Primera Sección */
 .hero {
