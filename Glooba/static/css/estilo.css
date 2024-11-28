@@ -15,6 +15,10 @@
     --primary-calipso: #88fbd6;
 }
 
+html, body {
+    height: 100%; /* Asegura que la página ocupe el 100% de la altura */
+}
+
 img {
     max-width: 100%;
     height: auto;
