@@ -21,7 +21,7 @@
                                 name="nombre" 
                                 id="nombre" 
                                 required 
-                                class="text-lg mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#0d8ba7] focus:ring focus:ring-[#0d8ba7] focus:ring-opacity-50">
+                                class="text-lg h-8 px-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#0d8ba7] focus:ring focus:ring-[#0d8ba7] focus:ring-opacity-50">
                     </div>
 
                     <!-- Primer Apellido -->
@@ -31,7 +31,7 @@
                                 name="apellido1" 
                                 id="apellido1" 
                                 required 
-                                class="text-lg mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#0d8ba7] focus:ring focus:ring-[#0d8ba7] focus:ring-opacity-50">
+                                class="text-lg h-8 px-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#0d8ba7] focus:ring focus:ring-[#0d8ba7] focus:ring-opacity-50">
                     </div>
                 </div>
 
@@ -41,7 +41,7 @@
                     <input type="text" 
                             name="apellido2" 
                             id="apellido2" 
-                            class="text-lg mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#0d8ba7] focus:ring focus:ring-[#0d8ba7] focus:ring-opacity-50">
+                            class="text-lg h-8 px-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#0d8ba7] focus:ring focus:ring-[#0d8ba7] focus:ring-opacity-50">
                 </div>
 
                 <!-- Fecha de Nacimiento -->
@@ -52,7 +52,7 @@
                             id="fecha_nacimiento" 
                             required 
                             max="{{ fecha_maxima }}"
-                            class="text-lg mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#0d8ba7] focus:ring focus:ring-[#0d8ba7] focus:ring-opacity-50">
+                            class="text-lg h-8 px-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#0d8ba7] focus:ring focus:ring-[#0d8ba7] focus:ring-opacity-50">
                     <p class="mt-1  text-gray-500">Debes ser mayor de 18 años para registrarte</p>
                 </div>
 
@@ -63,7 +63,7 @@
                             name="email" 
                             id="email" 
                             required 
-                            class="text-lg mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#0d8ba7] focus:ring focus:ring-[#0d8ba7] focus:ring-opacity-50">
+                            class="text-lg h-8 px-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#0d8ba7] focus:ring focus:ring-[#0d8ba7] focus:ring-opacity-50">
                     <p class="mt-1  text-gray-500">Te enviaremos un correo de verificación</p>
                 </div>
 
@@ -74,7 +74,7 @@
                             name="telefono" 
                             id="telefono" 
                             placeholder="+56 9 1234 5678"
-                            class="text-lg mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#0d8ba7] focus:ring focus:ring-[#0d8ba7] focus:ring-opacity-50">
+                            class="text-lg h-8 px-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#0d8ba7] focus:ring focus:ring-[#0d8ba7] focus:ring-opacity-50">
                 </div>
 
                 <!-- Contraseña -->
@@ -86,16 +86,18 @@
                                 id="password" 
                                 required 
                                 minlength="8"
-                                class="text-lg mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#0d8ba7] focus:ring focus:ring-[#0d8ba7] focus:ring-opacity-50">
+                                class="text-lg h-8 px-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#0d8ba7] focus:ring focus:ring-[#0d8ba7] focus:ring-opacity-50">
                     </div>
                     <div>
-                        <label for="password_confirm" class="block  font-medium text-gray-700">Confirmar Contraseña *</label>
-                        <input type="password" 
-                                name="password_confirm" 
-                                id="password_confirm" 
-                                required 
-                                minlength="8"
-                                class="text-lg mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#0d8ba7] focus:ring focus:ring-[#0d8ba7] focus:ring-opacity-50">
+                        <label for="password_confirm" class="block font-medium text-gray-700">Confirmar Contraseña *</label>
+                        <input 
+                            type="password" 
+                            name="password_confirm" 
+                            id="password_confirm" 
+                            required 
+                            minlength="8"
+                            class="text-lg h-8 px-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#0d8ba7] focus:ring focus:ring-[#0d8ba7] focus:ring-opacity-50"
+                        >
                     </div>
                 </div>
                 <!-- <div class=" text-gray-500">
