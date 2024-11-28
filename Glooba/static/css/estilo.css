@@ -205,11 +205,11 @@ body {
     color: var(--primary-hover) !important; 
 }
 
-#ofertasDropdownMenu {
+.dropdown-menu {
     background: var(--dropdown) !important;
 }
 
-#ofertasDropdownMenu a:hover {
+.dropdown-menu a:hover {
     color: var(--primary-hover) !important;
 }
 
@@ -229,6 +229,10 @@ body {
 
 .offcanvas-body {
     background: white !important;
+}
+
+#dropdown-menu-sidebar{
+    background-color: white !important;
 }
 
 #headline {

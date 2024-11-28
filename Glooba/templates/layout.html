@@ -24,15 +24,16 @@
         <button class="btn d-lg-none" type="button" id="toggleSidebar" data-bs-toggle="offcanvas" data-bs-target="#mobileSidebar" aria-controls="mobileSidebar">
             <i class="bi bi-list fs-1"></i>
         </button>
+
         <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-            <ul class="navbar-nav">
+            <ul class="navbar-nav d-flex align-items-center">
                 <li class="nav-item border-end px-4"><a class="nav-link fs-5" href="{{ url_for('main.nosotros') }}">Nosotros</a></li>
                 <li class="nav-item border-end px-4"><a class="nav-link fs-5" href="{{ url_for('main.empresas') }}">Socios</a></li>
-                <li class="nav-item border-end px-4"><a class="nav-link fs-5" href="#">Mapa</a></li>
+                <li class="nav-item border-end px-4"><a class="nav-link fs-5" href="{{ url_for('mapa.mostrar_mapa') }}">Mapa</a></li>
                 <!-- Dropdown -->
                 <li class="nav-item dropdown px-4">
                     <a class="nav-link dropdown-toggle fs-5" href="#" id="ofertasDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Ofertas</a>
-                    <ul class="dropdown-menu" id="ofertasDropdownMenu" aria-labelledby="ofertasDropdown">
+                    <ul class="dropdown-menu" aria-labelledby="ofertasDropdown">
                         {% if current_user.is_authenticated and current_user.__class__.__name__ == "CommonUser" %}
                             <li><a class="dropdown-item" href="{{ url_for('main.index') }}">Favoritos</a></li>
                         {% endif %}
@@ -42,77 +43,81 @@
                         <li><a class="dropdown-item" href="{{ url_for('main.index') }}">Todas las ofertas</a></li>
                     </ul>
                 </li>
-            </ul>
 
-            <!-- Login and Register buttons -->
-            {% if not current_user.is_authenticated or current_user.is_anonymous %}
-                <div class="d-flex">
+                <!-- Login and Register buttons -->
+                {% if not current_user.is_authenticated or current_user.is_anonymous %}
                     <a href="{{ url_for('auth.login') }}" class="btn btn-login me-2 fs-6">Iniciar sesión</a>
                     <a href="{{ url_for('auth.signup') }}" class="btn btn-singup fs-6">Regístrate</a>
-                </div>
-            {% endif %}
-            <!-- Common User -->
+                {% endif %}
 
-            {% if current_user.is_authenticated and current_user.__class__.__name__ == 'CommonUser' %}
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Notificaciones</a>
-                </li>
-                
-                <!-- Dropdown de opciones de usuario -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Opciones de usuario
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-end">
-                        <li><a class="dropdown-item" href="{{ url_for('perfil.ver_perfil') }}">Configuración</a></li>
-                        <li><a class="dropdown-item" href="#">Hazte socio</a></li>
-                        <li><a class="dropdown-item" href="#">Sugerencias</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="{{ url_for('auth.logout') }}">Cerrar sesión</a></li>
-                    </ul>
-                </li>                    
-            {% endif %}
+                <!-- Common User -->
+                {% if current_user.is_authenticated and current_user.__class__.__name__ == 'CommonUser' %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="bi bi-bell-fill"></i>
+                        </a>
+                    </li>
 
-            <!-- Empresa User -->
-            {% if current_user.is_authenticated and current_user.__class__.__name__ == 'Empresa' %}                
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Notificaciones</a>
-                </li>
+                    <!-- Dropdown de opciones de usuario -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-person-fill-gear fs-5"></i> 
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="{{ url_for('perfil.ver_perfil') }}">Configuración</a></li>
+                            <li><a class="dropdown-item" href="#">Hazte socio</a></li>
+                            <li><a class="dropdown-item" href="#">Sugerencias</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{{ url_for('auth.logout') }}">Cerrar sesión</a></li>
+                        </ul>
+                    </li>                    
+                {% endif %}
 
-                <!-- Dropdown de opciones de usuario -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Opciones de usuario
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-end">
-                        <li><a class="dropdown-item" href="{{ url_for('perfil.ver_perfil') }}">Configuración</a></li>
-                        <li><a class="dropdown-item" href="#">Sugerencias</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="{{ url_for('admin.dashboard') }}">Dashboard</a></li>
-                        <li><a class="dropdown-item" href="{{ url_for('auth.logout') }}">Cerrar sesión</a></li>
-                    </ul>
-                </li>
-            {% endif %}
+                <!-- Empresa User -->
+                {% if current_user.is_authenticated and current_user.__class__.__name__ == 'Empresa' %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Notificaciones</a>
+                    </li>
 
-            <!-- Administrator User -->
-            {% if current_user.is_authenticated and current_user.__class__.__name__ == 'Administrador' %}
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Notificaciones</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('admin.dashboard') }}">Dashboard</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('auth.logout') }}">Logout</a>
-                </li>
-            {% endif %}
+                    <!-- Dropdown de opciones de usuario -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Opciones de usuario
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="{{ url_for('perfil.ver_perfil') }}">Configuración</a></li>
+                            <li><a class="dropdown-item" href="#">Sugerencias</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{{ url_for('admin.dashboard') }}">Dashboard</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('auth.logout') }}">Cerrar sesión</a></li>
+                        </ul>
+                    </li>
+                {% endif %}
 
-            <!-- Ayuda -->
-            {% if current_user.is_authenticated and current_user.__class__.__name__ != 'Administrador' %}
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Ayuda</a>
-                </li>
-            {% endif %}
+                <!-- Administrator User -->
+                {% if current_user.is_authenticated and current_user.__class__.__name__ == 'Administrador' %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Notificaciones</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('admin.dashboard') }}">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('auth.logout') }}">Logout</a>
+                    </li>
+                {% endif %}
+
+                <!--
+                Opcion Ayuda
+                {% if current_user.is_authenticated and current_user.__class__.__name__ != 'Administrador' %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="bi bi-question-circle-fill fs-5"></i> 
+                        </a>
+                    </li>
+                {% endif %} 
+                -->
+            </ul>
         </div>
     </nav>
 
@@ -127,11 +132,11 @@
             <ul class="navbar-nav">
                 <li class="nav-item border-bottom"><a class="nav-link fs-5" href="{{ url_for('main.nosotros') }}">Nosotros</a></li>
                 <li class="nav-item border-bottom"><a class="nav-link fs-5" href="{{ url_for('main.empresas') }}">Socios</a></li>
-                <li class="nav-item border-bottom"><a class="nav-link fs-5" href="#">Mapa</a></li>
+                <li class="nav-item border-bottom"><a class="nav-link fs-5" href="{{ url_for('mapa.mostrar_mapa') }}">Mapa</a></li>
                 <!-- Dropdown -->
                 <li class="nav-item dropdown border-bottom">
                     <a class="nav-link dropdown-toggle fs-5" href="#" id="ofertasDropdownMobile" role="button" data-bs-toggle="dropdown" aria-expanded="false">Ofertas</a>
-                    <ul class="dropdown-menu" aria-labelledby="ofertasDropdownMobile">
+                    <ul class="dropdown-menu" id="dropdown-menu-sidebar" aria-labelledby="ofertasDropdownMobile">
                         {% if current_user.is_authenticated and current_user.__class__.__name__ == "CommonUser" %}
                             <li><a class="dropdown-item" href="{{ url_for('main.index') }}">Favoritos</a></li>
                         {% endif %}
@@ -149,10 +154,57 @@
                     <a href="{{ url_for('auth.signup') }}" class="btn btn-singup w-100" id="btn-signup-sidebar">Regístrate</a>
                 </div>
             {% endif %}
-            <!-- Acá va contenido para usuarios registrados/Admin -->
+            {% if current_user.is_authenticated and current_user.__class__.__name__ == 'CommonUser' %}
+                <!-- CommonUser -->
+                <div class="dropdown mt-3">
+                <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-person-circle me-2" style="font-size: 1.5rem;"></i>
+                    <strong>{{current_user.nombre}}</strong>
+                </a>
+                <ul class="dropdown-menu text-small shadow" id="dropdown-menu-sidebar" aria-labelledby="dropdownUser2">
+                    <li><a class="dropdown-item" href="{{ url_for('perfil.ver_perfil') }}">Configuración</a></li>
+                    <li><a class="dropdown-item" href="#">Hazte socio</a></li>
+                    <li><a class="dropdown-item" href="#">Sugerencias</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="{{ url_for('auth.logout') }}">Cerrar Sesión</a></li>
+                </ul>
+                </div>
+            {% endif %}
+            <!-- Empresa User -->
+            {% if current_user.is_authenticated and current_user.__class__.__name__ == 'Empresa' %}
+            <li class="nav-item">
+                <a class="nav-link" href="#">Notificaciones</a>
+            </li>
+
+            <!-- Dropdown de opciones de usuario -->
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Opciones de usuario
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a class="dropdown-item" href="{{ url_for('perfil.ver_perfil') }}">Configuración</a></li>
+                    <li><a class="dropdown-item" href="#">Sugerencias</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="{{ url_for('admin.dashboard') }}">Dashboard</a></li>
+                    <li><a class="dropdown-item" href="{{ url_for('auth.logout') }}">Cerrar sesión</a></li>
+                </ul>
+            </li>
+            {% endif %}
+
+            <!-- Administrator User -->
+            {% if current_user.is_authenticated and current_user.__class__.__name__ == 'Administrador' %}
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Notificaciones</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('admin.dashboard') }}">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('auth.logout') }}">Logout</a>
+                </li>
+            {% endif %}
         </div>
     </div>
-
 
 
     <!-- Contenido principal -->
