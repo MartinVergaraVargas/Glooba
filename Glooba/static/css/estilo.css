@@ -2,7 +2,7 @@
     /* --primary: #0400ff; */
     --primary-title: black;
     --primary-hover: #11dfd0;
-    --primary-icon: #0400ff;
+    --main-page-icon: #0400ff;
     --primary-button: #0400ff;
     --secondary-button: black;
     --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
@@ -248,11 +248,6 @@ body {
 #learn-more-link:hover {
     color: var(--primary-hover) !important; /* Cambia a otro color al pasar el cursor */
     text-decoration: underline !important; /* Opcional: agrega subrayado */
-}
-
-
-.bi-check-circle-fill {
-    color: var(--primary-icon) !important; /* Usa variables predefinidas de Bootstrap */
 }
 
 #problem-solution-header {
@@ -671,4 +666,12 @@ body {
     .offcanvas.offcanvas-end {
         width: 75% !important; /* Ocupa la mitad de la pantalla en dispositivos móviles */
     }
+}
+
+.accordion-body {
+    text-align: justify;
+}
+
+.icon-main-page {
+    color: var(--main-page-icon) !important;
 }
