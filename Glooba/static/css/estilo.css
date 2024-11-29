@@ -15,64 +15,13 @@
     --primary-calipso: #88fbd6;
 }
 
-html, body {
-    height: 100%; /* Asegura que la página ocupe el 100% de la altura */
-}
-
 img {
     max-width: 100%;
     height: auto;
 }
 
-.row {
-    margin: 0 !important; /* Evita márgenes negativos del row */
-}
-
 iframe {
     max-width: 100% !important; /* Asegura que el iframe no se desborde */
-}
-
-/* Body */
-body {  
-    font-family: 'Arial', sans-serif;
-    background: var(--gradient-body);
-}
-
-/* Seccion header */
-#header-section {
-    background: #d4faff !important;
-}
-
-#text-header {
-    padding-top: 3rem !important;
-    padding-left: 3rem !important;
-    padding-right: 3rem !important;
-    
-}
-
-#singup-button {
-    font-size: 1.25rem !important; /* Tamaño predeterminado */
-}
-
-/* Seccion problem/solution */
-#problem-solution-section {
-    background: #ffffff !important;
-}
-
-/* Seccion benefits */
-#benefits-section {
-    background: #d4faff !important;
-}
-
-#faqs-section {
-    background: #ffffff !important;
-}
-
-.header-container {
-    display: flex !important;
-    flex-direction: column !important; /* Organiza los elementos en columna */
-    align-items: flex-start !important; /* Alinea los elementos a la izquierda (opcional) */
-    gap: 10px !important; /* Espacio entre el botón y el enlace */
 }
 
 /* Tamaño base para pantallas pequeñas */
@@ -91,9 +40,56 @@ body {
     color: var(--primary-hover) !important; 
 }
 
-.rounded-img {
-    overflow: hidden; /* Asegura que la imagen no se salga del contenedor */
-    object-fit: cover;
+/* Body */
+body {  
+    font-family: 'Arial', sans-serif;
+    background: var(--gradient-body);
+}
+
+/* Seccion header */
+#header-section {
+    background: #d4faff !important;
+}
+
+#row-header {
+    margin: 0 !important; /* Evita márgenes negativos del row */
+}
+
+#text-header-subsection {
+    padding-top: 3rem !important;
+    padding-left: 3rem !important;
+    padding-right: 3rem !important;
+    
+}
+
+#singup-button {
+    font-size: 1.25rem !important; 
+}
+
+/* Seccion problem/solution */
+#problem-solution-section {
+    background: #ffffff !important;
+}
+
+/* Seccion benefits */
+#benefits-section {
+    background: #d4faff !important;
+}
+
+#faqs-section {
+    background: #ffffff !important;
+}
+
+#header-container {
+    display: flex !important;
+    flex-direction: column !important; /* Organiza los elementos en columna */
+    align-items: flex-start !important; /* Alinea los elementos a la izquierda (opcional) */
+    gap: 10px !important; /* Espacio entre el botón y el enlace */
+}
+
+#rounded-img {
+    object-fit: cover !important;
+    margin: 0 !important;
 }
 
 /* Pantallas pequeñas e inferiores a (≥576px) */
@@ -134,7 +130,7 @@ body {
         margin-right: auto !important;
     }
     
-    .rounded-img {
+    #rounded-img {
         border-top-left-radius: 50% !important; /* Redondeo en la esquina superior izquierda */
         border-bottom-left-radius: 0% !important; /* Redondeo en la esquina inferior izquierda */
         border-top-right-radius: 50% !important; /* Mantiene la esquina superior derecha recta */
@@ -151,7 +147,12 @@ body {
     .navbar-brand {
         font-size: 40px !important;
     }
-    .rounded-img {
+    #img-header-subsection {
+        padding-left: 3rem !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+    #rounded-img {
         border-top-left-radius: 50% !important; /* Redondeo en la esquina superior izquierda */
         border-bottom-left-radius: 50% !important; /* Redondeo en la esquina inferior izquierda */
         border-top-right-radius: 0 !important; /* Mantiene la esquina superior derecha recta */
@@ -171,8 +172,13 @@ body {
     .navbar-brand {
         font-size: 45px !important;
     }
+    #img-header-subsection {
+        padding-left: 3rem !important;
+        padding-right: 0 !important;
+        margin: 0 !important;
+    }
     /* Clase personalizada para redondear solo el lado izquierdo */
-    .rounded-img {
+    #rounded-img {
         border-top-left-radius: 50% !important; /* Redondeo en la esquina superior izquierda */
         border-bottom-left-radius: 50% !important; /* Redondeo en la esquina inferior izquierda */
         border-top-right-radius: 0 !important; /* Mantiene la esquina superior derecha recta */

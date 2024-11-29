@@ -4,9 +4,9 @@
 
     <!-- Header Section -->
     <main class="container-flex" id="header-section">
-        <div class="row align-items-center">
+        <div class="row align-items-center" id="row-header">
             <!-- Text Section -->
-            <div class="col-md-6" id="text-header"> 
+            <div class="col-md-6" id="text-header-subsection"> 
                 <!--Headline Emphasizes Value, Result, or Transformation-->
                 <h1 class="fw-bold" id="headline">Conecta con Practicas Sustentables</h1>
                 <!--Subheadline clearly explains what you provide to get that result-->
@@ -17,15 +17,17 @@
                     <li class="mb-2"><i class="bi bi-check-circle-fill icon-main-page"></i> Registro de servicios y ofertas</li>
                     <li><i class="bi bi-check-circle-fill icon-main-page"></i> Gamificación</li>
                 </ul>
-                <div class="header-container" id="header-container">
+                <div class="container" id="header-container">
                     <a href="{{ url_for('auth.signup') }}" class="btn btn-singup-header" id="singup-button">Regístrate como Usuario</a>
+                    <!--
                     <a href="{{ url_for('main.enrolamiento_empresas') }}" class="fs-5" id="learn-more-link">¿Eres empresa?</a>
+                    -->
                 </div>                
             </div>
 
             <!-- Image Section -->
-            <div class="col-md-6 text-center" id="image-header">
-                <img src="{{ url_for('static', filename='images/guy_smiling.jpg') }}" alt="Smiley Illustration" class="img-fluid rounded-img shadow">
+            <div class="col-md-6 text-align-center" id="img-header-subsection">
+                <img src="{{ url_for('static', filename='images/guy_smiling.jpg') }}" alt="Smiley Illustration" class="shadow" id="rounded-img">
             </div>
         </div>
     </main>
