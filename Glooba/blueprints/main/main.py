@@ -16,6 +16,10 @@ def bienvenida():
 def pagina_principal():
     return render_template('pagina_principal.html')
 
+@main_bp.route("/enrolamiento_empresas")
+def enrolamiento_empresas():
+    return render_template('pagina_empresas.html')
+
 @main_bp.route("/ofertas")
 def index():
     # Get pagination parameters
