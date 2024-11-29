@@ -27,9 +27,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 2rem;
-            line-height: 1.6;
-            font-size: 16px;
+            
         }
 
         .auth-container {
@@ -60,7 +58,7 @@
         }
 
         .auth-content {
-            padding: 3rem;  /* Aumentado de 2rem a 3rem */
+            padding: 2rem; 
         }
 
         .form-group {
@@ -199,16 +197,15 @@
         @media (max-width: 840px) {  /* Ajustado para el nuevo ancho */
             .auth-container {
                 max-width: 90%;
-                margin: 2rem;
+                margin: 0;
             }
 
             .auth-content {
-                padding: 2rem;
+                padding: 1rem;
             }
 
             body {
-                padding: 1rem;
-                font-size: 14px;  /* Ajuste para móviles */
+                padding: 0;
             }
         }
     </style>
@@ -218,7 +215,7 @@
     <div class="auth-container">
         <div class="auth-header">
             <a href="{{ url_for('main.index') }}">
-                <img src="{{ url_for('static', filename='images/logo.png') }}" 
+                <img src="{{ url_for('static', filename='images/CalcuIco.png') }}" 
                      alt="Logo" 
                      class="mx-auto h-16 w-auto mb-6">  <!-- Aumentado el tamaño y margen -->
             </a>
@@ -226,16 +223,6 @@
         </div>
 
         <div class="auth-content">
-            <!-- {% with messages = get_flashed_messages(with_categories=true) %}
-                {% if messages %}
-                    {% for category, message in messages %}
-                        <div class="flash-message flash-{{ category }}">
-                            {{ message }}
-                        </div>
-                    {% endfor %}
-                {% endif %}
-            {% endwith %} -->
-            
             {% block auth_content %}{% endblock %}
         </div>
 
