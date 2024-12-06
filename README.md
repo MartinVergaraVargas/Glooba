@@ -89,19 +89,118 @@ http://localhost:5000
 
 ## 📝 Estructura del Proyecto
 ```
-glooba/
-├── app/
-│   ├── __init__.py
-│   ├── models.py
-│   ├── routes/
-│   ├── static/
-│   └── templates/
-├── migrations/
-├── tests/
-├── venv/
-├── config.py
-├── requirements.txt
-└── README.md
+├── archivos_csv
+│   ├── credenciales_empresas_20241029_144118.csv
+│   ├── empresas_creadas_20241029_144118.csv
+│   └── empresas_fallidas_20241029_144118.csv
+├── create_admin.py
+├── delete_user.py
+├── deployment
+│   └── glooba.service.example
+├── Glooba
+│   ├── blueprints
+│   │   ├── administracion
+│   │   │   ├── administracion.py
+│   │   │   ├── forms
+│   │   │   │   ├── adminForms_empresa.py
+│   │   │   │   └── adminForms_usuario.py
+│   │   │   └── templates
+│   │   │       ├── actividad_dashboard.html
+│   │   │       ├── crear_admin.html
+│   │   │       ├── manejo_de_empresas
+│   │   │       │   ├── gestionar_empresas.html
+│   │   │       │   ├── manejo_de_ofertas
+│   │   │       │   │   ├── crear_oferta.html
+│   │   │       │   │   ├── editar_oferta.html
+│   │   │       │   │   └── lista_ofertas.html
+│   │   │       │   ├── manejo_de_ubicaciones
+│   │   │       │   │   ├── crear_ubicacion.html
+│   │   │       │   │   ├── editar_ubicacion.html
+│   │   │       │   │   └── lista_ubicaciones.html
+│   │   │       │   └── registrar_empresa.html
+│   │   │       └── manejo_de_usuarios
+│   │   │           ├── add_user.html
+│   │   │           ├── edit_user.html
+│   │   │           └── usuarios.html
+│   │   ├── auth
+│   │   │   ├── auth.py
+│   │   │   ├── forms
+│   │   │   │   └── log_forms.py
+│   │   │   └── templates
+│   │   │       ├── login.html
+│   │   │       └── signup.html
+│   │   ├── calculadora
+│   │   │   └── calculadora.py
+│   │   ├── dashboard_empresa
+│   │   │   ├── empresa_dashboard.py
+│   │   │   ├── forms
+│   │   │   │   ├── oferta_forms.py
+│   │   │   │   └── ubicacion_forms.py
+│   │   │   └── templates
+│   │   │       ├── empresa_dashboard.html
+│   │   │       ├── ofertas
+│   │   │       │   ├── crear_oferta.html
+│   │   │       │   ├── editar_oferta.html
+│   │   │       │   └── lista_ofertas.html
+│   │   │       └── ubicaciones
+│   │   │           ├── crear_ubicacion.html
+│   │   │           ├── editarubicacion.html
+│   │   │           └── lista_ubicaciones.html
+│   │   ├── main
+│   │   │   ├── main.py
+│   │   │   └── templates
+│   │   │       ├── about.html
+│   │   │       ├── bienvenida.html
+│   │   │       ├── empresas.html
+│   │   │       ├── home.html
+│   │   │       ├── pagina_empresas.html
+│   │   │       └── pagina_principal.html
+│   │   ├── mapa
+│   │   │   ├── forms
+│   │   │   │   └── mapa_forms.py
+│   │   │   ├── __init__.py
+│   │   │   ├── mapa.py
+│   │   │   │   └── mapa.cpython-311.pyc
+│   │   │   └── templates
+│   │   │       └── mapa.html
+│   │   └── perfil
+│   │       ├── forms
+│   │       │   ├── admin_forms.py
+│   │       │   ├── empresa_forms.py
+│   │       │   └── usuario_forms.py
+│   │       ├── perfil.py
+│   │       └── templates
+│   │           ├── editar_perfil.html
+│   │           └── ver_perfil.html
+│   ├── config.py
+│   ├── __init__.py
+│   ├── models.py
+│   ├── original__init__.py
+│   ├── roughModels.py
+│   ├── static
+│   │   ├── css
+│   │   │   ├── bienvenida.css
+│   │   │   ├── estilo.css
+│   │   │   └── mapa.css
+│   │   ├── images
+│   │   │   ├── equipo
+│   │   │   │   └── IMG_5115.jpg
+│   │   │   ├── flavicon.ico
+│   │   │   ├── guy_smiling.jpg
+│   │   │   ├── logo.png
+│   │   │   └── logos_de_empresas
+│   │   │       └── empresa_logo.png
+│   │   └── js
+│   │       └── main.js
+│   └── templates
+│       ├── dashboard-base.html
+│       ├── layout.html
+│       └── log-base.html
+├── Informe de requisitos - Memoria de título.pdf
+├── README.md
+├── requerimientos.txt
+├── test_db.py
+└── wsgi.py
 ```
 
 ## 🔒 Seguridad
