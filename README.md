@@ -33,7 +33,7 @@ Glooba es una aplicación web que conecta a consumidores con empresas comprometi
 
 1. Clonar el repositorio
 ```bash
-git clone https://github.com/tuusuario/glooba.git
+git clone https://github.com/MartinVergaraVargas/Glooba
 cd glooba
 ```
 
@@ -208,20 +208,6 @@ http://localhost:5000
 - Encriptación de contraseñas
 - Protección CSRF
 - Certificados SSL
-
-## 🤝 Contribuir
-1. Fork el proyecto
-2. Crear rama de características (`git checkout -b feature/AmazingFeature`)
-3. Commit cambios (`git commit -m 'Add AmazingFeature'`)
-4. Push a la rama (`git push origin feature/AmazingFeature`)
-5. Abrir Pull Request
-
-## 📄 Licencia
-Este proyecto está bajo la Licencia [NOMBRE_LICENCIA] - ver el archivo [LICENSE.md](LICENSE.md) para detalles.
-
-## ✉️ Contacto
-Martin Vergara - [@twitter_handle](https://twitter.com/twitter_handle)
-Link del Proyecto: [https://github.com/tuusuario/glooba](https://github.com/tuusuario/glooba)
 
 ## 🙏 Agradecimientos
 - Javier Alvarado San Feliú (Tutor)
