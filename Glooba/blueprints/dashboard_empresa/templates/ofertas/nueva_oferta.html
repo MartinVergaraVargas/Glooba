@@ -2,9 +2,9 @@
 
 {% block gestion %}
 <div class="max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-md">
-    <h2 class="text-2xl font-bold mb-6">Editar Oferta</h2>
+    <h2 class="text-2xl font-bold mb-6">Nueva Oferta</h2>
 
-    <form action="{{ url_for('empresa.editar_oferta', id=oferta.id) }}" method="POST" class="space-y-6">
+    <form action="{{ url_for('empresa.nueva_oferta') }}" method="POST" class="space-y-6">
         {{ form.csrf_token }}
         
         <!-- Título -->
@@ -14,7 +14,6 @@
                    name="titulo" 
                    id="titulo" 
                    required 
-                   value="{{ oferta.titulo }}"
                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500">
         </div>
 
@@ -25,7 +24,7 @@
                       id="descripcion" 
                       rows="4" 
                       required 
-                      class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500">{{ oferta.descripcion }}</textarea>
+                      class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500"></textarea>
         </div>
 
         <!-- Tipo de Oferta -->
@@ -36,33 +35,32 @@
                     required 
                     onchange="mostrarCamposRelevantes(this.value)"
                     class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500">
-                <option value="PRODUCTO" {% if oferta.tipo.value == 'PRODUCTO' %}selected{% endif %}>Producto</option>
-                <option value="SERVICIO" {% if oferta.tipo.value == 'SERVICIO' %}selected{% endif %}>Servicio</option>
-                <option value="DESCUENTO" {% if oferta.tipo.value == 'DESCUENTO' %}selected{% endif %}>Descuento</option>
+                <option value="">Seleccionar tipo</option>
+                <option value="PRODUCTO">Producto</option>
+                <option value="SERVICIO">Servicio</option>
+                <option value="DESCUENTO">Descuento</option>
             </select>
         </div>
 
         <!-- Precio (para Producto y Servicio) -->
-        <div id="campo-precio" class="{{ 'hidden' if oferta.tipo.value == 'DESCUENTO' else '' }}">
+        <div id="campo-precio" class="hidden">
             <label for="precio" class="block text-sm font-medium text-gray-700">Precio</label>
             <input type="number" 
                    name="precio" 
                    id="precio" 
                    min="0" 
                    step="1" 
-                   value="{{ oferta.precio or '' }}"
                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500">
         </div>
 
         <!-- Porcentaje de Descuento -->
-        <div id="campo-descuento" class="{{ 'hidden' if oferta.tipo.value != 'DESCUENTO' else '' }}">
+        <div id="campo-descuento" class="hidden">
             <label for="porcentaje_descuento" class="block text-sm font-medium text-gray-700">Porcentaje de Descuento</label>
             <input type="number" 
                    name="porcentaje_descuento" 
                    id="porcentaje_descuento" 
                    min="0" 
                    max="100" 
-                   value="{{ oferta.porcentaje_descuento or '' }}"
                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500">
         </div>
 
@@ -73,7 +71,6 @@
                    name="fecha_inicio" 
                    id="fecha_inicio" 
                    required 
-                   value="{{ oferta.fecha_inicio.strftime('%Y-%m-%d') }}"
                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500">
         </div>
 
@@ -83,20 +80,7 @@
             <input type="date" 
                    name="fecha_fin" 
                    id="fecha_fin" 
-                   value="{{ oferta.fecha_fin.strftime('%Y-%m-%d') if oferta.fecha_fin else '' }}"
                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500">
-        </div>
-
-        <!-- Estado -->
-        <div>
-            <label for="activa" class="flex items-center">
-                <input type="checkbox" 
-                       name="activa" 
-                       id="activa" 
-                       {% if oferta.activa %}checked{% endif %}
-                       class="rounded border-gray-300 text-green-600 shadow-sm focus:border-green-500 focus:ring-green-500">
-                <span class="ml-2 text-sm text-gray-700">Oferta activa</span>
-            </label>
         </div>
 
         <!-- Botones -->
@@ -107,7 +91,7 @@
             </a>
             <button type="submit" 
                     class="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600">
-                Guardar Cambios
+                Crear Oferta
             </button>
         </div>
     </form>
@@ -128,6 +112,11 @@ function mostrarCamposRelevantes(tipo) {
         campoDescuento.classList.remove('hidden');
         document.getElementById('precio').required = false;
         document.getElementById('porcentaje_descuento').required = true;
+    } else {
+        campoPrecio.classList.add('hidden');
+        campoDescuento.classList.add('hidden');
+        document.getElementById('precio').required = false;
+        document.getElementById('porcentaje_descuento').required = false;
     }
 }
 </script>

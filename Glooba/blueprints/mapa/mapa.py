@@ -23,17 +23,32 @@ def mostrar_mapa():
                          ubicaciones=ubicaciones, empresas=empresas)
 
 @mapa_bp.route('/ubicaciones')
-@login_required
 def get_ubicaciones():
-    ubicaciones = Ubicacion.query.filter_by(activa=True).all()
-    ubicaciones_data = [{
-        'id': u.id,
-        'nombre': u.nombre,
-        'lat': u.latitud,
-        'lng': u.longitud,
-        'direccion': u.direccion,
-        'empresa': u.empresa.nombre,
-        'ciudad': u.ciudad,
-        'region': u.region
-    } for u in ubicaciones]
-    return jsonify(ubicaciones_data)
+    try:
+        ubicaciones = Ubicacion.query.filter_by(activa=True).all()
+        ubicaciones_data = []
+        
+        for u in ubicaciones:
+            # Obtener ofertas asociadas a esta ubicación
+            ofertas = [o.oferta for o in u.ofertas if o.oferta.activa]
+            tipos_oferta = list(set(o.tipo.value for o in ofertas))
+            
+            data = {
+                'id': u.id,
+                'nombre': u.nombre,
+                'lat': float(u.latitud),
+                'lng': float(u.longitud),
+                'direccion': u.direccion,
+                'empresa': u.empresa.nombre,
+                'empresa_id': u.empresa_id,
+                'ciudad': u.ciudad,
+                'region': u.region,
+                'rubro': u.empresa.rubro,
+                'tipos_oferta': tipos_oferta
+            }
+            ubicaciones_data.append(data)
+            
+        return jsonify(ubicaciones_data)
+    except Exception as e:
+        logger.error(f"Error obteniendo ubicaciones: {str(e)}")
+        return jsonify({'error': 'Error interno del servidor'}), 500

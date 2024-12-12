@@ -103,9 +103,11 @@ def register_blueprints(app):
     from .blueprints.administracion.administracion import admin_bp
     from .blueprints.perfil.perfil import perfil_bp
     from .blueprints.mapa.mapa import mapa_bp
+    from .blueprints.dashboard_empresa.empresa_dashboard import empresa_bp
 
     app.register_blueprint(main_bp, url_prefix='/')
     app.register_blueprint(auth_bp, url_prefix='/auth')
     app.register_blueprint(admin_bp, url_prefix='/admin')
     app.register_blueprint(perfil_bp, url_prefix='/perfil')
     app.register_blueprint(mapa_bp, url_prefix='/mapa')
+    app.register_blueprint(empresa_bp, url_prefix='/empresa')
