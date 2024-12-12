@@ -8,12 +8,12 @@ from Glooba import db
 
 main_bp = Blueprint("main", __name__, template_folder="templates")
 
-@main_bp.route("/mat")
-def bienvenida():
-    return render_template('bienvenida.html')
+# @main_bp.route("/mat")
+# def bienvenida():
+#     return render_template('bienvenida.html')
 
 @main_bp.route("/")
-def pagina_principal():
+def index():
     return render_template('pagina_principal.html')
 
 @main_bp.route("/enrolamiento_empresas")
@@ -21,11 +21,11 @@ def enrolamiento_empresas():
     return render_template('pagina_empresas.html')
 
 @main_bp.route("/ofertas")
-def index():
+def ofertas():
     # Get pagination parameters
     page = request.args.get('page', 1, type=int)
     tipo = request.args.get('tipo', None)
-
+    search = request.args.get('search', '')
     per_page = 12  # Number of offers per page
 
     # Query for offers with pagination
@@ -42,6 +42,16 @@ def index():
     )
 
     # Apply type filter if specified
+    if search:
+        search_term = f"%{search}%"
+        offers_query = offers_query.filter(
+            db.or_(
+                Oferta.titulo.ilike(search_term),
+                Oferta.descripcion.ilike(search_term),
+                Empresa.nombre.ilike(search_term)
+            )
+        )
+
     if tipo:
         offers_query = offers_query.filter(Oferta.tipo == tipo.upper())
 
@@ -64,19 +74,34 @@ def index():
             if oferta.porcentaje_descuento is not None:
                 precio_mostrar = f"{oferta.porcentaje_descuento}% OFF"
 
+        # Obtener la URL del logo de la empresa
+        logo_filename = f"{empresa_nombre}.png"
+        logo_path = os.path.join('static', 'images', 'logos_de_empresas', logo_filename)
+        full_logo_path = os.path.join(current_app.root_path, logo_path)
+        
+        if os.path.exists(full_logo_path):
+            logo_url = url_for('static', filename=f'images/logos_de_empresas/{logo_filename}')
+        else:
+            logo_url = '/api/placeholder/200/200'
+
+
+        tipo_oferta = oferta.tipo.value if hasattr(oferta.tipo, 'value') else str(oferta.tipo).split('.')[-1].capitalize()
+
         ofertas_procesadas.append({
             'id': oferta.id,
             'titulo': oferta.titulo,
             'descripcion': oferta.descripcion or "",
             'precio_mostrar': precio_mostrar,
-            'tipo': oferta.tipo,
-            'empresa': empresa_nombre
+            'tipo': tipo_oferta,
+            'empresa': empresa_nombre,
+            'logo_url': logo_url,
         })
 
-    return render_template('home.html', 
+    return render_template('ofertas.html', 
                          ofertas=ofertas_procesadas, 
                          pagination=pagination,
-                         tipo_actual=tipo)
+                         tipo_actual=tipo,
+                         search=search)
 
 
 

@@ -1,5 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, DateField, TelField, BooleanField
+from wtforms.widgets import DateInput
 from wtforms.validators import DataRequired, Email, Length, EqualTo
 from datetime import datetime, timedelta
 
@@ -9,7 +10,7 @@ class SignupForm(FlaskForm):
     nombre = StringField('Nombre', validators=[DataRequired(), Length(min=2, max=100)])
     apellido1 = StringField('Primer Apellido', validators=[DataRequired(), Length(min=2, max=100)])
     apellido2 = StringField('Segundo Apellido', validators=[Length(max=100)])
-    fecha_nacimiento = DateField('Fecha de Nacimiento', validators=[DataRequired()])
+    fecha_nacimiento = DateField('Fecha de Nacimiento', validators=[DataRequired()])#, format='%d/%m/%Y')
     telefono = TelField('Teléfono')
     password = PasswordField('Contraseña', validators=[
         DataRequired(),

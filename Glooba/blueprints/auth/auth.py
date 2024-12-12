@@ -206,7 +206,7 @@ def signup():
     if form.validate_on_submit():
         # Verificar si el email ya existe
         if CommonUser.query.filter_by(email=form.email.data).first():
-            flash('Email ya registrado')
+            flash('Este correo ya está registrado. ¿Quieres iniciar sesión con tu cuenta?', 'info')
             return redirect(url_for('auth.signup'))
 
         # Crear nuevo usuario
@@ -226,6 +226,7 @@ def signup():
         db.session.add(nuevo_usuario)
         db.session.commit()
         
+        login_user(nuevo_usuario)
         flash('Registro exitoso')
         # return redirect(url_for('auth.login'))
         return redirect(url_for('main.index'))

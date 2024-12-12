@@ -168,6 +168,17 @@
                     </div>
                 </div>
             </div>
+            <div class="mt-6 space-y-3">
+                <button id="aplicarFiltros" 
+                        class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded shadow">
+                    Aplicar Filtros
+                </button>
+                <button id="limpiarFiltros" 
+                        class="w-full bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded shadow">
+                    Limpiar Filtros
+                </button>
+            </div>
+            
         </div>
 
  
@@ -180,60 +191,11 @@
 </div>
 
 <script>
+// Funciones de manejo de dropdowns
 function toggleDropdown(id) {
     const dropdown = document.getElementById(id);
     dropdown.classList.toggle('hidden');
 }
-
-function initMap() {
-    const talca = { lat: -35.4264, lng: -71.6553 };
-    
-    const map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 13,
-        center: talca,
-        styles: [
-            {
-                featureType: "poi",
-                elementType: "labels",
-                stylers: [{ visibility: "off" }]
-            },
-            {
-                featureType: "transit",
-                elementType: "labels",
-                stylers: [{ visibility: "off" }]
-            }
-        ]
-    });
-
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-            (position) => {
-                const pos = {
-                    lat: position.coords.latitude,
-                    lng: position.coords.longitude
-                };
-                map.setCenter(pos);
-            },
-            () => {
-                console.log("Error: The Geolocation service failed.");
-            }
-        );
-    }
-
-    // Cerrar dropdowns cuando se hace click fuera
-    document.addEventListener('click', function(event) {
-        const dropdowns = document.querySelectorAll('.relative > div:not(.hidden)');
-        dropdowns.forEach(dropdown => {
-            if (!dropdown.parentElement.contains(event.target)) {
-                dropdown.classList.add('hidden');
-            }
-        });
-    });
-}
-
-document.getElementById('distanceRange').addEventListener('input', function(e) {
-    document.getElementById('rangeValue').textContent = `${e.target.value} km`;
-});
 
 function filterOptions(dropdownId) {
    const searchInput = document.querySelector(`#${dropdownId} input[type="text"]`);
@@ -251,6 +213,187 @@ function filterOptions(dropdownId) {
    });
 }
 
+// Variables globales del mapa
+let map;
+let markers = [];
+let allUbicaciones = [];
+
+function initMap() {
+    console.log('Iniciando mapa...');
+    const talca = { lat: -35.4264, lng: -71.6553 };
+    
+    map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 13,
+        center: talca,
+        styles: [
+            {
+                featureType: "poi",
+                elementType: "labels",
+                stylers: [{ visibility: "off" }]
+            },
+            {
+                featureType: "transit",
+                elementType: "labels",
+                stylers: [{ visibility: "off" }]
+            }
+        ]
+    });
+
+    // Cargar ubicaciones iniciales
+    cargarUbicacionesDesdeEmpresas();
+
+    // Eventos para los botones
+    document.getElementById('aplicarFiltros').addEventListener('click', aplicarFiltros);
+    document.getElementById('limpiarFiltros').addEventListener('click', limpiarFiltros);
+
+    // Evento para el rango de distancia
+    document.getElementById('distanceRange').addEventListener('input', function(e) {
+        document.getElementById('rangeValue').textContent = `${e.target.value} km`;
+    });
+
+    // Cerrar dropdowns cuando se hace click fuera
+    document.addEventListener('click', function(event) {
+        const dropdowns = document.querySelectorAll('.relative > div:not(.hidden)');
+        dropdowns.forEach(dropdown => {
+            if (!dropdown.parentElement.contains(event.target)) {
+                dropdown.classList.add('hidden');
+            }
+        });
+    });
+
+    // Geolocalización
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                const pos = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                };
+                map.setCenter(pos);
+            },
+            () => {
+                console.log("Error: The Geolocation service failed.");
+            }
+        );
+    }
+}
+
+function cargarUbicacionesDesdeEmpresas() {
+    fetch('/mapa/ubicaciones')
+        .then(response => {
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+            return response.json();
+        })
+        .then(ubicaciones => {
+            console.log('Ubicaciones cargadas:', ubicaciones);
+            allUbicaciones = ubicaciones;
+            createMarkers(ubicaciones);
+
+            if (ubicaciones.length > 0) {
+                const bounds = new google.maps.LatLngBounds();
+                ubicaciones.forEach(ubicacion => {
+                    bounds.extend(new google.maps.LatLng(
+                        parseFloat(ubicacion.lat),
+                        parseFloat(ubicacion.lng)
+                    ));
+                });
+                map.fitBounds(bounds);
+            }
+        })
+        .catch(error => {
+            console.error('Error cargando ubicaciones:', error);
+        });
+}
+
+function createMarkers(ubicaciones) {
+    markers.forEach(marker => marker.setMap(null));
+    markers = [];
+    
+    ubicaciones.forEach(ubicacion => {
+        const lat = parseFloat(ubicacion.lat);
+        const lng = parseFloat(ubicacion.lng);
+        
+        if (isNaN(lat) || isNaN(lng)) {
+            console.error('Coordenadas inválidas para ubicación:', ubicacion);
+            return;
+        }
+
+        const marker = new google.maps.Marker({
+            position: { lat, lng },
+            map: map,
+            title: ubicacion.nombre,
+            icon: ubicacion.es_propia ? null : {
+                path: google.maps.SymbolPath.CIRCLE,
+                scale: 8,
+                fillColor: "#4CAF50",
+                fillOpacity: 1,
+                strokeWeight: 2,
+                strokeColor: "#fff"
+            }
+        });
+
+        const infowindow = new google.maps.InfoWindow({
+            content: `
+                <div class="p-4">
+                    <h3 class="font-bold">${ubicacion.nombre}</h3>
+                    <p>${ubicacion.direccion}</p>
+                    <p>${ubicacion.ciudad}, ${ubicacion.region}</p>
+                    <p class="text-sm text-gray-600">Empresa: ${ubicacion.empresa}</p>
+                    ${ubicacion.es_propia ? 
+                        '<p class="text-xs text-green-600">Tienda oficial</p>' : 
+                        '<p class="text-xs text-blue-600">Punto de venta asociado</p>'}
+                </div>
+            `
+        });
+
+        marker.addListener('click', () => {
+            infowindow.open(map, marker);
+        });
+        
+        markers.push(marker);
+    });
+}
+
+function aplicarFiltros() {
+    const empresasSeleccionadas = Array.from(document.querySelectorAll('#empresas input[type="checkbox"]:checked'))
+        .map(checkbox => checkbox.value);
+    
+    const tiposSeleccionados = Array.from(document.querySelectorAll('#tipoOferta input[type="checkbox"]:checked'))
+        .map(checkbox => checkbox.value);
+        
+    const rubrosSeleccionados = Array.from(document.querySelectorAll('#rubros input[type="checkbox"]:checked'))
+        .map(checkbox => checkbox.value);
+    
+    let ubicacionesFiltradas = allUbicaciones;
+    
+    if (empresasSeleccionadas.length > 0) {
+        ubicacionesFiltradas = ubicacionesFiltradas.filter(ubicacion => 
+            empresasSeleccionadas.includes(ubicacion.empresa_id.toString()));
+    }
+
+    if (tiposSeleccionados.length > 0) {
+        ubicacionesFiltradas = ubicacionesFiltradas.filter(ubicacion => 
+            ubicacion.tipos_oferta.some(tipo => tiposSeleccionados.includes(tipo)));
+    }
+
+    if (rubrosSeleccionados.length > 0) {
+        ubicacionesFiltradas = ubicacionesFiltradas.filter(ubicacion => 
+            rubrosSeleccionados.includes(ubicacion.rubro));
+    }
+    
+    createMarkers(ubicacionesFiltradas);
+}
+
+function limpiarFiltros() {
+    document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+        checkbox.checked = false;
+    });
+    
+    document.getElementById('distanceRange').value = 10;
+    document.getElementById('rangeValue').textContent = '10 km';
+    
+    createMarkers(allUbicaciones);
+}
 </script>
 
 <script src="https://maps.googleapis.com/maps/api/js?key={{ api_key }}&callback=initMap" async defer></script>
