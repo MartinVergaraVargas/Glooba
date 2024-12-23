@@ -254,16 +254,6 @@ function cargarUbicacionesDesdeEmpresas() {
             allUbicaciones = ubicaciones;
             createMarkers(ubicaciones);
 
-            if (ubicaciones.length > 0) {
-                const bounds = new google.maps.LatLngBounds();
-                ubicaciones.forEach(ubicacion => {
-                    bounds.extend(new google.maps.LatLng(
-                        parseFloat(ubicacion.lat),
-                        parseFloat(ubicacion.lng)
-                    ));
-                });
-                map.fitBounds(bounds);
-            }
         })
         .catch(error => {
             console.error('Error cargando ubicaciones:', error);
@@ -364,5 +354,6 @@ function limpiarFiltros() {
 <script src="https://maps.googleapis.com/maps/api/js?key={{ api_key }}&callback=initMap" async defer></script>
 
 {% endblock %}
+
 
 
