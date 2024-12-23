@@ -130,6 +130,7 @@ class Ubicacion(db.Model):
     es_propia = db.Column(db.Boolean, default=False)  # True si es tienda propia de la empresa
     activa = db.Column(db.Boolean, default=True)
     empresa_id = db.Column(db.Integer, db.ForeignKey('empresa.id'), nullable=False)
+    descripcion = db.Column(db.String(100))
     
     # Relaciones
     ofertas = db.relationship('UbicacionOferta', backref='ubicacion', lazy=True, cascade='all, delete-orphan')

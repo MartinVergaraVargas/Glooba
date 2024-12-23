@@ -35,7 +35,7 @@
 
 {% block gestion %}
 <div class="flex justify-between items-center mb-6">
-    <h1 class="text-3xl font-bold">Crear Nueva Ubicación</h1>
+    <h1 class="text-3xl font-bold">Editar Ubicación</h1>
     <a href="{{ url_for('empresa.ubicaciones') }}" 
        class="flex items-center px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors">
         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -150,7 +150,6 @@
     </div>
 </div>
 
-
 <script>
     // Inicialización del mapa y geocodificación
     function initMap() {
@@ -158,108 +157,50 @@
         const mapElement = document.getElementById('map');
         const geocoder = new google.maps.Geocoder();
 
-        // Usar geolocalización si está disponible
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function (position) {
-                const userLat = position.coords.latitude;
-                const userLng = position.coords.longitude;
-                const userPosition = { lat: userLat, lng: userLng };
+        // Pasa las coordenadas desde Flask a JavaScript
+        const lat_form = {{ form.latitud.data | safe }};
+        const lng_form = {{ form.longitud.data | safe }};
 
-                // Crear el mapa centrado en la ubicación del usuario
-                const map = new google.maps.Map(mapElement, {
-                    zoom: 14,
-                    center: userPosition,
-                });
+        // Crear el mapa centrado en la posición predeterminada
+        const map = new google.maps.Map(mapElement, {
+            zoom: 14,
+            center: { lat: lat_form, lng: lng_form }, 
+        });
 
-                let marker = new google.maps.Marker({
-                    position: userPosition,
-                    map: map,
-                    draggable: true
-                });
+        // Crear el marcador en la posición predeterminada
+        let marker = new google.maps.Marker({
+            position: { lat: lat_form, lng: lng_form },
+            map: map,
+        });
 
-                marker.addListener('dragend', function (event) {
-                    const draggedLatLng = event.latLng;
-                    document.getElementById('latitud').value = draggedLatLng.lat();
-                    document.getElementById('longitud').value = draggedLatLng.lng();
-                    geocodeLatLng(geocoder, draggedLatLng);
-                });
+        map.addListener('click', function (event) {
+            const clickedLatLng = event.latLng;
+            marker.setPosition(clickedLatLng);
+            document.getElementById('latitud').value = clickedLatLng.lat();
+            document.getElementById('longitud').value = clickedLatLng.lng();
+            geocodeLatLng(geocoder, clickedLatLng);
+        });
 
-                map.addListener('click', function (event) {
-                    const clickedLatLng = event.latLng;
-                    marker.setPosition(clickedLatLng);
-                    document.getElementById('latitud').value = clickedLatLng.lat();
-                    document.getElementById('longitud').value = clickedLatLng.lng();
-                    geocodeLatLng(geocoder, clickedLatLng);
-                });
+        searchBox.addListener('places_changed', function () {
+            const places = searchBox.getPlaces();
+            if (places.length === 0) return;
 
-                searchBox.addListener('places_changed', function () {
-                    const places = searchBox.getPlaces();
-                    if (places.length === 0) return;
+            const place = places[0];
+            const location = place.geometry.location;
 
-                    const place = places[0];
-                    const location = place.geometry.location;
+            map.setCenter(location);
+            map.setZoom(15);
 
-                    map.setCenter(location);
-                    map.setZoom(15);
+            marker.setPosition(location);
+            document.getElementById('latitud').value = location.lat();
+            document.getElementById('longitud').value = location.lng();
+            geocodeLatLng(geocoder, location);
+        });
 
-                    marker.setPosition(location);
-                    document.getElementById('latitud').value = location.lat();
-                    document.getElementById('longitud').value = location.lng();
-                    geocodeLatLng(geocoder, location);
-                });
-
-                // Inicializar con la ubicación del usuario
-                document.getElementById('latitud').value = userLat;
-                document.getElementById('longitud').value = userLng;
-                geocodeLatLng(geocoder, userPosition);
-            }, function () {
-                handleLocationError(true);
-            });
-        } else {
-            handleLocationError(false);
-        }
-
-        function handleLocationError(browserHasGeolocation) {
-            const defaultPosition = { lat: -33.4489, lng: -70.6693 }; // Santiago, Chile
-            const map = new google.maps.Map(mapElement, {
-                zoom: 14,
-                center: defaultPosition,
-            });
-
-            let marker = new google.maps.Marker({
-                position: defaultPosition,
-                map: map,
-            });
-
-            map.addListener('click', function (event) {
-                const clickedLatLng = event.latLng;
-                marker.setPosition(clickedLatLng);
-                document.getElementById('latitud').value = clickedLatLng.lat();
-                document.getElementById('longitud').value = clickedLatLng.lng();
-                geocodeLatLng(geocoder, clickedLatLng);
-            });
-
-            searchBox.addListener('places_changed', function () {
-                const places = searchBox.getPlaces();
-                if (places.length === 0) return;
-
-                const place = places[0];
-                const location = place.geometry.location;
-
-                map.setCenter(location);
-                map.setZoom(15);
-
-                marker.setPosition(location);
-                document.getElementById('latitud').value = location.lat();
-                document.getElementById('longitud').value = location.lng();
-                geocodeLatLng(geocoder, location);
-            });
-
-            // Inicializar con la posición predeterminada
-            document.getElementById('latitud').value = defaultPosition.lat;
-            document.getElementById('longitud').value = defaultPosition.lng;
-            geocodeLatLng(geocoder, defaultPosition);
-        }
+        // Inicializar con la posición predeterminada
+        document.getElementById('latitud').value = lat_form;
+        document.getElementById('longitud').value = lng_form;
+        geocodeLatLng(geocoder, { lat: lat_form, lng: lng_form });
     }
 
     // Función para obtener dirección a partir de latitud y longitud
@@ -273,9 +214,9 @@
                     let numero = ""; // Número de la casa
                     let calle = ""; // Nombre de la calle
                     let ciudad = "";
-                    let pais = "";
+                    let pais = ""; // Nombre del país
 
-                    // Recorrer los componentes de la dirección
+                    // Recorrer los componentes de la<location>
                     addressComponents.forEach(component => {
                         const types = component.types;
 
@@ -293,22 +234,14 @@
                     // Construir dirección completa (número + calle)
                     const direccionCompleta = numero && calle ? `${calle} #${numero}` : calle;
 
-                    // Actualizar los campos del formulario
+                    // Actualizar el campo de dirección
                     document.getElementById('form-direccion').value = direccionCompleta;
                     document.getElementById('form-ciudad').value = ciudad;
                     document.getElementById('form-pais').value = pais;
                 }
-            } else {
-                console.error("Geocode error: " + status);
             }
         });
     }
-    // Configuración inicial al cargar la página
-    document.addEventListener('DOMContentLoaded', function () {
-        toggleNombreField(); // Alternar el campo "Nombre" según selección inicial
-    });
-
-    
     // Función para alternar el campo "Nombre"
     function toggleNombreField() {
         // Obtener el valor del botón seleccionado
@@ -325,12 +258,7 @@
             nombreField.removeAttribute('readonly');
         }
     }
-    // Configuración inicial al cargar la página
-    document.addEventListener('DOMContentLoaded', function () {
-        toggleNombreField(); // Alternar el campo "Nombre" según selección inicial
-    });
 </script>
-
 <script async
     src="https://maps.googleapis.com/maps/api/js?key={{api_key}}&libraries=places&callback=initMap">
 </script>

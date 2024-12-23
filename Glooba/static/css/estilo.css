@@ -40,6 +40,10 @@ iframe {
     color: var(--primary-hover) !important; 
 }
 
+#navbar, .offcanvas-header {
+    height: 90px !important;
+}
+
 /* Body */
 body {  
     font-family: 'Arial', sans-serif;

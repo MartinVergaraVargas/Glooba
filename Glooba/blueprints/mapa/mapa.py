@@ -14,8 +14,6 @@ def mostrar_mapa():
     empresas = Empresa.query.all()
     logger.debug(f"API Key presente: {'Sí' if api_key else 'No'}")
     
-    # Obtener todas las ubicaciones activas
-    ubicaciones = Ubicacion.query.filter_by(activa=True).all()
     logger.debug(f"Número de ubicaciones encontradas: {len(ubicaciones)}")
     
     return render_template('mapa.html',
