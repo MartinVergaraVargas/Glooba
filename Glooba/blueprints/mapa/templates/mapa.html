@@ -188,7 +188,7 @@ function initMap() {
     const talca = { lat: -35.4264, lng: -71.6553 };
     
     map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 13,
+        zoom: 15,
         center: talca,
         styles: [
             {
@@ -234,10 +234,36 @@ function initMap() {
                     lat: position.coords.latitude,
                     lng: position.coords.longitude
                 };
+
+                // Centrar mapa en la ubicación del usuario
                 map.setCenter(pos);
+
+                // Agregar marcador en la ubicación actual del usuario
+                const userMarker = new google.maps.Marker({
+                    position: pos,
+                    map: map,
+                    title: "Ubicación Actual",
+                    icon: {
+                        path: google.maps.SymbolPath.CIRCLE,
+                        fillColor: "blue",  // Color de fondo
+                        fillOpacity: 1,
+                        strokeWeight: 2,
+                        strokeColor: "#ffffff",  // Color del borde
+                        scale: 8  // Tamaño del círculo
+                    }
+                });
+
+                // Opcional: Mostrar un InfoWindow con un mensaje
+                const infoWindow = new google.maps.InfoWindow({
+                    content: "<p>Ubicación actual del usuario</p>"
+                });
+
+                userMarker.addListener("click", function() {
+                    infoWindow.open(map, userMarker);
+                });
             },
             () => {
-                console.log("Error: The Geolocation service failed.");
+                console.log("Error: El servicio de geolocalización falló.");
             }
         );
     }
@@ -278,12 +304,13 @@ function createMarkers(ubicaciones) {
             map: map,
             title: ubicacion.nombre,
             icon: ubicacion.es_propia ? null : {
-                path: google.maps.SymbolPath.CIRCLE,
-                scale: 8,
-                fillColor: "#4CAF50",
+                path: "M-1.547 12l6.563-6.609-1.406-1.406-5.156 5.203-2.063-2.109-1.406 1.406zM0 0q2.906 0 4.945 2.039t2.039 4.945q0 1.453-0.727 3.328t-1.758 3.516-2.039 3.070-1.711 2.273l-0.75 0.797q-0.281-0.328-0.75-0.867t-1.688-2.156-2.133-3.141-1.664-3.445-0.75-3.375q0-2.906 2.039-4.945t4.945-2.039z",
+                fillColor: "green",
                 fillOpacity: 1,
-                strokeWeight: 2,
-                strokeColor: "#fff"
+                strokeWeight: 0,
+                rotation: 0,
+                scale: 2,
+                anchor: new google.maps.Point(0, 20),
             }
         });
 
