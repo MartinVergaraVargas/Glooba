@@ -11,92 +11,44 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
     <style>
-        #map {
-            height: calc(100vh - 4rem);
-            width: 100%;
-            z-index: 1;
-        }
-
-        .filters-panel {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            z-index: 2;
-        }
-
-        .filter-badge {
-            transition: all 0.2s ease;
-        }
-
-        .filter-badge:hover {
-            transform: translateY(-1px);
-        }
-
-        .custom-range {
-            -webkit-appearance: none;
-            width: 100%;
-            height: 4px;
-            border-radius: 2px;
-            background: #e5e7eb;
-            outline: none;
-        }
-
-        .custom-range::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            background: #059669;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .custom-range::-webkit-slider-thumb:hover {
-            transform: scale(1.1);
-        }
-
-        .leaflet-popup-content {
-            margin: 0;
-            padding: 0;
-        }
-
-        .location-card {
-            min-width: 250px;
-        }
-
-        @media (max-width: 640px) {
-            .filters-panel {
-                max-height: 50vh;
-                overflow-y: auto;
-            }
-        }
+       
     </style>
 </head>
 {% endblock %}
 
 {% block content %}
-<div class="h-screen flex flex-col">
-    <!-- Header -->
-    <div class="bg-white shadow-sm h-16 flex items-center px-4 z-10">
-        <div class="max-w-7xl mx-auto w-full flex justify-between items-center">
-            <h1 class="text-xl font-semibold text-gray-900">Ubicaciones Cercanas</h1>
-        </div>
-    </div>
+<div class="flex flex-col h-screen overflow-hidden">
+    <!-- Header for mobile menu -->
+    <header class="bg-white shadow-lg lg:hidden flex items-center p-4">
+        <button id="menuToggle" class="text-gray-700 focus:outline-none">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+            </svg>
+        </button>
+        <h2 class="text-xl font-bold text-green-600 ml-2">Filtros</h2>
+    </header>
 
-    <!-- Main content -->
-    <div class="flex-1 flex">
-        <!-- Filtros -->
-        <div class="w-72 bg-white p-4 shadow-lg space-y-6">
+    <div class="relative flex-1 lg:flex">
+        <!-- Sidebar -->
+        <aside id="sidebar" class="absolute lg:relative top-0 left-0 w-64 min-h-full bg-white shadow-xl transform -translate-x-full lg:translate-x-0 transition-transform duration-200 z-50 p-4">
+            <!-- Filtros -->
+
+            <!-- Header solo para pantallas grandes -->
+            <div class="hidden lg:block pb-4">
+                <h1 class="text-2xl font-bold text-green-600 mb-2">Filtros</h1>
+                <hr>
+            </div>
+
             <!-- Tipo de Oferta Dropdown -->
-            <div class="relative">
-                <button class="w-full flex justify-between items-center px-4 py-2 border rounded-lg" onclick="toggleDropdown('tipoOferta')">
-                    <span>Tipo de Oferta</span>
+            <div class="relative mb-6">
+                <button class="w-full flex justify-between items-center px-3 py-2 text-gray-800 border border-gray-300 rounded-lg hover:bg-gray-200 focus:outline-none" onclick="toggleDropdown('tipoOferta')">
+                    <span class="font-medium">Tipo de Oferta</span>
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
                     </svg>
                 </button>
-                <div id="tipoOferta" class="hidden absolute w-full bg-white border rounded-lg mt-1 shadow-lg">
-                    <div class="p-2 space-y-2">
+                <div id="tipoOferta" class="hidden absolute w-full bg-white border rounded-lg mt-1 shadow-lg z-20">
+                    <div class="p-3 space-y-3">
                         <label class="flex items-center">
                             <input type="checkbox" class="form-checkbox" value="SERVICIO">
                             <span class="ml-2">Servicios de Reparación</span>
@@ -114,26 +66,27 @@
             </div>
 
             <!-- Rango de Distancia -->
-            <div>
-                <h3 class="text-sm font-medium text-gray-900 mb-3">Rango de Distancia</h3>
-                <input type="range" min="1" max="50" value="10" class="w-full" id="distanceRange">
+            <div class="mb-6">
+                <h3 class="text-sm font-medium text-gray-900 mb-2">Rango de Distancia</h3>
+                <input type="range" min="1" max="50" value="10" class="w-full h-2 bg-green-300 rounded-full" id="distanceRange">
                 <div class="flex justify-between text-sm text-gray-600">
                     <span>1 km</span>
                     <span id="rangeValue">10 km</span>
                     <span>50 km</span>
                 </div>
             </div>
+
             <!-- Rubro Dropdown -->
-            <div class="relative mb-4">
-                <button class="w-full flex justify-between items-center px-4 py-2 border rounded-lg" onclick="toggleDropdown('rubros')">
-                    <span>Rubro</span>
+            <div class="relative mb-6">
+                <button class="w-full flex justify-between items-center px-3 py-2 text-gray-800 border border-gray-300 rounded-lg hover:bg-gray-200 focus:outline-none" onclick="toggleDropdown('rubros')">
+                    <span class="font-medium">Rubro</span>
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
                     </svg>
                 </button>
                 <div id="rubros" class="hidden absolute w-full bg-white border rounded-lg mt-1 shadow-lg z-20">
-                    <div class="p-2">
-                        <input type="text" placeholder="Buscar rubro" class="w-full px-3 py-2 border rounded-lg mb-2" onkeyup="filterOptions('rubros')">
+                    <div class="p-3">
+                        <input type="text" placeholder="Buscar rubro" class="w-full px-3 py-2 border rounded-lg mb-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-green-500" onkeyup="filterOptions('rubros')">
                         <div class="space-y-2 max-h-48 overflow-y-auto">
                             {% for rubro in ['Limpieza', 'Textil', 'Reparación', 'Reciclaje', 'Alimentación', 'Mascotas', 'Agricultura', 'Higiene personal', 'Construcción', 'Vitivinicultura'] %}
                             <label class="flex items-center">
@@ -145,18 +98,18 @@
                     </div>
                 </div>
             </div>
-            
+                
             <!-- Empresas Dropdown -->
-            <div class="relative mb-4">
-                <button class="w-full flex justify-between items-center px-4 py-2 border rounded-lg" onclick="toggleDropdown('empresas')">
-                    <span>Empresas</span>
+            <div class="relative mb-6">
+                <button class="w-full flex justify-between items-center px-3 py-2 text-gray-800 border border-gray-300 rounded-lg hover:bg-gray-200 focus:outline-none" onclick="toggleDropdown('empresas')">
+                    <span class="font-medium">Empresas</span>
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
                     </svg>
                 </button>
                 <div id="empresas" class="hidden absolute w-full bg-white border rounded-lg mt-1 shadow-lg z-20">
-                    <div class="p-2">
-                        <input type="text" placeholder="Buscar empresa" class="w-full px-3 py-2 border rounded-lg mb-2" onkeyup="filterOptions('empresas')">
+                    <div class="p-3">
+                        <input type="text" placeholder="Buscar empresa" class="w-full px-3 py-2 border rounded-lg mb-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-green-500" onkeyup="filterOptions('empresas')">
                         <div class="space-y-2 max-h-48 overflow-y-auto">
                             {% for empresa in empresas %}
                             <label class="flex items-center">
@@ -168,30 +121,42 @@
                     </div>
                 </div>
             </div>
-            <div class="mt-6 space-y-3">
+
+            <!-- Action Buttons -->
+            <div class="mt-8 space-y-4">
                 <button id="aplicarFiltros" 
-                        class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded shadow">
+                        class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-6 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-green-500 transition duration-200">
                     Aplicar Filtros
                 </button>
                 <button id="limpiarFiltros" 
-                        class="w-full bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded shadow">
+                        class="w-full bg-gray-500 hover:bg-gray-600 text-white font-semibold py-2 px-6 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-gray-500 transition duration-200">
                     Limpiar Filtros
                 </button>
             </div>
-            
-        </div>
+        </aside>
 
- 
-
-        <!-- Mapa -->
-        <div class="flex-1">
-            <div id="map" class="w-full h-full"></div>
-        </div>
+        <!-- Main Content -->
+        <main class="flex-1 h-full overflow-auto">
+            <div class="max-w-7xl mx-auto h-full">
+                <div id="map" class="w-full h-full rounded-lg shadow-lg"></div>
+            </div>
+        </main>
     </div>
 </div>
 
+<!-- Scripts -->
 <script>
-// Funciones de manejo de dropdowns
+    document.addEventListener('DOMContentLoaded', function() {
+        const menuToggle = document.getElementById('menuToggle');
+        const sidebar = document.getElementById('sidebar');
+
+        // Toggle sidebar visibility
+        menuToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('-translate-x-full');
+        });
+    });
+
+    // Funciones de manejo de dropdowns
 function toggleDropdown(id) {
     const dropdown = document.getElementById(id);
     dropdown.classList.toggle('hidden');
@@ -399,3 +364,5 @@ function limpiarFiltros() {
 <script src="https://maps.googleapis.com/maps/api/js?key={{ api_key }}&callback=initMap" async defer></script>
 
 {% endblock %}
+
+

@@ -1,12 +1,24 @@
+<style>
+    @media (max-width: 768px) {
+        .overflow-x-auto {
+            overflow-x: scroll;
+        }
+    }
+</style>
+
 {% extends 'dashboard-base.html' %}
 
 {% block gestion %}
 <!-- Header con botón de nueva oferta -->
 <div class="flex justify-between items-center mb-6">
-    {% block titulo_panel %} Gestión de Ofertas {% endblock %}
+    <div class="flex justify-between items-center">
+        <h1 class="text-2xl lg:text-3xl font-bold text-gray-900">
+            Gestión de Ofertas 
+        </h1>
+    </div>
     <div class="flex items-center">
         <a href="{{ url_for('empresa.nueva_oferta') }}" 
-           class="px-6 py-3 bg-green-500 text-white font-semibold rounded-lg 
+           class="p-3 bg-green-500 text-white font-semibold rounded-lg 
                   hover:bg-green-600 transition-colors duration-300
                   shadow-md hover:shadow-lg flex items-center">
             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -1,9 +1,15 @@
+<style>
+    .max-h-screen-80 {
+        max-height: 80vh;
+        overflow-y: scroll;
+    }
+</style>
+
 {% extends 'dashboard-base.html' %}
 
 {% block gestion %}
-<div class="max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-md">
+<div class="max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-md max-h-screen-80">
     <h2 class="text-2xl font-bold mb-6">Nueva Oferta</h2>
-
     <form action="{{ url_for('empresa.nueva_oferta') }}" method="POST" class="space-y-6">
         {{ form.csrf_token }}
         

@@ -4,6 +4,7 @@ from Glooba.models import db, Empresa, Oferta, TipoOferta, Ubicacion
 from datetime import datetime
 from werkzeug.security import generate_password_hash
 from .forms.oferta_forms import OfertaForm
+from .forms.ubicacion_forms import UbicacionForm
 
 empresa_bp = Blueprint('empresa', __name__, template_folder='templates')
 
@@ -117,6 +118,101 @@ def eliminar_oferta(id):
 
     try:
         db.session.delete(oferta)
+        db.session.commit()
+        return jsonify({'success': True})
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({'success': False, 'error': str(e)})
+    
+@empresa_bp.route('/ubicaciones')
+@login_required
+def ubicaciones():
+    if not isinstance(current_user, Empresa):
+        flash('No tienes permisos para acceder a esta página', 'error')
+        return redirect(url_for('main.index'))
+    
+    ubicaciones = Ubicacion.query.filter_by(empresa_id=current_user.id).all()
+    return render_template('ubicaciones/lista_ubicaciones.html', ubicaciones=ubicaciones)
+
+
+@empresa_bp.route('/nueva_ubicacion', methods=['GET', 'POST'])
+@login_required
+def crear_ubicacion():
+    api_key = current_app.config['GOOGLE_MAPS_API_KEY']
+    form = UbicacionForm()
+    empresa_id = current_user.id
+    empresa_nombre = current_user.nombre
+    
+    if not isinstance(current_user, Empresa):
+        flash('No tienes permisos para realizar estaacción', 'error')
+        return redirect(url_for('main.index'))
+
+    if form.validate_on_submit():
+        try:
+            crear_ubicacion = Ubicacion(
+                nombre=form.nombre.data,
+                latitud=form.latitud.data,
+                longitud=form.longitud.data,
+                direccion=form.direccion.data,
+                ciudad=form.ciudad.data,
+                region=form.pais.data,
+                es_propia=form.es_propia.data,
+                activa=True,
+                empresa_id=empresa_id,
+                descripcion=form.descripcion.data
+            )
+            db.session.add(crear_ubicacion)
+            db.session.commit()
+            flash('Ubicación creada exitosamente.', 'success')
+            return redirect(url_for('empresa.ubicaciones'))
+        except Exception as e:
+            db.session.rollback()
+            flash(f'Error al crear la ubicación: {str(e)}', 'error')
+            return redirect(url_for('empresa.crear_ubicacion'))
+
+    return render_template('ubicaciones/crear_ubicacion.html', form=form, \
+        empresa_nombre=empresa_nombre, api_key=api_key)
+
+
+@empresa_bp.route('/editar_ubicacion/<int:id>', methods=['GET', 'POST'])
+@login_required
+def editar_ubicacion(id):
+    if not isinstance(current_user, Empresa):
+        flash('No tienes permisos para realizar esta acción', 'error')
+        return redirect(url_for('main.index'))
+    
+    api_key = current_app.config['GOOGLE_MAPS_API_KEY']
+    empresa_nombre = current_user.nombre
+    ubicacion = Ubicacion.query.get_or_404(id)
+
+    form = UbicacionForm(obj=ubicacion)
+
+    if form.validate_on_submit():
+        ubicacion.nombre = form.nombre.data
+        ubicacion.latitud = form.latitud.data
+        ubicacion.longitud = form.longitud.data
+        ubicacion.direccion = form.direccion.data
+        ubicacion.ciudad = form.ciudad.data
+        ubicacion.region = form.pais.data
+        ubicacion.es_propia = form.es_propia.data
+        ubicacion.descripcion = form.descripcion.data
+        db.session.commit()
+        flash('Ubicación editada exitosamente', 'success')
+        return redirect(url_for('empresa.ubicaciones'))
+
+    return render_template('ubicaciones/editar_ubicacion.html', form=form, ubicacion=ubicacion, \
+        api_key=api_key, empresa_nombre=empresa_nombre)
+
+@empresa_bp.route('/eliminar_ubicacion/<int:id>', methods=['DELETE'])
+@login_required
+def eliminar_ubicacion(id):
+    if not isinstance(current_user, Empresa):
+        return jsonify({'success': False, 'error': 'No tienes permisos para realizar esta acción'})
+
+    ubicacion = Ubicacion.query.get_or_404(id)
+    
+    try:
+        db.session.delete(ubicacion)
         db.session.commit()
         return jsonify({'success': True})
     except Exception as e:
