@@ -52,22 +52,22 @@
         <!-- Sección de filtros -->
         <div class="mb-8 flex flex-col sm:flex-row gap-4 items-center">
             <!-- Barra de búsqueda -->
-            <div class="relative flex-1 max-w-lg">
+            <div class="w-full sm:w-1/2">
                 <form action="{{ url_for('main.empresas') }}" method="GET">
                     <input type="text" 
                         name="search"
                         value="{{ search }}"
                         placeholder="Buscar empresas..."
-                        class="w-full pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
+                        class="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
                 </form>
             </div>
 
             <!-- Filtro de categorías -->
-            <div class="flex gap-4">
+            <div class="w-full sm:w-1/2">
                 <form action="{{ url_for('main.empresas') }}" method="GET">
                     <select name="categoria" 
                             onchange="this.form.submit()"
-                            class="border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                            class="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
                         <option value="">Todas las categorías</option>
                         {% for cat in categorias %}
                         <option value="{{ cat }}" {% if cat == categoria_actual %}selected{% endif %}>
