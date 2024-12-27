@@ -1,11 +1,11 @@
 :root {
     /* --primary: #0400ff; */
-    --primary-title: black;
     --primary-hover: #11dfd0;
-    --main-page-icon: #0400ff;
-    --primary-button: #0400ff;
+    --main-page-icon: #3498db;
     --secondary-button: black;
     --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    --gradient-title: linear-gradient(90deg, #2ecc71, #3498db);
+    --gradient-button: linear-gradient(90deg, #2ecc71, #3498db);
     --gradient-navbar: linear-gradient(to right, #4c497d, #0a7591, #0a7591, #4c497d);
     --gradient-body: linear-gradient(#88fbd6, #0d8ba7);
     --dropdown: #0a7591;
@@ -52,7 +52,7 @@ body {
 
 /* Seccion header */
 #header-section {
-    background: #d4faff !important;
+    background: white !important;
 }
 
 #row-header {
@@ -77,11 +77,25 @@ body {
 
 /* Seccion benefits */
 #benefits-section {
-    background: #d4faff !important;
+    background: white !important;
+}
+
+#benefits-header {
+    background: var(--gradient-title);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 #faqs-section {
     background: #ffffff !important;
+}
+
+#faqs-header {
+    background: var(--gradient-title);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 #header-container {
@@ -250,9 +264,14 @@ body {
 }
 
 #headline {
-    color: var(--primary-title) !important;
-    text-shadow: var(--shadow) !important; /* Ajusta los valores según prefieras */
-}
+    font-size: 3rem; /* Ajusta el tamaño según sea necesario */
+    font-weight: bold;
+    text-align: left;
+    background: var(--gradient-title);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
 
 #learn-more-link {
     color: black !important;
@@ -265,13 +284,16 @@ body {
 }
 
 #problem-solution-header {
-    color: var(--primary-title) !important;
-    text-shadow: var(--shadow) !important;
+    background: var(--gradient-title);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .pain-point-text {
     font-size: 20px !important;
 }
+
 
 /* Estilo para el botón "Iniciar sesión" */
 .btn-login {
@@ -311,14 +333,15 @@ body {
 
 .btn-singup-header {
     color: white !important;
-    background-color: var(--primary-button) !important; 
+    background: var(--gradient-button) !important; /* Gradiente de color */
     box-shadow: var(--shadow) !important;
-    transition: outline-color 0.3s, background-color 0.3s !important; /* Transiciones suaves */
+    transition: outline-color 0.3s, background 0.3s !important; /* Transiciones suaves */
 }
+
 
 .btn-singup-header:hover {
     background-color: var(--secondary-button) !important;
-    color: var(--primary-hover) !important; /* Cambia el color del texto */
+    color: var(--gradient-button) !important; /* Cambia el color del texto */
 }
 
 .header{width:100%;
