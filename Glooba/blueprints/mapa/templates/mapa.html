@@ -317,7 +317,6 @@ function createMarkers(ubicaciones) {
         const infowindow = new google.maps.InfoWindow({
             content: `
                 <div class="p-4">
-                    <img src="{{ url_for('static', filename='images/ejemplo_lugar.png') }}" alt="Descripción de la imagen" class="w-full h-auto mb-2 max-w-[200px]">
                     <h3 class="font-bold">${ubicacion.nombre}</h3>
                     <p>${ubicacion.direccion}</p>
                     <p>${ubicacion.ciudad}, ${ubicacion.region}</p>
