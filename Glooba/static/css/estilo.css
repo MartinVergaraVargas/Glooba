@@ -143,9 +143,15 @@ body {
     
 
     #learn-more-link {
-        display: none !important;
-        margin-left: auto !important;
-        margin-right: auto !important;
+        display: block !important; /* Centra el enlace horizontalmente */
+        margin: 2px auto !important; /* Combina ambas márgenes */
+        text-align: center !important;
+    }
+
+    #img-header-subsection {
+        padding-top: 3rem !important;
+        padding-left: 3rem !important;
+        padding-right: 3rem !important;
     }
     
     #rounded-img {
@@ -166,16 +172,11 @@ body {
         font-size: 40px !important;
     }
     #img-header-subsection {
-        padding-left: 3rem !important;
-        padding: 0 !important;
+        padding: 3rem !important;
         margin: 0 !important;
     }
     #rounded-img {
-        border-top-left-radius: 50% !important; /* Redondeo en la esquina superior izquierda */
-        border-bottom-left-radius: 50% !important; /* Redondeo en la esquina inferior izquierda */
-        border-top-right-radius: 0 !important; /* Mantiene la esquina superior derecha recta */
-        border-bottom-right-radius: 0 !important; /* Mantiene la esquina inferior derecha recta */
-        height: 500px !important; 
+        border-radius: 50% !important; /* Redondeo en la esquina superior izquierda */
     }
     #headline {
         font-size: 50px !important;
@@ -191,17 +192,12 @@ body {
         font-size: 45px !important;
     }
     #img-header-subsection {
-        padding-left: 3rem !important;
-        padding-right: 0 !important;
+        padding: 3rem !important;
         margin: 0 !important;
     }
     /* Clase personalizada para redondear solo el lado izquierdo */
     #rounded-img {
-        border-top-left-radius: 50% !important; /* Redondeo en la esquina superior izquierda */
-        border-bottom-left-radius: 50% !important; /* Redondeo en la esquina inferior izquierda */
-        border-top-right-radius: 0 !important; /* Mantiene la esquina superior derecha recta */
-        border-bottom-right-radius: 0 !important; /* Mantiene la esquina inferior derecha recta */
-        height: 550px !important; 
+        border-radius: 50% !important; /* Redondeo en la esquina superior izquierda */
     }
     #headline {
         font-size: 50px !important;
