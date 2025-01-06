@@ -14,7 +14,7 @@
 </div>
 
 <!-- Formulario -->
-<div class="bg-white rounded-lg shadow-lg p-6">
+<div class="bg-white rounded-lg shadow-lg p-6 max-height-screen">
     <form method="POST" action="{{ url_for('admin.registrar_empresa') }}" class="space-y-6" id="registroForm">
         <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
         <!-- Información de Cuenta -->
@@ -132,7 +132,6 @@
         </div>
     </form>
 </div>
-
 <script>
     // Validación de RUT chileno
     document.getElementById('rut').addEventListener('input', function(e) {

@@ -20,11 +20,9 @@ def ofertas():
     # Procesar las ofertas para simplificar la presentación
     ofertas_procesadas = []
     for oferta in ofertas_query:
-        tipo_oferta = oferta.tipo.value if hasattr(oferta.tipo, 'value') else str(oferta.tipo)
         ofertas_procesadas.append({
             'id': oferta.id,
             'titulo': oferta.titulo,
-            'tipo': tipo_oferta,
             'precio': oferta.precio,
             'porcentaje_descuento': oferta.porcentaje_descuento,
             'fecha_inicio': oferta.fecha_inicio,
@@ -47,10 +45,9 @@ def nueva_oferta():
             nueva_oferta = Oferta(
                 titulo=form.titulo.data,
                 descripcion=form.descripcion.data,
-                tipo=TipoOferta[form.tipo.data],
-                precio=form.precio.data if form.tipo.data in ['PRODUCTO', 'SERVICIO'] else None,
-                porcentaje_descuento=form.porcentaje_descuento.data if form.tipo.data == 'DESCUENTO' else None,
-                fecha_inicio=form.fecha_inicio.data,
+                precio=form.precio.data,
+                es_descuento=form.es_descuento.data,
+                porcentaje_descuento=form.porcentaje_descuento.data if form.es_descuento.data == 'si' else None,
                 fecha_fin=form.fecha_fin.data,
                 empresa_id=current_user.id
             )
@@ -76,7 +73,7 @@ def editar_oferta(id):
         return redirect(url_for('main.index'))
 
     oferta = Oferta.query.get_or_404(id)
-    
+
     if oferta.empresa_id != current_user.id:
         flash('No tienes permisos para editar esta oferta', 'error')
         return redirect(url_for('empresa.ofertas'))
@@ -87,11 +84,22 @@ def editar_oferta(id):
         try:
             oferta.titulo = request.form.get('titulo')
             oferta.descripcion = request.form.get('descripcion')
-            oferta.tipo = TipoOferta[request.form.get('tipo')]
             oferta.precio = float(request.form.get('precio')) if request.form.get('precio') else None
+            oferta.es_descuento = request.form.get('es_descuento') == 'true'
             oferta.porcentaje_descuento = float(request.form.get('porcentaje_descuento')) if request.form.get('porcentaje_descuento') else None
-            oferta.fecha_inicio = datetime.strptime(request.form.get('fecha_inicio'), '%Y-%m-%d')
-            oferta.fecha_fin = datetime.strptime(request.form.get('fecha_fin'), '%Y-%m-%d') if request.form.get('fecha_fin') else None
+            
+            try:
+                oferta.fecha_inicio = datetime.strptime(request.form.get('fecha_inicio'), '%Y-%m-%d')
+            except ValueError:
+                flash('Fecha de inicio no válida.', 'error')
+                return redirect(request.url)
+            
+            try:
+                oferta.fecha_fin = datetime.strptime(request.form.get('fecha_fin'), '%Y-%m-%d') if request.form.get('fecha_fin') else None
+            except ValueError:
+                flash('Fecha de fin no válida.', 'error')
+                return redirect(request.url)
+
             oferta.activa = 'activa' in request.form
 
             db.session.commit()
@@ -100,7 +108,7 @@ def editar_oferta(id):
 
         except Exception as e:
             db.session.rollback()
-            flash(f'Error al actualizar la oferta: {str(e)}', 'error')
+            flash('Error al actualizar la oferta. Por favor, verifica los datos ingresados.', 'error')
 
     return render_template('ofertas/editar_oferta.html', form=form, oferta=oferta)
 

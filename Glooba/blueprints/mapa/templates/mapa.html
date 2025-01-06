@@ -38,43 +38,7 @@
                 <h1 class="text-2xl font-bold text-green-600 mb-2">Filtros</h1>
                 <hr>
             </div>
-
-            <!-- Tipo de Oferta Dropdown -->
-            <div class="relative mb-6">
-                <button class="w-full flex justify-between items-center px-3 py-2 text-gray-800 border border-gray-300 rounded-lg hover:bg-gray-200 focus:outline-none" onclick="toggleDropdown('tipoOferta')">
-                    <span class="font-medium">Tipo de Oferta</span>
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                    </svg>
-                </button>
-                <div id="tipoOferta" class="hidden absolute w-full bg-white border rounded-lg mt-1 shadow-lg z-20">
-                    <div class="p-3 space-y-3">
-                        <label class="flex items-center">
-                            <input type="checkbox" class="form-checkbox" value="SERVICIO">
-                            <span class="ml-2">Servicios de Reparación</span>
-                        </label>
-                        <label class="flex items-center">
-                            <input type="checkbox" class="form-checkbox" value="PRODUCTO">
-                            <span class="ml-2">Productos Ecológicos</span>
-                        </label>
-                        <label class="flex items-center">
-                            <input type="checkbox" class="form-checkbox" value="DESCUENTO">
-                            <span class="ml-2">Descuentos</span>
-                        </label>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Rango de Distancia -->
-            <div class="mb-6">
-                <h3 class="text-sm font-medium text-gray-900 mb-2">Rango de Distancia</h3>
-                <input type="range" min="1" max="50" value="10" class="w-full h-2 bg-green-300 rounded-full" id="distanceRange">
-                <div class="flex justify-between text-sm text-gray-600">
-                    <span>1 km</span>
-                    <span id="rangeValue">10 km</span>
-                    <span>50 km</span>
-                </div>
-            </div>
+            
 
             <!-- Rubro Dropdown -->
             <div class="relative mb-6">
@@ -98,11 +62,34 @@
                     </div>
                 </div>
             </div>
-                
+
+            <!-- Certificaciones Dropdown -->
+            <div class="relative mb-6">
+                <button class="w-full flex justify-between items-center px-3 py-2 text-gray-800 border border-gray-300 rounded-lg hover:bg-gray-200 focus:outline-none" onclick="toggleDropdown('certificaciones')">
+                    <span class="font-medium">Certificacion</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                    </svg>
+                </button>
+                <div id="certificaciones" class="hidden absolute w-full bg-white border rounded-lg mt-1 shadow-lg z-20">
+                    <div class="p-3">
+                        <input type="text" placeholder="Buscar certificación" class="w-full px-3 py-2 border rounded-lg mb-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-green-500" onkeyup="filterOptions('certificaciones')">
+                        <div class="space-y-2 max-h-48 overflow-y-auto">
+                            {% for certificacion in certificaciones %}
+                            <label class="flex items-center">
+                                <input type="checkbox" class="form-checkbox" value="{{ certificacion.id }}">
+                                <span class="ml-2">{{ certificacion.nombre }}</span>
+                            </label>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Empresas Dropdown -->
             <div class="relative mb-6">
                 <button class="w-full flex justify-between items-center px-3 py-2 text-gray-800 border border-gray-300 rounded-lg hover:bg-gray-200 focus:outline-none" onclick="toggleDropdown('empresas')">
-                    <span class="font-medium">Empresas</span>
+                    <span class="font-medium">Nombre Empresa</span>
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
                     </svg>
@@ -317,14 +304,16 @@ function createMarkers(ubicaciones) {
         const infowindow = new google.maps.InfoWindow({
             content: `
                 <div class="p-4">
-                    <h3 class="font-bold">${ubicacion.nombre}</h3>
+                    <h3 class="font-bold flex items-center">
+                        ${ubicacion.nombre}
+                        <a href="${ubicacion.sitio_web}" class="ml-1 text-blue-500 hover:underline" target="_blank">
+                            <i class="bi bi-info-circle-fill"></i>
+                        </a>
+                    </h3>
                     <p>${ubicacion.direccion}</p>
                     <p>${ubicacion.ciudad}, ${ubicacion.region}</p>
-                    <a href="#" class="flex items-center text-blue-500 hover:underline">
-                        <i class="bi bi-search mr-1"></i>Practica sustentable
-                    </a>
-                    <a href="" class="flex items-center text-blue-500 hover:underline">
-                        <i class="bi bi-link-45deg mr-1"></i>Ofertas disponibles
+                    <a href="${ubicacion.sitio_web}" class="flex items-center text-blue-500 hover:underline" target="_blank">
+                        <i class="bi bi-globe mr-1"></i>Sitio web
                     </a>
                 </div>
             `
@@ -341,9 +330,6 @@ function createMarkers(ubicaciones) {
 function aplicarFiltros() {
     const empresasSeleccionadas = Array.from(document.querySelectorAll('#empresas input[type="checkbox"]:checked'))
         .map(checkbox => checkbox.value);
-    
-    const tiposSeleccionados = Array.from(document.querySelectorAll('#tipoOferta input[type="checkbox"]:checked'))
-        .map(checkbox => checkbox.value);
         
     const rubrosSeleccionados = Array.from(document.querySelectorAll('#rubros input[type="checkbox"]:checked'))
         .map(checkbox => checkbox.value);
@@ -353,11 +339,6 @@ function aplicarFiltros() {
     if (empresasSeleccionadas.length > 0) {
         ubicacionesFiltradas = ubicacionesFiltradas.filter(ubicacion => 
             empresasSeleccionadas.includes(ubicacion.empresa_id.toString()));
-    }
-
-    if (tiposSeleccionados.length > 0) {
-        ubicacionesFiltradas = ubicacionesFiltradas.filter(ubicacion => 
-            ubicacion.tipos_oferta.some(tipo => tiposSeleccionados.includes(tipo)));
     }
 
     if (rubrosSeleccionados.length > 0) {

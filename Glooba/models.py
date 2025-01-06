@@ -96,16 +96,15 @@ class Administrador(User):
 class TipoOferta(Enum):
     SERVICIO = 'Servicio'
     PRODUCTO = 'Producto'
-    DESCUENTO = 'Descuento'
 
 class Oferta(db.Model):
     __tablename__ = 'oferta'
     id = db.Column(db.Integer, primary_key=True)
     titulo = db.Column(db.String(100), nullable=False)
     descripcion = db.Column(db.Text, nullable=False)
-    tipo = db.Column(db.Enum(TipoOferta), nullable=False)
-    porcentaje_descuento = db.Column(db.Float)  # Para ofertas tipo DESCUENTO
-    precio = db.Column(db.Float)                # Para ofertas tipo PRODUCTO y SERVICIO
+    precio = db.Column(db.Float) 
+    es_descuento = db.Column(db.Boolean, default=False) 
+    porcentaje_descuento = db.Column(db.Float)              
     fecha_inicio = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc), nullable=False)
     fecha_fin = db.Column(db.DateTime)
     activa = db.Column(db.Boolean, default=True)
