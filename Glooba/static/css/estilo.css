@@ -7,7 +7,7 @@
     --gradient-title: linear-gradient(90deg, #2ecc71, #3498db);
     --gradient-button: linear-gradient(90deg, #2ecc71, #3498db);
     --gradient-navbar: linear-gradient(to right, #4c497d, #0a7591, #0a7591, #4c497d);
-    --gradient-body: linear-gradient(#88fbd6, #0d8ba7);
+    --gradient-body: white;
     --dropdown: #0a7591;
     --primary-dark: #423a68;
     --primary-cyan-dark: #0d8ba7;
@@ -22,6 +22,11 @@ img {
 
 iframe {
     max-width: 100% !important; /* Asegura que el iframe no se desborde */
+}
+
+.max-height-screen {
+    max-height: 80vh;
+    overflow-y: scroll;
 }
 
 /* Tamaño base para pantallas pequeñas */
@@ -707,4 +712,142 @@ body {
 
 .icon-main-page {
     color: var(--main-page-icon) !important;
+}
+
+/*Contenido seccion empresas*/
+/* Transitions */
+.duration-200 {
+    transition-duration: 0.2s;
+}
+
+.transition-all {
+    transition-duration: 0.15s;
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Transformations */
+.transform {
+    --tw-translate-x: 0;
+    --tw-translate-y: 0;
+    --tw-rotate: 0;
+    --tw-skew-x: 0;
+    --tw-skew-y: 0;
+    --tw-scale-x: 1;
+    --tw-scale-y: 1;
+    transform: translateX(var(--tw-translate-x)) translateY(var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+/* Shadows */
+.shadow-card {
+    box-shadow: 0px 4px 15px rgba(79, 79, 79, 0.1);
+}
+
+/* Rounded corners */
+.rounded-lg {
+    border-radius: 16px;
+}
+
+.rounded-md {
+    border-radius: 12px;
+}
+
+/* Overflow */
+.overflow-hidden-z {
+    overflow: hidden;
+    transform: translateZ(0);
+}
+
+/* Width */
+.w-10 {
+    width: 2.5rem;
+}
+
+.w-full {
+    width: 100%;
+}
+
+@media (min-width: 640px) {
+    .sm\:w-20 {
+        width: 5rem;
+    }
+}
+
+/* Margins and spacing */
+@media (min-width: 1024px) {
+    .lg\:space-x-6 > :not([hidden]) ~ :not([hidden]) {
+        margin-left: 1.5rem;
+        margin-right: 1.5rem;
+    }
+}
+
+/* Typography */
+.text-base {
+    font-size: 1rem;
+    line-height: 1.1875rem;
+}
+
+.sm\:text-lg {
+    font-size: 1.125rem;
+    line-height: 1.3125rem;
+}
+
+.sm\:text-sm {
+    font-size: 0.875rem;
+    line-height: 1.0625rem;
+}
+
+.font-extrabold {
+    font-weight: 800;
+}
+
+.font-normal {
+    font-weight: 400;
+}
+
+.text-tertiary {
+    color: rgba(26, 40, 74, 1);
+}
+
+.text-tertiary-light {
+    color: rgba(40, 61, 113, 1);
+}
+
+.block {
+    display: block;
+}
+
+.break-words {
+    overflow-wrap: break-word;
+}
+
+/* Line clamp */
+.line-clamp-2 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+}
+
+/* Media queries */
+@media (min-width: 640px) {
+    .sm\:p-4 {
+        padding: 1rem;
+    }
+}
+
+/* Reset and defaults */
+*, ::after, ::before {
+    box-sizing: border-box;
+    border: 0 solid #e5e7eb;
+}
+
+* {
+    --tw-ring-inset: var(--tw-empty, );
+    --tw-ring-offset-width: 0px;
+    --tw-ring-offset-color: #fff;
+    --tw-ring-color: rgba(59, 130, 246, 0.5);
+    --tw-ring-offset-shadow: 0 0 #0000;
+    --tw-ring-shadow: 0 0 #0000;
+    --tw-shadow: 0 0 #0000;
 }

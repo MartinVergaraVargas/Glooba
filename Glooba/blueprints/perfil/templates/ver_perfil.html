@@ -1,14 +1,22 @@
-{# appCalcu/blueprints/perfil/templates/ver_perfil.html #}
 {% extends 'dashboard-base.html' %}
 
 {% block gestion %}
+
+<style>
+    .descripcion-scroll {
+        overflow-y: auto;
+        max-height: 10rem; /* Ajusta según lo necesario */
+        white-space: pre-line;
+    }
+</style>
+
 <div class="flex justify-between items-center mb-6">
     <h1 class="text-2xl lg:text-3xl font-bold text-gray-900">
         Perfil
     </h1>
 </div>
 
-<div class="bg-white rounded-lg shadow p-6">
+<div class="bg-white rounded-lg shadow p-6 max-height-screen">
     <div class="space-y-6">
         {% if current_user.__class__.__name__ == 'CommonUser' %}
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -62,11 +70,11 @@
                 <div>
                     <h3 class="text-sm font-medium text-gray-500">Rubro</h3>
                     <p class="mt-1 text-lg font-medium text-gray-900">{{ current_user.rubro }}</p>
-                </div>
+                </div>                
                 <div class="col-span-2">
                     <h3 class="text-sm font-medium text-gray-500">Descripción</h3>
                     <p class="mt-1 text-lg font-medium text-gray-900">{{ current_user.descripcion or 'Sin descripción' }}</p>
-                </div>
+                </div>                                                
             </div>
         {% else %}
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -91,4 +99,3 @@
     </div>
 </div>
 {% endblock %}
-

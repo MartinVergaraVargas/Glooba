@@ -30,19 +30,13 @@
 </div>
 
 <!-- Tabla de Ofertas -->
-<div class="bg-white rounded-lg shadow-lg overflow-hidden">
+<div class="bg-white rounded-lg shadow-lg max-height-screen">
     <div class="overflow-x-auto">
         <table class="min-w-full divide-y divide-gray-200">
             <thead class="bg-gray-50">
                 <tr>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Título
-                    </th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Tipo
-                    </th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Precio/Descuento
                     </th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Fecha Inicio
@@ -64,17 +58,6 @@
                                 {{ oferta.titulo }}
                             </div>
                         </div>
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {{ oferta.tipo }}
-                    </td>
-                    
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {% if oferta.tipo == 'DESCUENTO' %}
-                            {{ oferta.porcentaje_descuento }}% OFF
-                        {% else %}
-                            ${{ oferta.precio|round|int if oferta.precio else '-' }}
-                        {% endif %}
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                         {{ oferta.fecha_inicio.strftime('%Y-%m-%d') }}

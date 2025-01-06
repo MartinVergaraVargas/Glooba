@@ -128,6 +128,7 @@ def empresas():
     page = request.args.get('page', 1, type=int)
     search = request.args.get('search', '')
     categoria = request.args.get('categoria', '')
+    descuento = request.args.get('descuento', type=bool)
     per_page = 10  # Número de empresas por página
 
     # Construir la consulta base
@@ -150,13 +151,18 @@ def empresas():
             db.or_(
                 Empresa.nombre.ilike(search_term),
                 Empresa.descripcion.ilike(search_term),
-                Empresa.rubro.ilike(search_term)
+                Oferta.titulo.ilike(search_term),
+                Oferta.descripcion.ilike(search_term)
             )
         )
 
     # Aplicar filtro de categoría si existe
     if categoria:
         query = query.filter(Empresa.rubro == categoria)
+
+    # Aplicar filtro de descuento si está marcado
+    if descuento:
+        query = query.filter(Oferta.es_descuento == True)
 
     # Agrupar y ordenar
     query = query.group_by(Empresa.id).order_by(Empresa.nombre)
@@ -173,7 +179,6 @@ def empresas():
             # Asegurarse de que la URL tenga el protocolo
             if not sitio_web.startswith(('http://', 'https://')):
                 sitio_web = 'https://' + sitio_web
-            # Eliminar espacios en blanco
             sitio_web = sitio_web.strip()
 
         # Verificar si existe el logo de la empresa
@@ -181,11 +186,11 @@ def empresas():
         logo_path = os.path.join('static', 'images', 'logos_de_empresas', logo_filename)
         full_logo_path = os.path.join(current_app.root_path, logo_path)
         
-        # Si existe el archivo, usar la ruta del logo, si no, usar el placeholder
-        if os.path.exists(full_logo_path):
-            logo_url = url_for('static', filename=f'images/logos_de_empresas/{logo_filename}')
-        else:
-            logo_url = '/api/placeholder/192/192'
+        logo_url = (
+            url_for('static', filename=f'images/logos_de_empresas/{logo_filename}')
+            if os.path.exists(full_logo_path)
+            else '/api/placeholder/192/192'
+        )
 
         empresas_data.append({
             'id': empresa.id,
@@ -198,19 +203,26 @@ def empresas():
             'logo_url': logo_url
         })
 
-
     # Obtener categorías únicas para el filtro
     categorias = db.session.query(Empresa.rubro).distinct().filter(
         Empresa.rubro.isnot(None),
         Empresa.activo == True
     ).all()
-    categorias = [cat[0] for cat in categorias if cat[0]]  # Eliminar valores None
+    categorias = [cat[0] for cat in categorias if cat[0]]
 
+    # Obtener todas las ubicaciones activas
+    ubicaciones = Ubicacion.query.filter_by(activa=True).all()
+    api_key = current_app.config['GOOGLE_MAPS_API_KEY']
+    
     return render_template(
         'empresas.html',
         empresas=empresas_data,
         pagination=pagination,
         search=search,
         categoria_actual=categoria,
-        categorias=categorias
+        categorias=categorias,
+        descuento=descuento,
+        ubicaciones=ubicaciones,
+        api_key=api_key
     )
+    
