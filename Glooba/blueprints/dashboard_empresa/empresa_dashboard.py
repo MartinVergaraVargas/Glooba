@@ -1,12 +1,47 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash, jsonify, current_app
 from flask_login import login_required, current_user
-from Glooba.models import db, Empresa, Oferta, TipoOferta, Ubicacion
+from Glooba.models import db, Empresa, Oferta, Ubicacion
 from datetime import datetime
 from werkzeug.security import generate_password_hash
 from .forms.oferta_forms import OfertaForm
 from .forms.ubicacion_forms import UbicacionForm
+from werkzeug.utils import secure_filename
+from werkzeug.datastructures import FileStorage
+import os
 
 empresa_bp = Blueprint('empresa', __name__, template_folder='templates')
+
+@empresa_bp.before_app_request
+def setup_upload_folder():
+    current_app.config['UPLOAD_FOLDER'] = os.path.join(current_app.root_path, 'static/uploads')
+
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'webp'}
+
+def generar_ruta_imagen(empresa, tipo_imagen):
+    """
+    Genera una ruta para guardar imágenes organizada por:
+    - Empresa
+    - Tipo de imagen
+    """
+    nombre_empresa = secure_filename(empresa.nombre)
+
+    ruta = os.path.join(
+        current_app.config['UPLOAD_FOLDER'],
+        'profile',
+        'empresa',
+        nombre_empresa,
+        'picture',
+        tipo_imagen
+    )
+
+    os.makedirs(ruta, exist_ok=True)
+
+    return ruta
+
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
 
 @empresa_bp.route('/ofertas')
 @login_required
@@ -14,10 +49,9 @@ def ofertas():
     if not isinstance(current_user, Empresa):
         flash('No tienes permisos para acceder a esta página', 'error')
         return redirect(url_for('main.index'))
-    
+
     ofertas_query = Oferta.query.filter_by(empresa_id=current_user.id).order_by(Oferta.fecha_inicio.desc()).all()
-    
-    # Procesar las ofertas para simplificar la presentación
+
     ofertas_procesadas = []
     for oferta in ofertas_query:
         ofertas_procesadas.append({
@@ -28,8 +62,9 @@ def ofertas():
             'fecha_inicio': oferta.fecha_inicio,
             'fecha_fin': oferta.fecha_fin
         })
-    
+
     return render_template('ofertas/gestionar_ofertas.html', ofertas=ofertas_procesadas)
+
 
 @empresa_bp.route('/nueva_oferta', methods=['GET', 'POST'])
 @login_required
@@ -39,28 +74,38 @@ def nueva_oferta():
         return redirect(url_for('main.index'))
 
     form = OfertaForm()
-    
-    if request.method == 'POST':
+
+    if form.validate_on_submit():
         try:
             nueva_oferta = Oferta(
                 titulo=form.titulo.data,
                 descripcion=form.descripcion.data,
                 precio=form.precio.data,
                 es_descuento=form.es_descuento.data,
-                porcentaje_descuento=form.porcentaje_descuento.data if form.es_descuento.data == 'si' else None,
+                porcentaje_descuento=form.porcentaje_descuento.data if form.es_descuento.data else None,
                 fecha_fin=form.fecha_fin.data,
+                sitio_web=form.sitio_web.data,  
                 empresa_id=current_user.id
             )
+
+            # Manejo de imagen
+            if form.imagen.data and allowed_file(form.imagen.data.filename):
+                file = form.imagen.data
+                filename = secure_filename(file.filename)
+
+                ruta_directorio = generar_ruta_imagen(current_user, 'oferta')
+                filepath = os.path.join(ruta_directorio, filename)
+                file.save(filepath)
+
+                nueva_oferta.imagen = filename
 
             db.session.add(nueva_oferta)
             db.session.commit()
             flash('Oferta creada exitosamente', 'success')
             return redirect(url_for('empresa.ofertas'))
-
         except Exception as e:
             db.session.rollback()
             flash(f'Error al crear la oferta: {str(e)}', 'error')
-            return redirect(url_for('empresa.nueva_oferta'))
 
     return render_template('ofertas/nueva_oferta.html', form=form)
 
@@ -80,35 +125,37 @@ def editar_oferta(id):
 
     form = OfertaForm(obj=oferta)
 
-    if request.method == 'POST':
+    if form.validate_on_submit():
         try:
-            oferta.titulo = request.form.get('titulo')
-            oferta.descripcion = request.form.get('descripcion')
-            oferta.precio = float(request.form.get('precio')) if request.form.get('precio') else None
-            oferta.es_descuento = request.form.get('es_descuento') == 'true'
-            oferta.porcentaje_descuento = float(request.form.get('porcentaje_descuento')) if request.form.get('porcentaje_descuento') else None
-            
-            try:
-                oferta.fecha_inicio = datetime.strptime(request.form.get('fecha_inicio'), '%Y-%m-%d')
-            except ValueError:
-                flash('Fecha de inicio no válida.', 'error')
-                return redirect(request.url)
-            
-            try:
-                oferta.fecha_fin = datetime.strptime(request.form.get('fecha_fin'), '%Y-%m-%d') if request.form.get('fecha_fin') else None
-            except ValueError:
-                flash('Fecha de fin no válida.', 'error')
-                return redirect(request.url)
+            oferta.titulo = form.titulo.data
+            oferta.descripcion = form.descripcion.data
+            oferta.precio = form.precio.data
+            oferta.es_descuento = form.es_descuento.data
+            oferta.porcentaje_descuento = form.porcentaje_descuento.data if form.es_descuento.data else None
+            oferta.fecha_fin = form.fecha_fin.data
+            oferta.sitio_web = form.sitio_web.data
 
-            oferta.activa = 'activa' in request.form
+            # Manejo de imagen
+            if form.imagen.data and isinstance(form.imagen.data, FileStorage):
+                if allowed_file(form.imagen.data.filename):
+                    file = form.imagen.data
+                    filename = secure_filename(file.filename)
+
+                    ruta_directorio = generar_ruta_imagen(current_user, 'oferta')
+                    filepath = os.path.join(ruta_directorio, filename)
+                    file.save(filepath)
+
+                    oferta.imagen = filename
+            else:
+                oferta.imagen = oferta.imagen  # Mantén la imagen actual
 
             db.session.commit()
             flash('Oferta actualizada exitosamente', 'success')
             return redirect(url_for('empresa.ofertas'))
-
         except Exception as e:
             db.session.rollback()
-            flash('Error al actualizar la oferta. Por favor, verifica los datos ingresados.', 'error')
+            flash(f'Error al actualizar la oferta: {str(e)}', 'error')
+
 
     return render_template('ofertas/editar_oferta.html', form=form, oferta=oferta)
 
@@ -120,7 +167,7 @@ def eliminar_oferta(id):
         return jsonify({'success': False, 'error': 'No tienes permisos para realizar esta acción'})
 
     oferta = Oferta.query.get_or_404(id)
-    
+
     if oferta.empresa_id != current_user.id:
         return jsonify({'success': False, 'error': 'No tienes permisos para eliminar esta oferta'})
 
@@ -131,7 +178,7 @@ def eliminar_oferta(id):
     except Exception as e:
         db.session.rollback()
         return jsonify({'success': False, 'error': str(e)})
-    
+
 @empresa_bp.route('/ubicaciones')
 @login_required
 def ubicaciones():

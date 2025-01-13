@@ -3,7 +3,7 @@
     --primary-hover: #11dfd0;
     --main-page-icon: #3498db;
     --secondary-button: black;
-    --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    --shadow: 4px 4px 6px rgba(0, 0, 0, 0.3);
     --gradient-title: linear-gradient(90deg, #2ecc71, #3498db);
     --gradient-button: linear-gradient(90deg, #2ecc71, #3498db);
     --gradient-navbar: linear-gradient(to right, #4c497d, #0a7591, #0a7591, #4c497d);
@@ -46,7 +46,7 @@ iframe {
 }
 
 #navbar, .offcanvas-header {
-    height: 90px !important;
+    height: 80px !important;
 }
 
 /* Body */
@@ -119,7 +119,7 @@ body {
 @media (max-width: 767px) {
 
     .responsive-logo {
-        max-height: 35px !important;
+        max-height: 50px !important;
     }
 
     .navbar-brand {
@@ -191,7 +191,7 @@ body {
 /* Pantallas extra grandes y superiores (≥1200px) */
 @media (min-width: 1200px) {
     .responsive-logo {
-        max-height: 45px !important;
+        max-height: 50px !important;
     }
     .navbar-brand {
         font-size: 45px !important;
@@ -210,7 +210,7 @@ body {
 }
 
 .navbar-spacing {
-    padding: 10px 20px !important; /* Espaciado fijo: 10px arriba/abajo, 20px izquierda/derecha */
+    padding: 10px 10px !important; /* Espaciado fijo: 10px arriba/abajo, 10px izquierda/derecha */
     /* margin-bottom: 40px !important; */
     max-width: 100% !important; /* Evitar restricciones de ancho responsivo */
     box-sizing: border-box !important; /* Incluye borde y padding en el ancho */
@@ -311,6 +311,7 @@ body {
 
 /* Estilo para el botón "Regístrate" */
 .btn-singup {
+    margin-right: 10px !important;
     color: white !important;
     background-color: black !important;
     box-shadow: var(--shadow) !important;
@@ -738,10 +739,19 @@ body {
     transform: translateX(var(--tw-translate-x)) translateY(var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
-/* Shadows */
+/* Sombreado */
 .shadow-card {
-    box-shadow: 0px 4px 15px rgba(79, 79, 79, 0.1);
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    border-radius: 8px; /* Opcional: Bordes redondeados */
+    background-color: #ffffff; /* Opcional: Fondo blanco */
+    transition: box-shadow 0.3s ease; /* Suaviza la transición */
 }
+
+/* Efecto hover opcional */
+.shadow-card:hover {
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15); /* Sombra más pronunciada al pasar el mouse */
+}
+
 
 /* Rounded corners */
 .rounded-lg {
@@ -821,11 +831,18 @@ body {
     overflow-wrap: break-word;
 }
 
+.rich-text {
+    --tw-text-opacity: 1;
+    color: rgba(20,31,57,var(--tw-text-opacity));
+    overflow-wrap: break-word;
+  }
+
+
 /* Line clamp */
-.line-clamp-2 {
+.line-clamp-3 {
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 3;
     overflow: hidden;
 }
 
@@ -834,6 +851,15 @@ body {
     .sm\:p-4 {
         padding: 1rem;
     }
+}
+
+.business-text-primary {
+    color: #436b4d;
+    font-weight: bold;
+}
+
+.business-bg-secondary {
+  background-color: #33734e;
 }
 
 /* Reset and defaults */
@@ -847,7 +873,7 @@ body {
     --tw-ring-offset-width: 0px;
     --tw-ring-offset-color: #fff;
     --tw-ring-color: rgba(59, 130, 246, 0.5);
-    --tw-ring-offset-shadow: 0 0 #0000;
-    --tw-ring-shadow: 0 0 #0000;
-    --tw-shadow: 0 0 #0000;
+    --tw-ring-offset-shadow: 2px 2px #0000;
+    --tw-ring-shadow: 2px 2px #0000;
+    --tw-shadow: 2px 2px #0000;
 }

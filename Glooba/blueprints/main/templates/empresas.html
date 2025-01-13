@@ -25,10 +25,10 @@
                         empresas que generan acciones sostenibles para una economía circular
                     </p>
                     <div class="flex justify-center mt-4">
-                        <a href="https://www.instagram.com/gloobachile/" target="_blank" rel="noopener noreferrer">
+                        <a href="https://www.instagram.com/gloobacl/" target="_blank" rel="noopener noreferrer">
                             <i class="bi bi-instagram h-6 w-6 text-sm sm:text-md font-medium mr-4 text-green-500 hover:text-green-600"></i>
                         </a>
-                        <a href="https://www.linkedin.com/company/gloobachile/" target="_blank" rel="noopener noreferrer">
+                        <a href="https://www.linkedin.com/company/gloobapp?trk=public_profile_topcard-current-company" target="_blank" rel="noopener noreferrer">
                             <i class="bi bi-linkedin h-6 w-6 text-sm sm:text-md font-medium text-green-500 hover:text-green-600"></i>
                         </a>
                     </div>
@@ -120,13 +120,13 @@
                 <!-- Lista de empresas -->
                 <div class="space-y-6">
                     {% for empresa in empresas %}
-                        <a class="group block transform hover:scale-102 focus:scale-102 transition-all duration-200">
+                        <a href="{{ url_for('main.perfil_empresa', empresa_id=empresa.id) }}" class="group block transform hover:scale-102 focus:scale-102 transition-all duration-200">
                             <div class="bg-white ring-opacity-50 p-3 sm:p-4 rounded-lg shadow-card group-hover:bg-gray-lightest group-hover:bg-opacity-50">
                                 <div class="flex items-center space-x-2 lg:space-x-6">
                                     
                                     <!-- Imagen -->
                                     <div class="w-20 sm:w-30 overflow-hidden-z rounded-md">
-                                        <img src="{{ empresa.logo_url }}" class="object-contain w-full h-full">
+                                        <img src="{{ empresa.imagen_perfil }}" class="object-contain w-full h-full">
                                     </div>
 
                                     <!-- Información -->
@@ -138,8 +138,8 @@
                                             <span>{{ empresa.rubro }}</span>
                                         </p>
 
-                                        <div class="line-clamp-2">
-                                            <p class="text-sm sm:text-base block font-normal text-tertiary-light">
+                                        <div class="line-clamp-3">
+                                            <p class="text-xs sm:text-sm block font-normal text-tertiary-light">
                                                 <span class="break-words">
                                                     {{ empresa.descripcion }}
                                                 </span>
@@ -148,24 +148,29 @@
 
                                         <div class="flex items-center mt-2">
                                             <div class="flex items-center">
-                                                <span class="inline-block h-2 w-2 rounded-full bg-green-600 mr-1"></span>
-                                                <a href="#" class="text-xs sm:text-sm font-normal text-tertiary-light">
-                                                    ubicaciones
+                                                <i class="bi bi-bookmark-check text-green-500"></i>
+                                                <a href="{{ url_for('main.perfil_empresa', empresa_id=empresa.id) }}#ofertas" class="text-xs sm:text-sm block font-normal text-tertiary-light mx-1">
+                                                    <span class="break-words">
+                                                        Ofertas
+                                                    </span>
                                                 </a>
                                             </div>
-
-                                            <div class="flex items-center ml-4">
-                                                <span class="inline-block h-2 w-2 rounded-full bg-yellow-600 mr-1"></span>
-                                                <a href="#" class="text-xs sm:text-sm font-normal text-tertiary-light">
-                                                    ofertas
+                                            <div class="flex items-center">
+                                                <i class="bi bi-geo-alt text-green-500 ml-2"></i>
+                                                <a href="{{ url_for('main.perfil_empresa', empresa_id=empresa.id) }}#ubicaciones" class="text-xs sm:text-sm block font-normal text-tertiary-light mx-1">
+                                                    <span class="break-words">
+                                                        Ubicaciones
+                                                    </span>
                                                 </a>
                                             </div>
-                                            <!--sitio web-->
+                                            <!-- Sitio Web -->
                                             {% if empresa.sitio_web and empresa.sitio_web != "https://-" %}
-                                                <div class="flex items-center ml-4">
-                                                    <span class="inline-block h-2 w-2 rounded-full bg-blue-600 mr-1"></span>
-                                                    <a href="{{ empresa.sitio_web }}" class="text-xs sm:text-sm font-normal text-tertiary-light">
-                                                        sitio web
+                                                <div class="flex items-center">
+                                                    <i class="bi bi-globe text-green-500 ml-2"></i>
+                                                    <a href="{{ empresa.sitio_web }}" class="text-xs sm:text-sm block font-normal text-tertiary-light mx-1" target="_blank">
+                                                        <span class="break-words">
+                                                            Sitio Web
+                                                        </span>
                                                     </a>
                                                 </div>
                                             {% endif %}

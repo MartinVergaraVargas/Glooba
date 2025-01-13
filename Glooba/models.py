@@ -1,7 +1,9 @@
 from datetime import datetime, timezone
 from enum import Enum
 from flask_login import UserMixin
+from flask import url_for  # Para crear URLs de la imagen de perfil.
 from . import db
+from werkzeug.utils import secure_filename
 
 class User(UserMixin, db.Model):
     __abstract__ = True
@@ -13,6 +15,20 @@ class User(UserMixin, db.Model):
     fecha_registro = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc), nullable=False)
     activo = db.Column(db.Boolean, default=True, nullable=False)
     ultima_conexion = db.Column(db.DateTime)
+    imagen_perfil = db.Column(db.String(255), nullable=True)  # Ruta de la imagen
+
+    @property
+    def imagen_perfil_url(self):
+        tipo_usuario = self.__class__.__name__.lower()
+        nombre_usuario = secure_filename(self.nombre)
+        return url_for(
+            'static', 
+            filename=f'uploads/profile/{tipo_usuario}/{nombre_usuario}/picture/perfil/{self.imagen_perfil}', 
+            _external=True
+        ) if self.imagen_perfil else None
+
+    # Similar para otras imágenes (imagen_principal_url, imagen_secundaria_arriba_url, etc.)
+
 
     # Agregar campo para identificar el tipo de usuario
     @property
@@ -65,10 +81,55 @@ class Empresa(User):
     sitio_web = db.Column(db.String(255))
     rubro = db.Column(db.String(255))
     descripcion = db.Column(db.Text)
-    
+    imagen_principal = db.Column(db.String(255), nullable=True) 
+    imagen_secundaria_arriba = db.Column(db.String(255), nullable=True)  
+    imagen_secundaria_abajo = db.Column(db.String(255), nullable=True)  
+
     # Relaciones
     ubicaciones = db.relationship('Ubicacion', backref='empresa', lazy=True, cascade='all, delete-orphan')
     ofertas = db.relationship('Oferta', backref='empresa', lazy=True, cascade='all, delete-orphan')
+
+    @property
+    def imagen_perfil_url(self):
+        tipo_usuario = self.__class__.__name__.lower()
+        nombre_usuario = secure_filename(self.nombre)
+        return url_for(
+            'static', 
+            filename=f'uploads/profile/{tipo_usuario}/{nombre_usuario}/picture/perfil/{self.imagen_perfil}', 
+            _external=True
+        ) if self.imagen_perfil else None
+
+    @property
+    def imagen_principal_url(self):
+        tipo_usuario = self.__class__.__name__.lower()
+        nombre_usuario = secure_filename(self.nombre)
+        print(f'uploads/profile/{tipo_usuario}/{nombre_usuario}/picture/principal/{self.imagen_principal}')
+        return url_for(
+            'static', 
+            filename=f'uploads/profile/{tipo_usuario}/{nombre_usuario}/picture/principal/{self.imagen_principal}', 
+            _external=True
+        ) if self.imagen_principal else None
+
+    @property
+    def imagen_secundaria_arriba_url(self):
+        tipo_usuario = self.__class__.__name__.lower()
+        nombre_usuario = secure_filename(self.nombre)
+        return url_for(
+            'static', 
+            filename=f'uploads/profile/{tipo_usuario}/{nombre_usuario}/picture/secundaria_arriba/{self.imagen_secundaria_arriba}', 
+            _external=True
+        ) if self.imagen_secundaria_arriba else None
+
+    @property
+    def imagen_secundaria_abajo_url(self):
+        tipo_usuario = self.__class__.__name__.lower()
+        nombre_usuario = secure_filename(self.nombre)
+        return url_for(
+            'static', 
+            filename=f'uploads/profile/{tipo_usuario}/{nombre_usuario}/picture/secundaria_abajo/{self.imagen_secundaria_abajo}', 
+            _external=True
+        ) if self.imagen_secundaria_abajo else None
+
 
     @property
     def sitio_web_formateado(self):
@@ -102,20 +163,35 @@ class Oferta(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     titulo = db.Column(db.String(100), nullable=False)
     descripcion = db.Column(db.Text, nullable=False)
-    precio = db.Column(db.Float) 
+    precio = db.Column(db.Integer) 
     es_descuento = db.Column(db.Boolean, default=False) 
-    porcentaje_descuento = db.Column(db.Float)              
+    porcentaje_descuento = db.Column(db.Integer)
     fecha_inicio = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc), nullable=False)
     fecha_fin = db.Column(db.DateTime)
     activa = db.Column(db.Boolean, default=True)
     empresa_id = db.Column(db.Integer, db.ForeignKey('empresa.id'), nullable=False)
-    
+    imagen = db.Column(db.String(255), nullable=True)
+    sitio_web = db.Column(db.String(255), nullable=True) 
+
     # Relaciones
     ubicaciones = db.relationship('UbicacionOferta', backref='oferta', lazy=True, cascade='all, delete-orphan')
-    favoritos = db.relationship('Favorito', 
-                              backref='oferta', 
-                              lazy=True, 
-                              cascade='all, delete-orphan')
+    favoritos = db.relationship('Favorito', backref='oferta', lazy=True, cascade='all, delete-orphan')
+    
+    @property
+    def nombre_empresa(self):
+        """Devuelve el nombre de la empresa asociada a esta oferta."""
+        return self.empresa.nombre if self.empresa else None
+    
+    @property
+    def imagen_oferta_url(self):
+        """Retorna la URL de la imagen de la oferta."""
+        nombre_empresa = secure_filename(self.nombre_empresa) if self.nombre_empresa else "default"
+        return url_for(
+            'static', 
+            filename=f'uploads/profile/empresa/{nombre_empresa}/picture/oferta/{self.imagen}', 
+            _external=True
+        ) if self.imagen else None
+
 
 class Ubicacion(db.Model):
     __tablename__ = 'ubicacion'
@@ -129,7 +205,7 @@ class Ubicacion(db.Model):
     es_propia = db.Column(db.Boolean, default=False)  # True si es tienda propia de la empresa
     activa = db.Column(db.Boolean, default=True)
     empresa_id = db.Column(db.Integer, db.ForeignKey('empresa.id'), nullable=False)
-    descripcion = db.Column(db.String(100))
+    descripcion = db.Column(db.String(250))
     
     # Relaciones
     ofertas = db.relationship('UbicacionOferta', backref='ubicacion', lazy=True, cascade='all, delete-orphan')

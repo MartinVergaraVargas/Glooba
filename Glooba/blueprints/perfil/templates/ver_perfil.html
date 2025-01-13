@@ -2,14 +2,6 @@
 
 {% block gestion %}
 
-<style>
-    .descripcion-scroll {
-        overflow-y: auto;
-        max-height: 10rem; /* Ajusta según lo necesario */
-        white-space: pre-line;
-    }
-</style>
-
 <div class="flex justify-between items-center mb-6">
     <h1 class="text-2xl lg:text-3xl font-bold text-gray-900">
         Perfil
@@ -39,42 +31,106 @@
             </div>
         {% elif current_user.__class__.__name__ == 'Empresa' %}
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                    <h3 class="text-sm font-medium text-gray-500">Nombre Empresa</h3>
-                    <p class="mt-1 text-lg font-medium text-gray-900">{{ current_user.nombre }}</p>
+                <div class="flex items-center justify-start">
+                    {% if current_user.imagen_perfil %}
+                        <div class="md:w-48 w-24 md:h-48 h-24 flex items-center justify-center bg-gray-100 rounded-full overflow-hidden">
+                            <img src="{{ current_user.imagen_perfil_url }}" 
+                                 alt="Imagen de perfil" 
+                                 class="w-full h-auto object-contain">
+                        </div>
+                    {% else %}
+                        <div class="md:w-48 w-24 md:h-48 h-24 bg-gray-300 rounded-full flex items-center justify-center">
+                            <span class="text-gray-500">Sin Imagen</span>
+                        </div>
+                    {% endif %}
                 </div>
-                <div>
-                    <h3 class="text-sm font-medium text-gray-500">RUT Empresa</h3>
-                    <p class="mt-1 text-lg font-medium text-gray-900">{{ current_user.rut_empresa }}</p>
+                
+                <div class="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <h3 class="text-sm font-medium text-gray-500">Nombre Empresa</h3>
+                        <p class="mt-1 text-lg font-medium text-gray-900">{{ current_user.nombre }}</p>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-medium text-gray-500">RUT Empresa</h3>
+                        <p class="mt-1 text-lg font-medium text-gray-900">{{ current_user.rut_empresa }}</p>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-medium text-gray-500">Email</h3>
+                        <p class="mt-1 text-lg font-medium text-gray-900">{{ current_user.email }}</p>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-medium text-gray-500">Teléfono</h3>
+                        <p class="mt-1 text-lg font-medium text-gray-900">{{ current_user.telefono or 'No especificado' }}</p>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-medium text-gray-500">Sitio Web</h3>
+                        <p class="mt-1 text-lg font-medium text-gray-900">
+                            {% if current_user.sitio_web %}
+                                <a href="{{ current_user.sitio_web }}" class="text-cyan-600 hover:text-cyan-700" target="_blank">
+                                    {{ current_user.sitio_web }}
+                                </a>
+                            {% else %}
+                                No especificado
+                            {% endif %}
+                        </p>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-medium text-gray-500">Rubro</h3>
+                        <p class="mt-1 text-lg font-medium text-gray-900">{{ current_user.rubro }}</p>
+                    </div>                
+                    <div class="col-span-2">
+                        <h3 class="text-sm font-medium text-gray-500">Descripción</h3>
+                        <p class="mt-1 text-lg font-medium text-gray-900">{{ current_user.descripcion or 'Sin descripción' }}</p>
+                    </div>   
+                </div>                                             
+            </div>
+            <div class="bg-white ring-opacity-50 p-0 rounded-lg overflow-hidden-z">
+                <h3 class="text-sm font-medium text-gray-500 mb-2">Imagenes de la Empresa</h3>
+                <!-- Sección de imágenes -->
+                <div class="h-52 md:h-64 lg:h-96 space-y-6 bg-white">
+                    <div class="grid grid-cols-3 gap-2 h-full">
+                        <!-- Imagen principal -->
+                        <div class="col-span-2 h-full relative bg-gray-dark">
+                            <span 
+                                style="box-sizing: border-box; display: block; overflow: hidden; width: initial; height: initial; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; position: absolute; inset: 0px;"
+                            >
+                                <img 
+                                    src="{{ current_user.imagen_principal_url }}" 
+                                    decoding="async" 
+                                    data-nimg="fill" 
+                                    style="position: absolute; inset: 0px; box-sizing: border-box; padding: 0px; border: medium; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: cover;"
+                                />
+                            </span>
+                        </div>
+                        <!-- Imágenes secundarias -->
+                        <div class="grid grid-rows-2 h-full relative gap-2">
+                            <div class="relative bg-gray-dark">
+                                <span 
+                                    style="box-sizing: border-box; display: block; overflow: hidden; width: initial; height: initial; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; position: absolute; inset: 0px;"
+                                >
+                                    <img 
+                                        src=" {{ current_user.imagen_secundaria_arriba_url }}" 
+                                        decoding="async" 
+                                        data-nimg="fill" 
+                                        style="position: absolute; inset: 0px; box-sizing: border-box; padding: 0px; border: medium; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: cover;"
+                                    />
+                                </span>
+                            </div>
+                            <div class="relative bg-gray-dark">
+                                <span 
+                                    style="box-sizing: border-box; display: block; overflow: hidden; width: initial; height: initial; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; position: absolute; inset: 0px;"
+                                >
+                                    <img 
+                                        src=" {{ current_user.imagen_secundaria_abajo_url }}" 
+                                        decoding="async" 
+                                        data-nimg="fill" 
+                                        style="position: absolute; inset: 0px; box-sizing: border-box; padding: 0px; border: medium; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: cover;"
+                                    />
+                                </span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div>
-                    <h3 class="text-sm font-medium text-gray-500">Email</h3>
-                    <p class="mt-1 text-lg font-medium text-gray-900">{{ current_user.email }}</p>
-                </div>
-                <div>
-                    <h3 class="text-sm font-medium text-gray-500">Teléfono</h3>
-                    <p class="mt-1 text-lg font-medium text-gray-900">{{ current_user.telefono or 'No especificado' }}</p>
-                </div>
-                <div>
-                    <h3 class="text-sm font-medium text-gray-500">Sitio Web</h3>
-                    <p class="mt-1 text-lg font-medium text-gray-900">
-                        {% if current_user.sitio_web %}
-                            <a href="{{ current_user.sitio_web }}" class="text-cyan-600 hover:text-cyan-700" target="_blank">
-                                {{ current_user.sitio_web }}
-                            </a>
-                        {% else %}
-                            No especificado
-                        {% endif %}
-                    </p>
-                </div>
-                <div>
-                    <h3 class="text-sm font-medium text-gray-500">Rubro</h3>
-                    <p class="mt-1 text-lg font-medium text-gray-900">{{ current_user.rubro }}</p>
-                </div>                
-                <div class="col-span-2">
-                    <h3 class="text-sm font-medium text-gray-500">Descripción</h3>
-                    <p class="mt-1 text-lg font-medium text-gray-900">{{ current_user.descripcion or 'Sin descripción' }}</p>
-                </div>                                                
             </div>
         {% else %}
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">

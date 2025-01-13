@@ -4,6 +4,7 @@ envGlooba/
 venv/
 env/
 .env/
+Glooba/static/uploads/
 
 # Variables de entorno y configuración
 .env
