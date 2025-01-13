@@ -4,7 +4,7 @@
 {% block gestion %}
 <div class="max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-md max-height-screen">
     <h2 class="text-2xl font-bold mb-6">Editar Oferta</h2>
-    <form action="{{ url_for('empresa.editar_oferta', id=oferta.id) }}" method="POST" class="space-y-6">
+    <form action="{{ url_for('empresa.editar_oferta', id=oferta.id) }}" method="POST" enctype="multipart/form-data" class="space-y-6">
         {{ form.csrf_token }}
         
         <!-- Título -->
@@ -26,6 +26,25 @@
                       rows="4" 
                       required 
                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500">{{ oferta.descripcion }}</textarea>
+        </div>
+
+        <!-- Enlace del Sitio Web -->
+        <div>
+            <label for="sitio_web" class="block text-sm font-medium text-gray-700">Enlace del Sitio Web (opcional)</label>
+            <input type="url" 
+                name="sitio_web" 
+                id="sitio_web" 
+                placeholder="{{ oferta.sitio_web or 'https://example.com' }}" 
+                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500">
+        </div>
+
+        <!-- Campo de Imagen -->
+        <div>
+            <label for="imagen" class="block text-sm font-medium text-gray-700">Imagen de la Oferta</label>
+            <input type="file" 
+                name="imagen" 
+                id="imagen" 
+                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500">
         </div>
 
         <!-- Precio -->

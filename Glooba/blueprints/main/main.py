@@ -12,7 +12,7 @@ main_bp = Blueprint("main", __name__, template_folder="templates")
 # def bienvenida():
 #     return render_template('bienvenida.html')
 
-@main_bp.route("/")
+@main_bp.route("/informacion")
 def index():
     return render_template('pagina_principal.html')
 
@@ -48,7 +48,8 @@ def ofertas():
             db.or_(
                 Oferta.titulo.ilike(search_term),
                 Oferta.descripcion.ilike(search_term),
-                Empresa.nombre.ilike(search_term)
+                Empresa.nombre.ilike(search_term),
+                Empresa.descripcion.ilike(search_term)
             )
         )
 
@@ -122,7 +123,7 @@ def Bienvenida_nombre(nombre):
 def configuracion():
     return render_template('dashboard-base.html')
 
-@main_bp.route("/empresas")
+@main_bp.route("/")
 def empresas():
     # Obtener parámetros de la URL
     page = request.args.get('page', 1, type=int)
@@ -197,6 +198,7 @@ def empresas():
             'nombre': empresa.nombre,
             'descripcion': empresa.descripcion or "Sin descripción disponible",
             'rubro': empresa.rubro or "Rubro no especificado",
+            'imagen_perfil': empresa.imagen_perfil_url,  # Llamamos a la propiedad imagen_perfil_url
             'sitio_web': sitio_web,
             'total_ofertas': total_ofertas,
             'total_ubicaciones': total_ubicaciones,
@@ -225,4 +227,16 @@ def empresas():
         ubicaciones=ubicaciones,
         api_key=api_key
     )
-    
+
+@main_bp.route('/empresas/<int:empresa_id>')
+def perfil_empresa(empresa_id):
+    empresa = Empresa.query.get_or_404(empresa_id)
+    ubicaciones = Ubicacion.query.filter_by(empresa_id=empresa_id).all()
+    api_key = current_app.config['GOOGLE_MAPS_API_KEY']
+    ofertas = Oferta.query.filter_by(empresa_id=empresa_id).all()
+    return render_template(
+        'perfil_empresa.html', 
+        empresa=empresa, 
+        ubicaciones=ubicaciones, 
+        api_key=api_key,
+        ofertas=ofertas)

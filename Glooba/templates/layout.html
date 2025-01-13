@@ -17,8 +17,8 @@
 
     <!-- Main Navbar -->
     <nav class="navbar navbar-expand-lg navbar-spacing sticky-top" id="navbar">
-        <a class="navbar-brand fw-bold px-2" href="{{ url_for('main.index') }}">
-            <img src="{{ url_for('static', filename='images/CalcuIco.png') }}" alt="Logo" class="img-fluid me-2 responsive-logo">
+        <a class="navbar-brand fw-bold px-2" href="{{ url_for('main.empresas') }}">
+            <img src="{{ url_for('static', filename='images/glooba-high-resolution-logo-transparent.png') }}" alt="Logo" class="img-fluid me-2 responsive-logo">
             Glooba
         </a>                    
         <!-- Sidebar toggler for mobile -->
@@ -29,21 +29,8 @@
         <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
             <ul class="navbar-nav d-flex align-items-center">
                 <li class="nav-item border-end px-4"><a class="nav-link fs-5" href="{{ url_for('main.nosotros') }}">Nosotros</a></li>
-                <li class="nav-item border-end px-4"><a class="nav-link fs-5" href="{{ url_for('main.empresas') }}">Entidades</a></li>
-                <li class="nav-item border-end px-4"><a class="nav-link fs-5" href="{{ url_for('mapa.mostrar_mapa') }}">Mapa</a></li>
-                <!-- Dropdown -->
-                <li class="nav-item dropdown px-4">
-                    <a class="nav-link dropdown-toggle fs-5" href="#" id="ofertasDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Ofertas</a>
-                    <ul class="dropdown-menu" aria-labelledby="ofertasDropdown">
-                        {% if current_user.is_authenticated and current_user.__class__.__name__ == "CommonUser" %}
-                            <li><a class="dropdown-item" href="{{ url_for('main.ofertas') }}">Favoritos</a></li>
-                        {% endif %}
-                        <li><a class="dropdown-item" href="{{ url_for('main.ofertas', tipo='descuento') }}">Descuentos</a></li>
-                        <li><a class="dropdown-item" href="{{ url_for('main.ofertas', tipo='producto') }}">Productos</a></li>
-                        <li><a class="dropdown-item" href="{{ url_for('main.ofertas', tipo='servicio') }}">Servicios</a></li>
-                        <li><a class="dropdown-item" href="{{ url_for('main.ofertas') }}">Todas las ofertas</a></li>
-                    </ul>
-                </li>
+                <li class="nav-item px-4"><a class="nav-link fs-5" href="{{ url_for('mapa.mostrar_mapa') }}">Mapa</a></li>
+                
 
                 <!-- Login and Register buttons -->
                 {% if not current_user.is_authenticated or current_user.is_anonymous %}
@@ -147,13 +134,8 @@
                     </a>
                 </li>
                 <li class="nav-item border-bottom">
-                    <a class="nav-link fs-5" href="{{ url_for('main.nosotros') }}">
-                        <i class="bi bi-info-circle me-2"></i>Nosotros
-                    </a>
-                </li>
-                <li class="nav-item border-bottom">
                     <a class="nav-link fs-5" href="{{ url_for('main.empresas') }}">
-                        <i class="bi bi-building me-2"></i>Entidades
+                        <i class="bi bi-building-check me-2"></i>Empresas
                     </a>
                 </li>
                 <li class="nav-item border-bottom">
@@ -161,21 +143,7 @@
                         <i class="bi bi-map me-2"></i>Mapa
                     </a>
                 </li>
-                <!-- Dropdown -->
-                <li class="nav-item dropdown border-bottom">
-                    <a class="nav-link dropdown-toggle fs-5" href="#" id="ofertasDropdownMobile" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="bi bi-gift me-2"></i>Ofertas
-                    </a>
-                    <ul class="dropdown-menu" id="dropdown-menu-sidebar" aria-labelledby="ofertasDropdownMobile">
-                        {% if current_user.is_authenticated and current_user.__class__.__name__ == "CommonUser" %}
-                            <li><a class="dropdown-item" href="{{ url_for('main.ofertas') }}">Favoritos</a></li>
-                        {% endif %}
-                        <li><a class="dropdown-item" href="{{ url_for('main.ofertas', tipo='descuento') }}">Descuentos</a></li>
-                        <li><a class="dropdown-item" href="{{ url_for('main.ofertas', tipo='producto') }}">Productos</a></li>
-                        <li><a class="dropdown-item" href="{{ url_for('main.ofertas', tipo='servicio') }}">Servicios</a></li>
-                        <li><a class="dropdown-item" href="{{ url_for('main.ofertas') }}">Todas las ofertas</a></li>
-                    </ul>
-                </li>
+               
             </ul>
             
             <!-- Login and Register buttons -->

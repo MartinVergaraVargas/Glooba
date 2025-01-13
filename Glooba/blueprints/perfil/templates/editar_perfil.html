@@ -1,17 +1,11 @@
-<style>
-    .max-h-screen-80 {
-        max-height: 80vh;
-        overflow-y: scroll;
-    }
-</style>
 
 {% extends 'dashboard-base.html' %}
 
 {% block titulo_panel %}Editar Perfil{% endblock %}
 
 {% block gestion %}
-<div class="bg-white rounded-lg shadow p-6 max-h-screen-80">
-    <form method="POST" class="space-y-6">
+<div class="bg-white rounded-lg shadow p-6 max-height-screen">
+    <form method="POST" enctype="multipart/form-data" class="space-y-6">
         {{ form.csrf_token }}
         <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
             {% for field in form if field.name != 'csrf_token' %}
