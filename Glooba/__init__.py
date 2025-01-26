@@ -100,9 +100,9 @@ def register_blueprints(app):
     """Registra todos los blueprints de la aplicación"""
     from .blueprints.main.main import main_bp
     from .blueprints.auth.auth import auth_bp
-    from .blueprints.administracion.administracion import admin_bp
-    from .blueprints.perfil.perfil import perfil_bp
-    from .blueprints.mapa.mapa import mapa_bp
+    from .blueprints.administration.administration import admin_bp
+    from .blueprints.profile.profile import perfil_bp
+    from .blueprints.map.map import mapa_bp
     from .blueprints.dashboard_empresa.empresa_dashboard import empresa_bp
 
     app.register_blueprint(main_bp, url_prefix='/')

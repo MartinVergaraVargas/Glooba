@@ -14,110 +14,15 @@ main_bp = Blueprint("main", __name__, template_folder="templates")
 
 @main_bp.route("/informacion")
 def index():
-    return render_template('pagina_principal.html')
+    return render_template('informative_page.html')
 
 @main_bp.route("/enrolamiento_empresas")
 def enrolamiento_empresas():
-    return render_template('pagina_empresas.html')
-
-@main_bp.route("/ofertas")
-def ofertas():
-    # Get pagination parameters
-    page = request.args.get('page', 1, type=int)
-    tipo = request.args.get('tipo', None)
-    search = request.args.get('search', '')
-    per_page = 12  # Number of offers per page
-
-    # Query for offers with pagination
-    offers_query = db.session.query(
-        Oferta,
-        Empresa.nombre.label('empresa_nombre')
-    ).join(
-        Empresa, Oferta.empresa_id == Empresa.id
-    ).filter(
-        Oferta.activa == True,
-        Empresa.activo == True
-    ).order_by(
-        Oferta.fecha_inicio.desc()
-    )
-
-    # Apply type filter if specified
-    if search:
-        search_term = f"%{search}%"
-        offers_query = offers_query.filter(
-            db.or_(
-                Oferta.titulo.ilike(search_term),
-                Oferta.descripcion.ilike(search_term),
-                Empresa.nombre.ilike(search_term),
-                Empresa.descripcion.ilike(search_term)
-            )
-        )
-
-    if tipo:
-        offers_query = offers_query.filter(Oferta.tipo == tipo.upper())
-
-    # Order by date
-    offers_query = offers_query.order_by(Oferta.fecha_inicio.desc())
-
-    # Apply pagination
-    pagination = offers_query.paginate(page=page, per_page=per_page, error_out=False)
-    ofertas_paginadas = pagination.items
-
-    # Process offers for template
-    ofertas_procesadas = []
-    for oferta, empresa_nombre in ofertas_paginadas:
-        precio_mostrar = ""
-        
-        if oferta.tipo == 'PRODUCTO' or oferta.tipo == 'SERVICIO':
-            if oferta.precio is not None:
-                precio_mostrar = f"${oferta.precio:,.0f} CLP"
-        elif oferta.tipo == 'DESCUENTO':
-            if oferta.porcentaje_descuento is not None:
-                precio_mostrar = f"{oferta.porcentaje_descuento}% OFF"
-
-        # Obtener la URL del logo de la empresa
-        logo_filename = f"{empresa_nombre}.png"
-        logo_path = os.path.join('static', 'images', 'logos_de_empresas', logo_filename)
-        full_logo_path = os.path.join(current_app.root_path, logo_path)
-        
-        if os.path.exists(full_logo_path):
-            logo_url = url_for('static', filename=f'images/logos_de_empresas/{logo_filename}')
-        else:
-            logo_url = '/api/placeholder/200/200'
-
-
-        tipo_oferta = oferta.tipo.value if hasattr(oferta.tipo, 'value') else str(oferta.tipo).split('.')[-1].capitalize()
-
-        ofertas_procesadas.append({
-            'id': oferta.id,
-            'titulo': oferta.titulo,
-            'descripcion': oferta.descripcion or "",
-            'precio_mostrar': precio_mostrar,
-            'tipo': tipo_oferta,
-            'empresa': empresa_nombre,
-            'logo_url': logo_url,
-        })
-
-    return render_template('ofertas.html', 
-                         ofertas=ofertas_procesadas, 
-                         pagination=pagination,
-                         tipo_actual=tipo,
-                         search=search)
-
-
+    return render_template('empresa_enrollment.html')
 
 @main_bp.route("/nosotros")
 def nosotros():
-    return render_template('about.html')
-
-# @main_bp.route('/empresa_dashboard')
-# @login_required
-# def empresa_dashboard():
-#     return render_template('empresa_dashboard.html')
-
-@main_bp.route('/Bienvenido/<nombre>')
-def Bienvenida_nombre(nombre):
-    return f'!Bienvenid@, {nombre}'
+    return render_template('about_us.html')
 
 @main_bp.route('/configuracion')
 def configuracion():
@@ -217,7 +122,7 @@ def empresas():
     api_key = current_app.config['GOOGLE_MAPS_API_KEY']
     
     return render_template(
-        'empresas.html',
+        'main_page.html',
         empresas=empresas_data,
         pagination=pagination,
         search=search,
@@ -235,7 +140,7 @@ def perfil_empresa(empresa_id):
     api_key = current_app.config['GOOGLE_MAPS_API_KEY']
     ofertas = Oferta.query.filter_by(empresa_id=empresa_id).all()
     return render_template(
-        'perfil_empresa.html', 
+        'empresa_profile.html', 
         empresa=empresa, 
         ubicaciones=ubicaciones, 
         api_key=api_key,

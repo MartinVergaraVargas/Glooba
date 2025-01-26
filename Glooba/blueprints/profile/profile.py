@@ -48,7 +48,7 @@ def generar_ruta_imagen(usuario, tipo_imagen):
 @perfil_bp.route('/')
 @login_required
 def ver_perfil():
-    return render_template('ver_perfil.html')
+    return render_template('view_profile.html')
 
 @perfil_bp.route('/editar', methods=['GET', 'POST'])
 @login_required
@@ -103,10 +103,10 @@ def editar_perfil():
 
             db.session.commit()
             flash('Perfil actualizado correctamente', 'success')
-            return redirect(url_for('perfil.ver_perfil'))
+            return redirect(url_for('perfil.view_profile'))
         except Exception as e:
             db.session.rollback()
             flash(f'Error al actualizar el perfil: {str(e)}', 'error')
 
-    return render_template('editar_perfil.html', form=form)
+    return render_template('edit_profile.html', form=form)
 

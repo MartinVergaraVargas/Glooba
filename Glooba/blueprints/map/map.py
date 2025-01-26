@@ -16,7 +16,7 @@ def mostrar_mapa():
     
     logger.debug(f"Número de ubicaciones encontradas: {len(ubicaciones)}")
     
-    return render_template('mapa.html',
+    return render_template('map.html',
                          api_key=api_key,
                          ubicaciones=ubicaciones, empresas=empresas)
 
