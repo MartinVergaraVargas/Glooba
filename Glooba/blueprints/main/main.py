@@ -35,7 +35,7 @@ def empresas():
     search = request.args.get('search', '')
     categoria = request.args.get('categoria', '')
     descuento = request.args.get('descuento', type=bool)
-    per_page = 10  # Número de empresas por página
+    per_page = 2  # Número de empresas por página
 
     # Construir la consulta base
     query = db.session.query(

@@ -107,7 +107,7 @@ def nueva_oferta():
             db.session.rollback()
             flash(f'Error al crear la oferta: {str(e)}', 'error')
 
-    return render_template('posts/new_post.html', form=form)
+    return render_template('posts/add_post.html', form=form)
 
 
 @empresa_bp.route('/editar_oferta/<int:id>', methods=['GET', 'POST'])
@@ -225,7 +225,7 @@ def crear_ubicacion():
             flash(f'Error al crear la ubicación: {str(e)}', 'error')
             return redirect(url_for('empresa.crear_ubicacion'))
 
-    return render_template('locations/new_location.html', form=form, \
+    return render_template('locations/add_location.html', form=form, \
         empresa_nombre=empresa_nombre, api_key=api_key)
 
 
