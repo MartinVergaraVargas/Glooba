@@ -45,6 +45,7 @@ iframe {
 .navbar-brand {
     font-family: 'Poppins', sans-serif;
     letter-spacing: 1px;
+    font-size: 3rem;
 }
 
 .badge {
@@ -784,10 +785,10 @@ body {
 
 
 /* Line clamp */
-.line-clamp-3 {
+.line-clamp-2 {
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
+    -webkit-line-clamp: 2;
     overflow: hidden;
 }
 

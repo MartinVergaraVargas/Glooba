@@ -46,64 +46,37 @@
                     
                     <div class="flex items-center space-x-4">
                         <div class="relative self-center flex">
-                            <a href="https://www.instagram.com/gloobacl/" target="_blank" rel="noopener noreferrer">
+                            <a href="#" target="_blank" rel="noopener noreferrer">
                                 <i class="bi bi-whatsapp h-6 w-6 text-sm font-medium text-green-500 hover:text-green-600"></i>
                             </a>
                         </div>
-                        <a href="tel:+56961338355" class="overflow-hidden hover:underline">
+                        <a href="#" class="overflow-hidden hover:underline">
                             <p class="text-sm block font-light text-tertiary truncate">
-                                Contacto vía WhatsApp
+                                +56 9 5332 1695
                             </p>
                         </a>
                     </div>
 
                     <div class="flex items-center space-x-4">
                         <div class="relative self-center flex">
-                            <a href="https://www.instagram.com/gloobacl/" target="_blank" rel="noopener noreferrer">
+                            <a href="#" target="_blank" rel="noopener noreferrer">
                                 <i class="bi bi-envelope h-6 w-6 text-sm font-medium text-green-500 hover:text-green-600"></i>
                             </a>
                         </div>
-                        <a href="tel:+56961338355" class="overflow-hidden hover:underline">
+                        <a href="#" class="overflow-hidden hover:underline">
                             <p class="text-sm block font-light text-tertiary truncate">
                                 Gloobacl@gmail.com
                             </p>
                         </a>
                     </div>         
                 </div>
-                <!--
-                <div class="bg-white ring-opacity-50 p-3 sm:p-4 rounded-xl shadow-card space-y-6">
-                    <div id="map" style="height: 300px; width: 100%; border-radius: 0.5rem; overflow: hidden;"></div>
-                    <div class="space-y-1">
-                        <div class="flex items-center justify-between space-x-2">
-                            <p class="text-sm sm:text-base block font-black">Puntos físicos de Empresas Registradas</p>
-                            <div class="relative self-center flex">
-                                <svg 
-                                    width="16" 
-                                    height="16" 
-                                    viewBox="0 0 13 17" 
-                                    fill="none" 
-                                    xmlns="http://www.w3.org/2000/svg" 
-                                    class="inline business-text-secondary" 
-                                    color="text"
-                                >
-                                    <path 
-                                        d="M6.5 0C4.80993 0.00224191 3.18973 0.674612 1.99467 1.86967C0.799612 3.06473 0.127242 4.68493 0.125 6.375C0.125 10.9517 6.06437 16.6839 6.31672 16.9256C6.3658 16.9733 6.43155 17 6.5 17C6.56845 17 6.6342 16.9733 6.68328 16.9256C6.93562 16.6839 12.875 10.9517 12.875 6.375C12.8728 4.68493 12.2004 3.06473 11.0053 1.86967C9.81027 0.674612 8.19007 0.00224191 6.5 0V0ZM6.5 9.29688C5.92211 9.29688 5.35719 9.12551 4.87669 8.80445C4.39619 8.48339 4.02169 8.02706 3.80054 7.49315C3.57939 6.95925 3.52153 6.37176 3.63427 5.80497C3.74701 5.23818 4.02529 4.71755 4.43392 4.30892C4.84255 3.90029 5.36318 3.62201 5.92997 3.50927C6.49676 3.39653 7.08425 3.45439 7.61815 3.67554C8.15206 3.89669 8.60839 4.27119 8.92945 4.75169C9.25051 5.23219 9.42188 5.79711 9.42188 6.375C9.42141 7.14979 9.11342 7.89271 8.56557 8.44056C8.01771 8.98842 7.27479 9.29641 6.5 9.29688Z" 
-                                        fill="currentColor"
-                                    />
-                                </svg>
-                            </div>
-                        </div>
-                        <p class="text-sm block font-normal text-tertiary">Revisa acá los puntos físicos asociados a empresas registradas que realizan prácticas sustentables.</p>
-                    </div>
-                </div>
-                -->
             </div>
 
             <!-- Columna derecha -->
             <div class="col-span-1 sm:col-span-1 lg:col-span-2">
 
                     <div class="bg-white rounded-full mb-3 px-2">
-                        <p id="user-address" class="text-sm sm:text-base overflow-hidden text-ellipsis whitespace-nowrap bg-gray-50">
+                        <p id="user-address" class="text-sm sm:text-base overflow-hidden text-ellipsis whitespace-nowrap bg-gray-50 font-medium sm:font-normal">
                             <i class="bi bi-geo-alt text-green-500 mr-2"></i> 
                             <span id="location-text">Obteniendo tu ubicación...</span>
                         </p>       
@@ -112,24 +85,26 @@
                     <form method="GET" action="{{ url_for('main.empresas') }}">
                         <!-- Filtro de Búsqueda -->
                         <div class="mb-6 relative">
-                            <input type="text" name="search" id="search" value="{{ search }}" placeholder="Buscar por título o descripción..." class="text-sm sm:text-base mt-2 py-2 pl-10 block w-full rounded-xl border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500">
+                            <input type="text" name="search" id="search" value="{{ search }}" placeholder="¿Qué buscas?" class="text-sm sm:text-base font-medium mt-2 py-2 pl-10 block w-full rounded-xl border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500">
                             <i class="bi bi-search absolute left-3 top-1/2 transform -translate-y-1/2 "></i>
                         </div>
+                    </form>
 
                         <!-- Botones de Explorar y Mapa -->
                         <div class="flex justify-center mx-4">
                             <div class="flex items-center bg-blue-100 rounded-full shadow-md w-full">
-                                <button class="flex-grow px-6 py-1 text-sm sm:text-base text-blue-600 font-semibold rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200">
+                                <button id="map-btn" class="flex-grow px-6 py-1 text-sm sm:text-base text-blue-600 font-semibold rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200">
                                     Mapa
                                 </button>
-                                <button class="flex-grow px-6 py-1 text-white font-semibold bg-blue-500 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200">
+                                <button id="list-btn" class="flex-grow px-6 py-1 text-white font-semibold bg-blue-500 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200">
                                     Lista
                                 </button>
                             </div>
                         </div>
-
+                    
+                    <form method="GET" action="{{ url_for('main.empresas') }}">
                         <!-- Botones de filtros -->
-                        <div class="flex justify-center pt-4">
+                        <div class="flex justify-center py-4">
                             <div class="flex space-x-4 overflow-y-scroll no-scrollbar">
                                 <!-- Botón Ordenar -->
                                 <button class="flex items-center space-x-2 px-4 bg-gray-100 text-sm sm:text-base font-medium rounded-full hover:bg-gray-200 transition duration-200 whitespace-nowrap">
@@ -145,8 +120,8 @@
                                     <i class="bi bi-caret-down-fill"></i>
                                 </button>
                         
-                                <!-- Botón Certificaciones -->
                                 <button class="flex items-center space-x-2 px-4 bg-gray-100 text-sm sm:text-base font-medium rounded-full hover:bg-gray-200 transition duration-200 whitespace-nowrap">
+                                    <!-- Botón Certificaciones -->
                                     <i class="bi bi-award"></i>
                                     <span>Certificaciones</span>
                                     <i class="bi bi-caret-down-fill"></i>
@@ -160,87 +135,177 @@
                             </div>
                         </div>                        
 
-
-
                     </form>
                     
                 <!-- Lista de empresas -->
-                <div class="space-y-6">
+                <div id="empresa-list" class="mb-4">
                     {% for empresa in empresas %}
-                        <a href="{{ url_for('main.perfil_empresa', empresa_id=empresa.id) }}" class="group block transform hover:scale-102 focus:scale-102 transition-all duration-200">
-                            <div class="bg-white ring-opacity-50 p-3 sm:p-4 rounded-xl shadow-card group-hover:bg-gray-lightest group-hover:bg-opacity-50">
-                                <div class="flex items-center space-x-2 lg:space-x-6">
-                                    
-                                    <!-- Imagen -->
-                                    <div class="w-20 sm:w-30 overflow-hidden-z rounded-md">
-                                        <img src="{{ empresa.imagen_perfil }}" class="object-contain w-full h-full">
-                                    </div>
-
-                                    <!-- Información -->
-                                    <div class="flex-1 min-w-0">
-                                        <p class="text-base sm:text-lg font-extrabold text-tertiary break-words">
-                                            {{ empresa.nombre }}
-                                        </p>
-                                        <p class="text-xs sm:text-sm block font-normal text-tertiary-light py-1">
-                                            <span>{{ empresa.rubro }}</span>
-                                        </p>
-
-                                        <div class="line-clamp-3">
-                                            <p class="text-xs sm:text-sm block font-normal text-tertiary-light">
-                                                <span class="break-words">
-                                                    {{ empresa.descripcion }}
-                                                </span>
-                                            </p>
+                        <div class="space-y-6 hidden sm:block">
+                            <a href="{{ url_for('main.perfil_empresa', empresa_id=empresa.id) }}" class="group block transform hover:scale-102 focus:scale-102 transition-all duration-200">
+                                <div class="bg-white ring-opacity-50 p-3 sm:p-4 rounded-xl shadow-card group-hover:bg-gray-lightest group-hover:bg-opacity-50">
+                                    <div class="flex items-center space-x-2 lg:space-x-6">
+                                        
+                                        <!-- Imagen -->
+                                        <div class="w-20 sm:w-30 overflow-hidden-z rounded-md">
+                                            <img src="{{ empresa.imagen_perfil }}" class="object-contain w-full h-full">
                                         </div>
 
-                                        <div class="flex items-center mt-2">
-                                            <div class="flex items-center">
-                                                <i class="bi bi-bookmark-check text-green-500"></i>
-                                                <a href="{{ url_for('main.perfil_empresa', empresa_id=empresa.id) }}#ofertas" class="text-xs sm:text-sm block font-normal text-tertiary-light mx-1">
+                                        <!-- Información -->
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-base sm:text-lg font-extrabold text-tertiary break-words">
+                                                {{ empresa.nombre }}
+                                            </p>
+                                            <p class="text-xs sm:text-sm block font-normal text-tertiary-light py-1">
+                                                <span>{{ empresa.rubro }}</span>
+                                            </p>
+
+                                            <div class="line-clamp-3">
+                                                <p class="text-xs sm:text-sm block font-normal text-tertiary-light">
                                                     <span class="break-words">
-                                                        Ofertas
+                                                        {{ empresa.descripcion }}
                                                     </span>
-                                                </a>
+                                                </p>
                                             </div>
-                                            <div class="flex items-center">
-                                                <i class="bi bi-pin-map text-green-500 ml-2"></i>
-                                                <a href="{{ url_for('main.perfil_empresa', empresa_id=empresa.id) }}#ubicaciones" class="text-xs sm:text-sm block font-normal text-tertiary-light mx-1">
-                                                    <span class="break-words">
-                                                        Ubicaciones
-                                                    </span>
-                                                </a>
-                                            </div>
-                                            <!-- Sitio Web -->
-                                            {% if empresa.sitio_web and empresa.sitio_web != "https://-" %}
+
+                                            <div class="flex items-center mt-2">
                                                 <div class="flex items-center">
-                                                    <i class="bi bi-globe text-green-500 ml-2"></i>
-                                                    <a href="{{ empresa.sitio_web }}" class="text-xs sm:text-sm block font-normal text-tertiary-light mx-1" target="_blank">
+                                                    <i class="bi bi-bookmark-check text-green-500"></i>
+                                                    <a href="{{ url_for('main.perfil_empresa', empresa_id=empresa.id) }}#ofertas" class="text-xs sm:text-sm block font-normal text-tertiary-light mx-1">
                                                         <span class="break-words">
-                                                            Sitio Web
+                                                            Ofertas
                                                         </span>
                                                     </a>
                                                 </div>
-                                            {% endif %}
+                                                <div class="flex items-center">
+                                                    <i class="bi bi-pin-map text-green-500 ml-2"></i>
+                                                    <a href="{{ url_for('main.perfil_empresa', empresa_id=empresa.id) }}#ubicaciones" class="text-xs sm:text-sm block font-normal text-tertiary-light mx-1">
+                                                        <span class="break-words">
+                                                            Ubicaciones
+                                                        </span>
+                                                    </a>
+                                                </div>
+                                                <!-- Sitio Web -->
+                                                {% if empresa.sitio_web and empresa.sitio_web != "https://-" %}
+                                                    <div class="flex items-center">
+                                                        <i class="bi bi-globe text-green-500 ml-2"></i>
+                                                        <a href="{{ empresa.sitio_web }}" class="text-xs sm:text-sm block font-normal text-tertiary-light mx-1" target="_blank">
+                                                            <span class="break-words">
+                                                                Sitio Web
+                                                            </span>
+                                                        </a>
+                                                    </div>
+                                                {% endif %}
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>                            
-                        </a>
-                    {% endfor %}
-                </div>
-            
-                <!-- Paginación -->
-                {% if pagination.pages > 1 %}
-                    <div class="mt-8 flex flex-wrap justify-center gap-2">
-                        {% for page_num in range(1, pagination.pages + 1) %}
-                        <a href="{{ url_for('main.empresas', page=page_num, search=search, categoria=categoria_actual) }}"
-                        class="px-3 py-1 text-sm font-medium rounded-xl bg-green-500 text-white hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-2">
-                            {{ page_num }}
-                        </a>
-                        {% endfor %}
-                    </div>
-                {% endif %}
+                                </div>                            
+                            </a>
+                        </div>
 
+                        <!-- Para pantallas pequeñas -->
+                        <div class="relative bg-white rounded-xl shadow-md overflow-hidden mb-6 sm:hidden">
+                            <div class="relative">
+                                <img src="{{ empresa.imagen_fondo }}" alt="Imagen aleatoria" class="w-full h-24 object-cover filter border border-gray-200 rounded-lg">
+                                
+                                <!-- Etiqueta "Retiro o delivery"
+                                <span class="absolute top-2 left-2 bg-black/70 text-white text-xs font-semibold px-2 py-0.5 rounded-full">
+                                    Retiro o delivery 
+                                </span>
+                                -->
+
+                                <!-- Icono de notificación -->
+                                <button class="absolute top-2 right-2 bg-white w-8 h-8 rounded-full shadow-lg flex items-center justify-center hover:bg-gray-200 transition">
+                                    <i class="bi bi-bell text-sm text-gray-700"></i>
+                                </button>
+
+                                <!-- Logo del negocio (Más pequeño y mejor posicionado) -->
+                                <div class="absolute -bottom-6 right-10 w-16 h-16 bg-white border border-gray-300 rounded-full shadow-lg flex items-center justify-center">
+                                    <img src="{{ empresa.imagen_perfil }}" alt="Logo" class="w-16 h-16 rounded-full">
+                                </div>
+                            </div>
+
+                            <!-- Contenido con borde redondeado -->
+                            <div class="p-2 bg-white">
+                                <!-- Información -->
+                                <div class="flex-1 min-w-0">
+
+                                    <p class="font-semibold text-gray-600 text-xs flex items-baseline gap-1">
+                                        <span class="font-extrabold text-tertiary text-sm">{{ empresa.nombre }}</span> ({{ empresa.rubro }})
+                                    </p>
+                                    
+                
+
+                                    <div class="flex items-center mt-0.5">
+                                        <div class="flex items-center">
+                                            <i class="bi bi-bookmark-check text-green-500 text-xs"></i>
+                                            <a href="{{ url_for('main.perfil_empresa', empresa_id=empresa.id) }}#ofertas" class="text-xs sm:text-sm block font-semibold text-tertiary-light mx-1">
+                                                <span class="break-words">
+                                                    Servicios/Productos
+                                                </span>
+                                            </a>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <i class="bi bi-pin-map text-green-500 ml-2 text-xs"></i>
+                                            <a href="{{ url_for('main.perfil_empresa', empresa_id=empresa.id) }}#ubicaciones" class="text-xs sm:text-sm block font-semibold text-tertiary-light mx-1">
+                                                <span class="break-words">
+                                                    Ubicaciones
+                                                </span>
+                                            </a>
+                                        </div>
+                                        <!-- Sitio Web -->
+                                        {% if empresa.sitio_web and empresa.sitio_web != "https://-" %}
+                                            <div class="flex items-center">
+                                                <i class="bi bi-globe text-green-500 ml-2 text-xs"></i>
+                                                <a href="{{ empresa.sitio_web }}" class="text-xs sm:text-sm block font-semibold text-tertiary-light mx-1" target="_blank">
+                                                    <span class="break-words">
+                                                        Sitio Web
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+
+                    {% if pagination.pages > 1 %}
+                        <div class="mt-8 flex flex-wrap justify-center gap-2">
+                            <!-- Botón Anterior -->
+                            {% if pagination.has_prev %}
+                            <a href="{{ url_for('main.empresas', page=pagination.prev_num, search=search, categoria=categoria_actual) }}"
+                                class="px-3 py-1 text-sm font-medium rounded-xl text-white bg-green-500 hover:bg-green-600 transition">
+                                «
+                            </a>
+                            {% endif %}
+
+                            <!-- Páginas -->
+                            {% for page_num in range(1, pagination.pages + 1) %}
+                                {% if page_num == 1 or page_num == pagination.pages or (page_num >= pagination.page - 2 and page_num <= pagination.page + 2) %}
+                                    <a href="{{ url_for('main.empresas', page=page_num, search=search, categoria=categoria_actual) }}"
+                                        class="px-3 py-1 text-sm font-medium rounded-xl {% if page_num == pagination.page %} bg-green-600 text-white {% else %} bg-green-500 text-white hover:bg-green-600 {% endif %}">
+                                        {{ page_num }}
+                                    </a>
+                                {% elif page_num == pagination.page - 3 or page_num == pagination.page + 3 %}
+                                    <span class="px-3 py-1 text-sm font-medium text-gray-500">...</span>
+                                {% endif %}
+                            {% endfor %}
+
+                            <!-- Botón Siguiente -->
+                            {% if pagination.has_next %}
+                            <a href="{{ url_for('main.empresas', page=pagination.next_num, search=search, categoria=categoria_actual) }}"
+                                class="px-3 py-1 text-sm font-medium rounded-xl text-white bg-green-500 hover:bg-green-600 transition">
+                                »
+                            </a>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- Mapa -->
+                <div id="map-view" class="hidden">
+                    <div id="map" style="width: 100%; height: 400px; border-radius: 10px; border: 1px solid #e2e2e2;"></div>
+                </div>
             </div>
         </div>
     </div>
@@ -248,6 +313,33 @@
 
 <!-- Scripts -->
 <script>
+
+// Función para cambiar entre vista de lista y mapa
+document.getElementById('map-btn').addEventListener('click', function() {
+    document.getElementById('empresa-list').classList.add('hidden');  // Ocultar la lista
+    document.getElementById('map-view').classList.remove('hidden');   // Mostrar el mapa
+
+    // Cambiar el estilo de los botones
+    document.getElementById('list-btn').classList.remove('bg-blue-500', 'text-white');
+    document.getElementById('list-btn').classList.add('text-blue-600', 'bg-blue-100');
+    document.getElementById('map-btn').classList.remove('text-blue-600', 'bg-blue-100');
+    document.getElementById('map-btn').classList.add('text-white', 'bg-blue-500');
+});
+
+document.getElementById('list-btn').addEventListener('click', function() {
+    document.getElementById('empresa-list').classList.remove('hidden'); // Mostrar la lista
+    document.getElementById('map-view').classList.add('hidden');        // Ocultar el mapa
+
+    // Cambiar el estilo de los botones
+    document.getElementById('map-btn').classList.remove('bg-blue-500', 'text-white');
+    document.getElementById('map-btn').classList.add('text-blue-600', 'bg-blue-100');
+    document.getElementById('list-btn').classList.remove('text-blue-600', 'bg-blue-100');
+    document.getElementById('list-btn').classList.add('text-white', 'bg-blue-500');
+});
+
+// Opcional: Si deseas que el mapa se inicie con la vista de mapa por defecto, puedes descomentar lo siguiente:
+// document.getElementById('map-btn').click(); 
+    
 
 // Variables globales del mapa
 let map;

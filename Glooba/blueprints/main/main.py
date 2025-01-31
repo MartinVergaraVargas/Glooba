@@ -104,6 +104,7 @@ def empresas():
             'descripcion': empresa.descripcion or "Sin descripción disponible",
             'rubro': empresa.rubro or "Rubro no especificado",
             'imagen_perfil': empresa.imagen_perfil_url,  # Llamamos a la propiedad imagen_perfil_url
+            'imagen_fondo': empresa.imagen_principal_url,
             'sitio_web': sitio_web,
             'total_ofertas': total_ofertas,
             'total_ubicaciones': total_ubicaciones,
