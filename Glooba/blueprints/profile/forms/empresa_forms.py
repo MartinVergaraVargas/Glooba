@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, EmailField, TelField, URLField, TextAreaField
+from wtforms import StringField, EmailField, TelField, URLField, TextAreaField, BooleanField
 from wtforms.validators import DataRequired, Email, Length, URL, Optional
 from flask_wtf.file import FileField, FileAllowed
 
@@ -14,6 +14,8 @@ class EmpresaProfileForm(FlaskForm):
     telefono = TelField('Teléfono', validators=[Optional(), Length(max=20)])
     sitio_web = URLField('Sitio Web', validators=[Optional(), URL(), Length(max=150)])
     rubro = StringField('Rubro', validators=[DataRequired(), Length(max=150)])
+    certificaciones = StringField('Certificacion(es)', validators=[Optional(), Length(max=150)])
+    servicio_a_domicilio = BooleanField('Servicio a Domicilio')
     descripcion = TextAreaField('Descripción')
     imagen_principal = FileField(
         'Imagen Principal', 

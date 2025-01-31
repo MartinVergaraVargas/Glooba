@@ -77,7 +77,21 @@
                     <div>
                         <h3 class="text-sm font-medium text-gray-500">Rubro</h3>
                         <p class="mt-1 text-lg font-medium text-gray-900">{{ current_user.rubro }}</p>
-                    </div>                
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-medium text-gray-500">Certificación(es)</h3>
+                        <p class="mt-1 text-lg font-medium text-gray-900">{{ current_user.certificaciones or 'Sin Certificaciones' }}</p>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-medium text-gray-500">Servicio a domicilio</h3>
+                        <p class="mt-1 text-lg font-medium text-gray-900">
+                            {% if current_user.servicio_a_domicilio %}
+                                Sí
+                            {% else %}
+                                No
+                            {% endif %}
+                        </p>
+                    </div> 
                     <div class="col-span-2">
                         <h3 class="text-sm font-medium text-gray-500">Descripción</h3>
                         <p class="mt-1 text-lg font-medium text-gray-900">{{ current_user.descripcion or 'Sin descripción' }}</p>

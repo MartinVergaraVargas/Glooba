@@ -103,7 +103,7 @@ def editar_perfil():
 
             db.session.commit()
             flash('Perfil actualizado correctamente', 'success')
-            return redirect(url_for('perfil.view_profile'))
+            return redirect(url_for('perfil.ver_perfil'))
         except Exception as e:
             db.session.rollback()
             flash(f'Error al actualizar el perfil: {str(e)}', 'error')
