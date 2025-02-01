@@ -29,7 +29,7 @@
                         </a>
                     </div>
                     <div class="flex items-center justify-center mt-4">
-                        <a href="{{ url_for('main.index') }}" class="text-sm font-medium text-blue-500 hover:text-blue-600">
+                        <a href="{{ url_for('main.index') }}" class="text-sm font-medium text-green-500 hover:text-green-600">
                             <i class="bi bi-info-circle-fill mr-1"></i>
                             Más información
                         </a>
@@ -92,11 +92,11 @@
 
                         <!-- Botones de Explorar y Mapa -->
                         <div class="flex justify-center mx-4">
-                            <div class="flex items-center bg-blue-100 rounded-full shadow-md w-full">
-                                <button id="map-btn" class="flex-grow px-6 py-1 text-sm sm:text-base text-blue-600 font-semibold rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200">
+                            <div class="flex items-center bg-green-100 rounded-full shadow-md w-full">
+                                <button id="map-btn" class="flex-grow px-6 py-1 text-sm sm:text-base text-green-600 font-semibold rounded-full focus:outline-none focus:ring-2 focus:ring-green-500 transition duration-200">
                                     Mapa
                                 </button>
-                                <button id="list-btn" class="flex-grow px-6 py-1 text-sm sm:text-base text-white font-semibold bg-blue-500 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200">
+                                <button id="list-btn" class="flex-grow px-6 py-1 text-sm sm:text-base text-white font-semibold bg-green-500 rounded-full focus:outline-none focus:ring-2 focus:ring-green-500 transition duration-200">
                                     Lista
                                 </button>
                             </div>
@@ -295,7 +295,7 @@
                                         class="px-3 py-1 text-sm font-medium rounded-xl {% if page_num == pagination.page %} bg-green-600 text-white {% else %} bg-green-500 text-white hover:bg-green-600 {% endif %}">
                                         {{ page_num }}
                                     </a>
-                                {% elif page_num == pagination.page - 2 or page_num == pagination.page + 2 %}
+                                {% elif page_num == pagination.page - 3 or page_num == pagination.page + 3 %}
                                     <span class="px-3 py-1 text-sm font-medium text-gray-500">...</span>
                                 {% endif %}
                             {% endfor %}
@@ -329,10 +329,10 @@ document.getElementById('map-btn').addEventListener('click', function() {
     document.getElementById('map-view').classList.remove('hidden');   // Mostrar el mapa
 
     // Cambiar el estilo de los botones
-    document.getElementById('list-btn').classList.remove('bg-blue-500', 'text-white');
-    document.getElementById('list-btn').classList.add('text-blue-600', 'bg-blue-100');
-    document.getElementById('map-btn').classList.remove('text-blue-600', 'bg-blue-100');
-    document.getElementById('map-btn').classList.add('text-white', 'bg-blue-500');
+    document.getElementById('list-btn').classList.remove('bg-green-500', 'text-white');
+    document.getElementById('list-btn').classList.add('text-green-600', 'bg-green-100');
+    document.getElementById('map-btn').classList.remove('text-green-600', 'bg-green-100');
+    document.getElementById('map-btn').classList.add('text-white', 'bg-green-500');
 });
 
 document.getElementById('list-btn').addEventListener('click', function() {
@@ -340,10 +340,10 @@ document.getElementById('list-btn').addEventListener('click', function() {
     document.getElementById('map-view').classList.add('hidden');        // Ocultar el mapa
 
     // Cambiar el estilo de los botones
-    document.getElementById('map-btn').classList.remove('bg-blue-500', 'text-white');
-    document.getElementById('map-btn').classList.add('text-blue-600', 'bg-blue-100');
-    document.getElementById('list-btn').classList.remove('text-blue-600', 'bg-blue-100');
-    document.getElementById('list-btn').classList.add('text-white', 'bg-blue-500');
+    document.getElementById('map-btn').classList.remove('bg-green-500', 'text-white');
+    document.getElementById('map-btn').classList.add('text-green-600', 'bg-green-100');
+    document.getElementById('list-btn').classList.remove('text-green-600', 'bg-green-100');
+    document.getElementById('list-btn').classList.add('text-white', 'bg-green-500');
 });
 
 // Opcional: Si deseas que el mapa se inicie con la vista de mapa por defecto, puedes descomentar lo siguiente:
@@ -398,12 +398,24 @@ function initMap() {
                     title: "Ubicación Actual",
                     icon: {
                         path: google.maps.SymbolPath.CIRCLE,
-                        fillColor: "blue",  // Color de fondo
-                        fillOpacity: 1,
+                        fillColor: "#059669", // Verde azulado similar a la imagen
+                        fillOpacity: 1, // Opacidad máxima para el centro
                         strokeWeight: 2,
-                        strokeColor: "#ffffff",  // Color del borde
-                        scale: 8  // Tamaño del círculo
-                    }
+                        strokeColor: "#ffffff", // Borde blanco
+                        scale: 10 // Tamaño del punto central
+                    }           
+                });
+
+                // Agregar un círculo de fondo difuminado
+                const circle = new google.maps.Circle({
+                    strokeColor: "transparent",
+                    strokeOpacity: 0,
+                    strokeWeight: 0,
+                    fillColor: "#059669", // Mismo color del punto, pero con menor opacidad
+                    fillOpacity: 0.3, // Hacerlo semitransparente
+                    map,
+                    center: { lat: yourLatitude, lng: yourLongitude },
+                    radius: 30, // Ajusta el tamaño para un efecto difuminado
                 });
 
                 // Opcional: Mostrar un InfoWindow con un mensaje
@@ -458,7 +470,7 @@ function createMarkers(ubicaciones) {
             title: ubicacion.nombre,
             icon: ubicacion.es_propia ? null : {
                 path: "M-1.547 12l6.563-6.609-1.406-1.406-5.156 5.203-2.063-2.109-1.406 1.406zM0 0q2.906 0 4.945 2.039t2.039 4.945q0 1.453-0.727 3.328t-1.758 3.516-2.039 3.070-1.711 2.273l-0.75 0.797q-0.281-0.328-0.75-0.867t-1.688-2.156-2.133-3.141-1.664-3.445-0.75-3.375q0-2.906 2.039-4.945t4.945-2.039z",
-                fillColor: "green",
+                fillColor: "#22c55e",
                 fillOpacity: 1,
                 strokeWeight: 0,
                 rotation: 0,
