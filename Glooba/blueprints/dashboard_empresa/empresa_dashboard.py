@@ -63,7 +63,7 @@ def ofertas():
             'fecha_fin': oferta.fecha_fin
         })
 
-    return render_template('ofertas/gestionar_ofertas.html', ofertas=ofertas_procesadas)
+    return render_template('posts/view_posts.html', ofertas=ofertas_procesadas)
 
 
 @empresa_bp.route('/nueva_oferta', methods=['GET', 'POST'])
@@ -107,7 +107,7 @@ def nueva_oferta():
             db.session.rollback()
             flash(f'Error al crear la oferta: {str(e)}', 'error')
 
-    return render_template('ofertas/nueva_oferta.html', form=form)
+    return render_template('posts/add_post.html', form=form)
 
 
 @empresa_bp.route('/editar_oferta/<int:id>', methods=['GET', 'POST'])
@@ -157,7 +157,7 @@ def editar_oferta(id):
             flash(f'Error al actualizar la oferta: {str(e)}', 'error')
 
 
-    return render_template('ofertas/editar_oferta.html', form=form, oferta=oferta)
+    return render_template('posts/edit_post.html', form=form, oferta=oferta)
 
 
 @empresa_bp.route('/eliminar_oferta/<int:id>', methods=['DELETE'])
@@ -187,7 +187,7 @@ def ubicaciones():
         return redirect(url_for('main.index'))
     
     ubicaciones = Ubicacion.query.filter_by(empresa_id=current_user.id).all()
-    return render_template('ubicaciones/lista_ubicaciones.html', ubicaciones=ubicaciones)
+    return render_template('locations/view_locations.html', ubicaciones=ubicaciones)
 
 
 @empresa_bp.route('/nueva_ubicacion', methods=['GET', 'POST'])
@@ -225,7 +225,7 @@ def crear_ubicacion():
             flash(f'Error al crear la ubicación: {str(e)}', 'error')
             return redirect(url_for('empresa.crear_ubicacion'))
 
-    return render_template('ubicaciones/crear_ubicacion.html', form=form, \
+    return render_template('locations/add_location.html', form=form, \
         empresa_nombre=empresa_nombre, api_key=api_key)
 
 
@@ -255,7 +255,7 @@ def editar_ubicacion(id):
         flash('Ubicación editada exitosamente', 'success')
         return redirect(url_for('empresa.ubicaciones'))
 
-    return render_template('ubicaciones/editar_ubicacion.html', form=form, ubicacion=ubicacion, \
+    return render_template('locations/edit_location.html', form=form, ubicacion=ubicacion, \
         api_key=api_key, empresa_nombre=empresa_nombre)
 
 @empresa_bp.route('/eliminar_ubicacion/<int:id>', methods=['DELETE'])

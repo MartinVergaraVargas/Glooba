@@ -80,6 +80,8 @@ class Empresa(User):
     rut_empresa = db.Column(db.String(50), unique=True, nullable=False)
     sitio_web = db.Column(db.String(255))
     rubro = db.Column(db.String(255))
+    certificaciones = db.Column(db.String(255), nullable=True)
+    servicio_a_domicilio = db.Column(db.Boolean, default=False)
     descripcion = db.Column(db.Text)
     imagen_principal = db.Column(db.String(255), nullable=True) 
     imagen_secundaria_arriba = db.Column(db.String(255), nullable=True)  

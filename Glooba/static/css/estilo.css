@@ -7,7 +7,7 @@
     --gradient-title: linear-gradient(90deg, #2ecc71, #3498db);
     --gradient-button: linear-gradient(90deg, #2ecc71, #3498db);
     --gradient-navbar: linear-gradient(to right, #4c497d, #0a7591, #0a7591, #4c497d);
-    --gradient-body: white;
+    --gradient-body: #fafafa;
     --dropdown: #0a7591;
     --primary-dark: #423a68;
     --primary-cyan-dark: #0d8ba7;
@@ -29,31 +29,47 @@ iframe {
     overflow-y: scroll;
 }
 
-/* Tamaño base para pantallas pequeñas */
-.responsive-logo {
-    max-height: 30px !important; /* Altura de la imagen */
-    width: auto !important; /* Mantener proporciones */
+.bg-navbar {
+    background: var(--gradient-navbar) !important;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.navbar .text-white {
+    transition: color 0.3s ease;
+}
+
+.navbar .text-white:hover {
+    color: #11dfd0 !important;
 }
 
 .navbar-brand {
-    font-size: 30px !important; /* Tamaño del texto */
-    display: flex;
-    align-items: center; /* Alinea verticalmente los elementos dentro del contenedor */
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 1px;
+    font-size: 3rem;
 }
 
-.navbar-brand:hover {
-    color: var(--primary-hover) !important; 
+.badge {
+    font-size: 0.7rem;
 }
 
-#navbar, .offcanvas-header {
-    height: 80px !important;
+.dropdown-menu {
+    border: none;
+    border-radius: 0.5rem;
+}
+
+.bg-dropdown {
+    background-color: var(--dropdown) !important;
 }
 
 /* Body */
 body {  
     font-family: 'Arial', sans-serif;
-    background: var(--gradient-body);
+    background: var(--gradient-body) !important;
 }
+
+/*-----------------*/
+
+/* Informative page */
 
 /* Seccion header */
 #header-section {
@@ -115,16 +131,9 @@ body {
     margin: 0 !important;
 }
 
+
 /* Pantallas pequeñas e inferiores a (≥576px) */
 @media (max-width: 767px) {
-
-    .responsive-logo {
-        max-height: 50px !important;
-    }
-
-    .navbar-brand {
-        font-size: 35px !important;
-    }
 
     #headline {
         font-size: 40px !important;
@@ -170,12 +179,7 @@ body {
 
 /* Pantallas grandes y superiores (≥992px) */
 @media (min-width: 768px) {
-    .responsive-logo {
-        max-height: 40px !important;
-    }
-    .navbar-brand {
-        font-size: 40px !important;
-    }
+    
     #img-header-subsection {
         padding: 3rem !important;
         margin: 0 !important;
@@ -190,12 +194,7 @@ body {
 
 /* Pantallas extra grandes y superiores (≥1200px) */
 @media (min-width: 1200px) {
-    .responsive-logo {
-        max-height: 50px !important;
-    }
-    .navbar-brand {
-        font-size: 45px !important;
-    }
+   
     #img-header-subsection {
         padding: 3rem !important;
         margin: 0 !important;
@@ -207,61 +206,6 @@ body {
     #headline {
         font-size: 50px !important;
     }
-}
-
-.navbar-spacing {
-    padding: 10px 10px !important; /* Espaciado fijo: 10px arriba/abajo, 10px izquierda/derecha */
-    /* margin-bottom: 40px !important; */
-    max-width: 100% !important; /* Evitar restricciones de ancho responsivo */
-    box-sizing: border-box !important; /* Incluye borde y padding en el ancho */
-}
-
-#toggleSidebar {
-    color: white;
-}
-
-#navbar {
-    background: var(--gradient-navbar) !important;
-    box-shadow: var(--shadow) !important; /* Ajusta la sombra (x desplazamiento, y desplazamiento, difusa, color) */
-}
-
-#navbar, #navbar a, #navbar .navbar-brand, #navbar .nav-link
-{
-    color: white; 
-}
-
-#navbar .nav-link:hover {
-    color: var(--primary-hover) !important; 
-}
-
-.dropdown-menu {
-    background: var(--dropdown) !important;
-}
-
-.dropdown-menu a:hover {
-    color: var(--primary-hover) !important;
-}
-
-/* Sidebar */
-
-.offcanvas.offcanvas-end {
-    width: 75% !important; /* Ocupa la mitad de la pantalla en dispositivos móviles */
-}
-
-.offcanvas-header {
-    background: var(--gradient-navbar) !important;
-}
-
-.offcanvas-header .offcanvas-title {
-    color: white;
-}
-
-.offcanvas-body {
-    background: white !important;
-}
-
-#dropdown-menu-sidebar{
-    background-color: white !important;
 }
 
 #headline {
@@ -345,6 +289,8 @@ body {
     background-color: var(--secondary-button) !important;
     color: var(--gradient-button) !important; /* Cambia el color del texto */
 }
+
+/*-----------------*/
 
 .header{width:100%;
     background-image: linear-gradient(to right, #b92b27, #1565c0);
@@ -839,10 +785,10 @@ body {
 
 
 /* Line clamp */
-.line-clamp-3 {
+.line-clamp-2 {
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
+    -webkit-line-clamp: 2;
     overflow: hidden;
 }
 
@@ -876,4 +822,30 @@ body {
     --tw-ring-offset-shadow: 2px 2px #0000;
     --tw-ring-shadow: 2px 2px #0000;
     --tw-shadow: 2px 2px #0000;
+}
+
+#user-address {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%; /* Esto asegura que el texto no se desborde */
+}
+
+/* Para pantallas pequeñas */
+@media (max-width: 600px) {
+    #user-address {
+        font-size: 14px; /* Puedes ajustar el tamaño de fuente según prefieras */
+    }
+}
+
+@layer utilities {
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+   /* Hide scrollbar for IE, Edge and Firefox */
+    .no-scrollbar {
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+  }
 }
