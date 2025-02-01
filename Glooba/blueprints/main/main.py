@@ -56,6 +56,7 @@ def empresas():
         query = query.filter(
             db.or_(
                 Empresa.nombre.ilike(search_term),
+                Empresa.rubro.ilike(search_term),
                 Empresa.descripcion.ilike(search_term),
                 Oferta.titulo.ilike(search_term),
                 Oferta.descripcion.ilike(search_term)
