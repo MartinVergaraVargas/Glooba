@@ -59,9 +59,9 @@
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end bg-dropdown text-white shadow" aria-labelledby="userDropdown">
                         <!-- Enlaces adicionales en pantallas pequeñas -->
-                        <li class="d-lg-none"><a class="dropdown-item text-white" href="#"><i class="bi bi-house-fill"></i> Inicio</a></li>
-                        <li class="d-lg-none"><a class="dropdown-item text-white" href="#"><i class="bi bi-map-fill"></i> Explorar</a></li>
-                        <li class="d-lg-none"><hr class="dropdown-divider"></li>
+                        <li class="d-lg-none"><a class="dropdown-item text-white" href="{{ url_for('main.index') }}"><i class="bi bi-house-fill"></i> Inicio</a></li>
+                        <li class="d-lg-none"><a class="dropdown-item text-white" href="{{ url_for('main.empresas') }}"><i class="bi bi-map-fill"></i> Explorar</a></li>
+                        <li class="d-lg-none"><div class="dropdown-divider bg-white"></div></li>
                         
                         {% if not current_user.is_authenticated or current_user.is_anonymous %}
                             <li><a class="dropdown-item text-white" href="{{ url_for('auth.login') }}"><i class="bi bi-box-arrow-in-right"></i> Iniciar sesión</a></li>
