@@ -1,9 +1,220 @@
 {% extends "layout.html" %}
 
 {% block content %}
-<body>
-    <div class="container" style="height: 100%;">
-        <h1>Coming soon...</h1>
+
+<head>
+    <!-- Estilos existentes -->
+    <style>
+        .gradient-border {
+            position: relative;
+            background: white;
+        }
+        .gradient-border::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 1.5rem;
+            padding: 2px;
+            background: linear-gradient(45deg, #10B981 0%, #059669 100%);
+            -webkit-mask: 
+                linear-gradient(#fff 0 0) content-box, 
+                linear-gradient(#fff 0 0);
+            mask: 
+                linear-gradient(#fff 0 0) content-box, 
+                linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+        }
+    </style>
+</head>
+
+<!-- Hero Section para Empresas -->
+<main class="relative overflow-hidden bg-gradient-to-br from-green-50 to-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+        <div class="flex flex-col md:flex-row items-center gap-12">
+            <!-- Text Content -->
+            <div class="md:w-1/2 space-y-6">
+                <h1 class="text-5xl md:text-6xl font-bold text-gray-900 leading-tight"
+                    data-aos="fade-up"
+                    data-aos-duration="800">
+                    <span class="bg-clip-text text-transparent bg-gradient-to-r from-green-500 to-blue-500">Únete a la Revolución Sustentable</span>
+                </h1>
+                
+                <p class="text-xl text-gray-600 leading-relaxed"
+                   data-aos="fade-up"
+                   data-aos-delay="300"
+                   data-aos-duration="800">
+                    Conecta tu empresa con la comunidad de consumidores conscientes en Latinoamérica
+                </p>
+
+                <ul class="space-y-4"
+                    data-aos="fade-up"
+                    data-aos-delay="600"
+                    data-aos-duration="800">
+                    <li class="flex items-center text-lg text-gray-700">
+                        <i class="bi bi-award-fill text-green-500 mr-3" style="font-size: 1.5rem;"></i>
+                        Certificación Glooba Verde
+                    </li>
+                    <li class="flex items-center text-lg text-gray-700">
+                        <i class="bi bi-graph-up-arrow text-green-500 mr-3" style="font-size: 1.5rem;"></i>
+                        Aumenta visibilidad en búsquedas
+                    </li>
+                    <li class="flex items-center text-lg text-gray-700">
+                        <i class="bi bi-people-fill text-green-500 mr-3" style="font-size: 1.5rem;"></i>
+                        Acceso a red de empresas sustentables
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Formulario de Registro -->
+            <div class="md:w-1/2 mt-12 md:mt-0"
+                 data-aos="fade-up"
+                 data-aos-delay="300"
+                 data-aos-duration="800">
+                <div class="gradient-border p-8 rounded-2xl bg-white shadow-2xl">
+                    <h3 class="text-3xl font-bold text-gray-900 mb-8">Aplica a Nuestra Red</h3>
+                    
+                    <form class="space-y-6">
+                        <div>
+                            <label class="block text-gray-700 mb-2">Nombre de la Empresa</label>
+                            <input type="text" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                        </div>
+
+                        <div>
+                            <label class="block text-gray-700 mb-2">Correo electrónico</label>
+                            <input type="text" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-gray-700 mb-2">Certificaciones Sustentables</label>
+                            <select class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500">
+                                <option>B Corp</option>
+                                <option>Carbon Neutral</option>
+                                <option>LEED</option>
+                                <option>Otro</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-gray-700 mb-2">Descripción Sustentable</label>
+                            <textarea rows="4" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"></textarea>
+                        </div>
+
+                        <button class="w-full py-4 bg-gradient-to-r from-green-500 to-blue-500 text-white font-semibold rounded-lg hover:shadow-lg transition-all">
+                            Enviar Solicitud
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-</body>
-{%endblock%}
+</main>
+
+<!-- Beneficios Exclusivos -->
+<section class="py-16 bg-emerald-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-4xl font-bold text-center mb-16" data-aos="fade-up">
+            Ventajas de Ser Parte de Glooba
+        </h2>
+        
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all"
+                 data-aos="fade-up"
+                 data-aos-delay="200">
+                <div class="text-green-500 text-4xl mb-4">
+                    <i class="bi bi-geo-alt"></i>
+                </div>
+                <h3 class="text-2xl font-bold mb-4">Presencia en Mapa Circular</h3>
+                <p class="text-gray-600">Aparece en nuestro mapa interactivo usado por decenas de usuarios diariamente</p>
+            </div>
+            
+            <div class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all"
+                 data-aos="fade-up"
+                 data-aos-delay="400">
+                <div class="text-green-500 text-4xl mb-4">
+                    <i class="bi bi-bar-chart-line"></i>
+                </div>
+                <h3 class="text-2xl font-bold mb-4">Dashboard de Impacto</h3>
+                <p class="text-gray-600">Mide y muestra tu impacto ambiental con métricas verificadas</p>
+            </div>
+            
+            <div class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all"
+                 data-aos="fade-up"
+                 data-aos-delay="600">
+                <div class="text-green-500 text-4xl mb-4">
+                    <i class="bi bi-shield-check"></i>
+                </div>
+                <h3 class="text-2xl font-bold mb-4">Sello de Validación</h3>
+                <p class="text-gray-600">Certificación digital verificable para usar en tus canales</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Proceso de Validación -->
+<section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16" data-aos="fade-up">
+            <h2 class="text-4xl font-bold mb-4">Nuestro Proceso de Validación</h2>
+            <p class="text-xl text-gray-600">Garantizamos integridad y transparencia</p>
+        </div>
+        
+        <div class="grid md:grid-cols-4 gap-8 text-center">
+            <div data-aos="fade-up" data-aos-delay="200">
+                <div class="gradient-border h-24 w-24 mx-auto rounded-full flex items-center justify-center mb-4">
+                    <span class="text-2xl font-bold text-green-600">1</span>
+                </div>
+                <h3 class="font-semibold mb-2">Revisión Documental</h3>
+                <p class="text-gray-600 text-sm">Verificación de certificaciones</p>
+            </div>
+            
+            <div data-aos="fade-up" data-aos-delay="400">
+                <div class="gradient-border h-24 w-24 mx-auto rounded-full flex items-center justify-center mb-4">
+                    <span class="text-2xl font-bold text-green-600">2</span>
+                </div>
+                <h3 class="font-semibold mb-2">Evaluación Técnica</h3>
+                <p class="text-gray-600 text-sm">Análisis de procesos y proveedores</p>
+            </div>
+            
+            <div data-aos="fade-up" data-aos-delay="600">
+                <div class="gradient-border h-24 w-24 mx-auto rounded-full flex items-center justify-center mb-4">
+                    <span class="text-2xl font-bold text-green-600">3</span>
+                </div>
+                <h3 class="font-semibold mb-2">Visita de Verificación</h3>
+                <p class="text-gray-600 text-sm">Validación in situ (opcional)</p>
+            </div>
+            
+            <div data-aos="fade-up" data-aos-delay="800">
+                <div class="gradient-border h-24 w-24 mx-auto rounded-full flex items-center justify-center mb-4">
+                    <span class="text-2xl font-bold text-green-600">4</span>
+                </div>
+                <h3 class="font-semibold mb-2">Publicación en Plataforma</h3>
+                <p class="text-gray-600 text-sm">Activación de perfil y beneficios</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Final -->
+<section class="py-16 bg-gradient-to-br from-green-600 to-blue-600">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div class="gradient-border p-12 rounded-2xl bg-white bg-opacity-10 backdrop-blur-sm">
+            <h2 class="text-4xl font-bold text-white mb-8" data-aos="fade-up">
+                ¿Listo para Potenciar tu Impacto?
+            </h2>
+            <p class="text-xl text-white mb-8" data-aos="fade-up" data-aos-delay="200">
+                Únete a las 100+ empresas que ya están transformando la economía regional
+            </p>
+            <button class="inline-flex items-center justify-center px-12 py-5 text-lg font-semibold text-green-600 bg-white rounded-lg transition-all hover:bg-gray-100 hover:shadow-xl"
+                    data-aos="fade-up"
+                    data-aos-delay="400">
+                Comenzar Registro
+            </button>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
