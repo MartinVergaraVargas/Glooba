@@ -4,262 +4,145 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perfil Empresa</title>
+    <title>Perfil Empresa - Glooba</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        .business-bg-gradient {
+            background: linear-gradient(135deg, #059669 0%, #10B981 100%);
+        }
+    </style>
 </head>
 {% endblock %}
 
 {% block content %}
-<div class="min-h-screen py-8 bg-gray-lightest">
-    <div class="space-y-8">
-        <div class="block w-full mx-auto box-border relative space-y-5 px-2 md:px-6" style="max-width: 800px;">
-            <div class="flex space-x-4">
-                <!-- Botón de navegación -->
-                <a 
-                    class="top-0 right-0 w-8 h-8 flex-none rounded-full flex items-center justify-center bg-white hover:bg-gray-lightest active:bg-gray-lighter shadow-card" 
-                    href="{{ url_for('main.empresas') }}"
-                >
-                    <svg 
-                        stroke="currentColor" 
-                        fill="none" 
-                        stroke-width="2" 
-                        viewBox="0 0 24 24" 
-                        stroke-linecap="round" 
-                        stroke-linejoin="round" 
-                        height="1em" 
-                        width="1em" 
-                        xmlns="http://www.w3.org/2000/svg"
-                    >
-                        <polyline points="15 18 9 12 15 6"></polyline>
-                    </svg>
-                </a>
-            
-                <!-- Información principal -->
-                <div class="flex-1 min-w-0">
-                    <h4 class="text-xl sm:text-2xl font-extrabold text-tertiary break-words" style="hyphens: auto;">
-                        {{ empresa.nombre }}
-                    </h4>
-                    <p class="text-sm sm:text-base block font-normal text-tertiary-light">
-                        {{ empresa.rubro }}
-                    </p>
-                </div>
-            
-                <!-- Botón secundario 
-                <div>
-                    <div class="bg-white p-1 rounded-full flex items-center justify-center">
-                        <button 
-                            class="relative overflow-hidden-z flex items-center justify-center focus:outline-none bg-secondary-lightest rounded-full flex-none" 
-                            style="width: 32px; height: 32px;"
-                        >
-                        <div class="relative self-center flex">
-                            <a href="{{ empresa.sitio_web }}" target="_blank" class="text-blue-500 hover:text-blue-700">
-                                <i class="bi bi-globe"></i>
-                            </a>                            
-                        </div>
-                        </button>
-                    </div>
-                </div>
-                -->
+<div class="min-h-screen bg-gradient-to-b from-green-50 to-white font-['Inter']">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Header Section -->
+        <div class="flex items-center gap-4 mb-8">
+            <a href="{{ url_for('main.empresas') }}" 
+               class="p-2 rounded-full bg-white shadow-lg hover:shadow-xl transition-all hover:-translate-x-1">
+                <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                </svg>
+            </a>
+            <div class="flex-1">
+                <h1 class="text-2xl font-bold font-semibold text-tertiary">
+                    {{ empresa.nombre }}
+                </h1>
+                <p class="text-lg text-gray-600 mt-1">{{ empresa.rubro }}</p>
             </div>
-            
-            <!-- Contenedor principal -->
-            <div class="bg-white ring-opacity-50 p-0 rounded-lg overflow-hidden-z">
-                <!-- Sección de imágenes -->
-                <div class="h-52 md:h-64 lg:h-96 space-y-6 bg-white">
-                    <div class="grid grid-cols-3 gap-2 h-full">
-                        <!-- Imagen principal -->
-                        <div class="col-span-2 h-full relative bg-gray-dark">
-                            <span 
-                                style="box-sizing: border-box; display: block; overflow: hidden; width: initial; height: initial; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; position: absolute; inset: 0px;"
-                            >
-                                <img 
-                                    src="{{ empresa.imagen_principal_url }}" 
-                                    decoding="async" 
-                                    data-nimg="fill" 
-                                    style="position: absolute; inset: 0px; box-sizing: border-box; padding: 0px; border: medium; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: cover;"
-                                />
-                            </span>
-                        </div>
-                        <!-- Imágenes secundarias -->
-                        <div class="grid grid-rows-2 h-full relative gap-2">
-                            <div class="relative bg-gray-dark">
-                                <span 
-                                    style="box-sizing: border-box; display: block; overflow: hidden; width: initial; height: initial; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; position: absolute; inset: 0px;"
-                                >
-                                    <img 
-                                        src="{{ empresa.imagen_secundaria_arriba_url }}" 
-                                        decoding="async" 
-                                        data-nimg="fill" 
-                                        style="position: absolute; inset: 0px; box-sizing: border-box; padding: 0px; border: medium; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: cover;"
-                                    />
-                                </span>
-                            </div>
-                            <div class="relative bg-gray-dark">
-                                <span 
-                                    style="box-sizing: border-box; display: block; overflow: hidden; width: initial; height: initial; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; position: absolute; inset: 0px;"
-                                >
-                                    <img 
-                                        src="{{ empresa.imagen_secundaria_abajo_url }}" 
-                                        decoding="async" 
-                                        data-nimg="fill" 
-                                        style="position: absolute; inset: 0px; box-sizing: border-box; padding: 0px; border: medium; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: cover;"
-                                    />
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Descripción -->
-            <div>
-                <p class="text-base sm:text-lg font-extrabold text-tertiary mb-2">Descripción</p>
-                <div class="bg-white ring-opacity-50 p-3 sm:p-4 rounded-lg shadow-card">
-                    <p class="text-sm sm:text-base block font-normal text-tertiary-light text-justify">
-                        {{ empresa.descripcion }}
-                    </p>
-                </div>
-            </div>
-            <h4 class="text-xl sm:text-2xl font-black hidden md:block text-tertiary truncate mb-10">
-                Explora y reserva nuestros servicios
-            </h4>
-            
-            <div class="bg-white ring-opacity-50 p-0 rounded-lg shadow-card relative transition duration-200 bg-white">
-                <div class="flex overflow-auto no-scrollbar pointer-events-auto">
+        </div>
 
-                    <!-- Botón Ofertas -->
-                    <a href="#ofertas" class="block cursor-pointer">
-                        <div class="group relative px-3">
-                            <div class="absolute left-4 right-4 top-2 md:top-3 bottom-2 md:bottom-3 opacity-50 rounded-md group-hover:bg-gray-light"></div>
-                            <div class="flex items-center py-4 md:py-5 px-4 relative">
-                                <div style="width: 9px; height: 22px; margin-left: 10px;" class="absolute business-bg-secondary rounded-tr-sm rounded-sm transition duration-200 flex-none left-0 opacity-100"></div>
-                                <p class="text-sm sm:text-base block font-black truncate px-2 business-text-primary" style="line-height: 1;">
-                                    Ofertas
-                                </p>
-                            </div>
-                        </div>
-                    </a>
+        <!-- Image Gallery -->
+        <div class="grid grid-cols-3 gap-1 mb-8">
+            <div class="col-span-2 aspect-square rounded-xl overflow-hidden shadow-lg">
+                <img src="{{ empresa.imagen_principal_url }}" 
+                     class="w-full h-full object-cover hover:scale-105 transition-transform">
+            </div>
+            <div class="grid grid-rows-2 gap-1">
+                <div class="aspect-square rounded-xl overflow-hidden shadow-lg">
+                    <img src="{{ empresa.imagen_secundaria_arriba_url }}" 
+                         class="w-full h-full object-cover hover:scale-105 transition-transform">
+                </div>
+                <div class="aspect-square rounded-xl overflow-hidden shadow-lg">
+                    <img src="{{ empresa.imagen_secundaria_abajo_url }}" 
+                         class="w-full h-full object-cover hover:scale-105 transition-transform">
+                </div>
+            </div>
+        </div>
 
-                    <!-- Botón Ubicaciones -->
-                    <a href="#ubicaciones" class="block cursor-pointer">
-                        <div class="group relative px-3">
-                            <div class="absolute left-4 right-4 top-2 md:top-3 bottom-2 md:bottom-3 opacity-50 rounded-md group-hover:bg-gray-light"></div>
-                            <div class="flex items-center py-4 md:py-5 px-4 relative">
-                                <div style="width: 9px; height: 22px; margin-left: 10px;" class="absolute business-bg-secondary rounded-tr-sm rounded-sm transition duration-200 flex-none left-0 opacity-0"></div>
-                                <p class="text-sm sm:text-base block font-normal truncate px-2 text-tertiary" style="line-height: 1;">
-                                    Ubicaciones
-                                </p>
-                            </div>
+        <!-- Description Section -->
+        <div class="bg-white rounded-2xl p-6 shadow-lg mb-8">
+            <h2 class="text-xl font-bold text-gray-900 mb-4">Descripción</h2>
+            <p class="text-gray-600 leading-relaxed text-justify">
+                {{ empresa.descripcion }}
+            </p>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <div class="flex border-b-2 border-gray-100 mb-8">
+            <a href="#ofertas" 
+               class="px-6 py-3 text-gray-600 font-medium hover:text-green-600 transition-colors border-b-2 border-transparent hover:border-green-500">
+                Publicaciones
+            </a>
+            <a href="#ubicaciones" 
+               class="px-6 py-3 text-gray-600 font-medium hover:text-green-600 transition-colors border-b-2 border-transparent hover:border-green-500">
+                Ubicaciones
+            </a>
+        </div>
+
+        <!-- Ofertas Section -->
+        <div id="ofertas" class="mb-12">
+            <h3 class="text-xl font-bold text-gray-900 mb-6">Publicaciones Destacadas</h3>
+            <div class="grid gap-3">
+                {% for oferta in ofertas %}
+                <div class="bg-white rounded-xl p-4 sm:p-6 shadow-lg hover:shadow-xl transition-all border border-gray-100">
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <!-- Imagen más compacta -->
+                        <div class="w-full sm:w-24 h-24 flex-shrink-0 rounded-xl overflow-hidden border-2 border-white shadow-md">
+                            <img src="{{ oferta.imagen_oferta_url }}" 
+                                class="w-full h-full object-cover transform hover:scale-105 transition-transform">
                         </div>
-                    </a>
-                </div>
-            
-                <div class="absolute top-0 left-0 w-full h-full flex items-center justify-between pointer-events-none">
-                    <!-- Left Navigation Button -->
-                    <div class="transition duration-200 h-full px-3 relative flex items-center justify-center pointer-events-auto opacity-0">
-                        <div class="z-20">
-                            <button class="box-border rounded-full flex items-center justify-center focus:outline-none bg-white hover:bg-gray-light active:bg-gray-dark border border-gray-dark w-6 h-6 opacity-50 pointer-events-none" disabled="">
-                                <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="text-tertiary-lighter" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
-                                    <polyline points="15 18 9 12 15 6"></polyline>
-                                </svg>
-                            </button>
-                        </div>
-                        <div style="background: linear-gradient(to right, white 20%, rgba(255, 255, 255, 0));" class="absolute top-0 left-0 h-full w-full rounded-l-lg"></div>
-                    </div>
-            
-                    <!-- Right Navigation Button -->
-                    <div class="transition duration-200 h-full px-3 relative flex items-center justify-center pointer-events-auto opacity-0">
-                        <div class="z-20">
-                            <button class="box-border rounded-full flex items-center justify-center focus:outline-none bg-white hover:bg-gray-light active:bg-gray-dark border border-gray-dark w-6 h-6 opacity-50 pointer-events-none" disabled="">
-                                <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="text-tertiary-lighter" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
-                                    <polyline points="9 18 15 12 9 6"></polyline>
-                                </svg>
-                            </button>
-                        </div>
-                        <div style="background: linear-gradient(to right, rgba(255, 255, 255, 0), white 80%);" class="absolute top-0 left-0 h-full w-full rounded-r-lg"></div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Ofertas -->
-                    
-            <div id="ofertas" class="mt-5">
-                <p class="text-lg sm:text-xl font-black business-text-primary">Ofertas</p>
-            </div>
-            <div class="space-y-2">
-                <a class="group block transform hover:scale-102 focus:scale-102 transition-all duration-200" href="/workingplace/s/c75b02f3-f022-4ffc-b6bc-7e9cd60d23c5">
-                    {% for oferta in ofertas %}
-                        <a href="{{ oferta.sitio_web }}" class="group block transform hover:scale-102 focus:scale-102 transition-all duration-200">
-                            <div class="bg-white ring-opacity-50 p-3 my-2 sm:p-4 rounded-lg shadow-card group-hover:bg-gray-lightest group-hover:bg-opacity-50">
-                                <div class="flex items-center space-x-2 lg:space-x-6">
-                                    <div class="w-10 sm:w-20 overflow-hidden-z rounded-md">
-                                        <img src="{{ oferta.imagen_oferta_url }}" decoding="async" data-nimg="responsive" style="object-fit: cover; width: 100%; height: 100%;">
-                                    </div>
-                                    <div class="flex-1 min-w-0">
-                                        <p class="text-base sm:text-lg font-extrabold text-tertiary">{{ oferta.titulo }}</p>
-                                        <div>
-                                            <div class="line-clamp-3">
-                                                <p class="text-xs sm:text-sm block font-normal text-tertiary-light mb-2">
-                                                    {{ oferta.descripcion }}
-                                                </p>
-                                            </div>
-                                            <div class="flex items-center space-x-2">
-                                                {% if oferta.precio %}
-                                                    <p class="text-sm sm:text-base font-black business-text-primary">{{ oferta.precio }} CLP</p>
-                                                {% endif %}
-                                                {% if oferta.porcentaje_descuento %}
-                                                    <p class="text-sm sm:text-base text-tertiary-light">{{ oferta.porcentaje_descuento }}% OFF</p>
-                                                {% endif %}
-                                            </div>
-                                            <div class="flex items-center space-x-2">
-                                                {% if oferta.fecha_fin %}
-                                                    <p class="text-xs sm:text-xs text-tertiary-light">Valido hasta: {{ oferta.fecha_fin.strftime('%d/%m/%Y') }}</p>
-                                                {% endif %}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="flex flex-col items-end space-y-1">
-                                        <button class="relative flex items-center justify-center bg-secondary-lightest rounded-full" style="width: 20px; height: 20px;">
-                                            <svg width="8.7" height="8.7" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="inline text-secondary-darker"></svg>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    {% endfor %}
-                </a>
-            </div>
-        
-            <!-- Ubicaciones -->
-            <div id="ubicaciones" class="mt-5">
-                <p class="text-lg sm:text-xl font-black business-text-primary">Ubicaciones</p>
-            </div>
-            <div class="space-y-4">
-                <a class="group block transform hover:scale-102 focus:scale-102 transition-all duration-200" >
-                    {% for ubicacion in ubicaciones %}
-                    <div class="bg-white ring-opacity-50 p-3 sm:p-4 rounded-lg shadow-card group-hover:bg-gray-lightest group-hover:bg-opacity-50">
-                        <div class="flex items-center space-x-2 lg:space-x-6">
-                            <div class="flex justify-end w-10 sm:w-20 overflow-hidden-z rounded-md">
-                                <!--
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/6/61/Boutique_Ecocitex_au_MUT.jpg" decoding="async" data-nimg="responsive" style="object-fit: cover; width: 100%; height: 100%;">
-                                -->
-                            <div class="w-5 h-5 flex-none mr-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="text-tertiary-lighter">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                                </svg>
-                            </div>
                         
+                        <!-- Contenido más denso -->
+                        <div class="flex-1 space-y-2">
+                            <h4 class="text-lg font-bold text-gray-900 leading-tight">{{ oferta.titulo }}</h4>
+                            
+                            <!-- Descripción más compacta -->
+                            <p class="text-gray-600 text-sm line-clamp-2 mb-2">
+                                {{ oferta.descripcion }}
+                            </p>
+
+                            <!-- Badges optimizados -->
+                            <div class="flex flex-wrap gap-2">
+                                {% if oferta.precio %}
+                                <span class="px-3 py-1.5 bg-green-50 text-green-700 rounded-lg font-medium text-xs sm:text-sm">
+                                    ${{ oferta.precio }} CLP
+                                </span>
+                                {% endif %}
+                                {% if oferta.porcentaje_descuento %}
+                                <span class="px-3 py-1.5 bg-red-50 text-red-700 rounded-lg font-medium text-xs sm:text-sm">
+                                    {{ oferta.porcentaje_descuento }}% OFF
+                                </span>
+                                {% endif %}
                             </div>
-                            <p class="text-xs sm:text-sm text-tertiary">{{ ubicacion.direccion}}, {{ ubicacion.ciudad}}, {{ubicacion.region}}</p>
+
+                            <!-- Fecha más discreta -->
+                            {% if oferta.fecha_fin %}
+                            <div class="pt-2 text-xs text-gray-400">
+                                Válido hasta: {{ oferta.fecha_fin.strftime('%d/%m/%Y') }}
+                            </div>
+                            {% endif %}
                         </div>
                     </div>
-                    {% endfor %}
-                </a>
+                </div>
+                {% endfor %}
             </div>
-           
+        </div>
+
+        <!-- Ubicaciones Section -->
+        <div id="ubicaciones" class="mb-12">
+            <h3 class="text-xl font-bold text-gray-900 mb-6">Nuestras Ubicaciones</h3>
+            <div class="grid gap-4">
+                {% for ubicacion in ubicaciones %}
+                <div class="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all">
+                    <div class="flex items-start gap-4">
+                        <div class="p-3 bg-green-100 rounded-lg">
+                            <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                      d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0zM15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="font-medium text-gray-900">{{ ubicacion.direccion }}</p>
+                            <p class="text-gray-600">{{ ubicacion.ciudad }}, {{ ubicacion.region }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
         </div>
     </div>
 </div>
-
 {% endblock %}

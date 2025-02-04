@@ -2,318 +2,257 @@
 
 {% block head %}
 <head>
-    <title>Empresas Comprometidas</title>
+    <title>Empresas Sustentables - Glooba</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .shadow-soft {
+            box-shadow: 0 4px 24px -6px rgba(0, 0, 0, 0.1);
+        }
+        .transition-smooth {
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+    </style>
 </head>
 {% endblock %}
 
 {% block content %}
 
-<body>
+<body class="font-['Inter'] bg-gray-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
             
-            <!-- Columna izquierda -->
-            <div class="col-span-1 sm:col-span-1 lg:col-span-1 hidden sm:block">
-                <div class="bg-white ring-opacity-50 p-4 rounded-xl shadow-card space-y-4 mb-4">
-                    <h2 class="text-2xl sm:text-3xl font-bold mb-4 text-center">Glooba</h2>
-                    <p class="text-sm font-normal mt-2 text-gray-500 text-center">
-                        Ponemos a disposición información y geolocalización respecto a 
-                        empresas que generan acciones sostenibles para una economía circular
-                    </p>
-                    <div class="flex justify-center mt-4">
-                        <a href="https://www.instagram.com/gloobacl/" target="_blank" rel="noopener noreferrer">
-                            <i class="bi bi-instagram h-6 w-6 text-sm font-medium mr-4 text-green-500 hover:text-green-600"></i>
-                        </a>
-                        <a href="https://www.linkedin.com/company/gloobapp?trk=public_profile_topcard-current-company" target="_blank" rel="noopener noreferrer">
-                            <i class="bi bi-linkedin h-6 w-6 text-sm font-medium text-green-500 hover:text-green-600"></i>
-                        </a>
-                    </div>
-                    <div class="flex items-center justify-center mt-4">
-                        <a href="{{ url_for('main.index') }}" class="text-sm font-medium text-green-500 hover:text-green-600">
-                            <i class="bi bi-info-circle-fill mr-1"></i>
-                            Más información
-                        </a>
-                    </div>
-                    
-                </div>
-               
-                <div class="bg-white ring-opacity-50 p-4 rounded-xl shadow-card space-y-4">
-                    <div class="flex items-center justify-between space-x-2">
-                        <p class="text-base block font-black truncate">
-                            Información de contacto
+            <!-- Sidebar izquierda mejorada -->
+            <div class="lg:col-span-1 space-y-6 hidden sm:block">
+                <div class="bg-white p-6 rounded-2xl shadow-soft border border-gray-100 transition-smooth hover:shadow-lg">
+                    <div class="text-center space-y-4">
+                        <h2 class="text-2xl font-bold bg-gradient-to-r from-green-600 to-green-500 bg-clip-text text-transparent">
+                            Glooba
+                        </h2>
+                        <p class="text-sm text-gray-600 leading-relaxed">
+                            Conectamos consumidores con empresas comprometidas con la economía circular
                         </p>
-                    </div>
-                    
-                    <div class="flex items-center space-x-4">
-                        <div class="relative self-center flex">
-                            <a href="#" target="_blank" rel="noopener noreferrer">
-                                <i class="bi bi-whatsapp h-6 w-6 text-sm font-medium text-green-500 hover:text-green-600"></i>
+                        <div class="flex justify-center space-x-3">
+                            <a href="https://www.instagram.com/gloobacl/" target="_blank" class="p-2 rounded-full bg-green-50 hover:bg-green-100 transition-smooth">
+                                <i class="bi bi-instagram text-green-600 text-lg"></i>
+                            </a>
+                            <a href="https://www.linkedin.com/company/gloobapp" target="_blank" class="p-2 rounded-full bg-green-50 hover:bg-green-100 transition-smooth">
+                                <i class="bi bi-linkedin text-green-600 text-lg"></i>
                             </a>
                         </div>
-                        <a href="#" class="overflow-hidden hover:underline">
-                            <p class="text-sm block font-light text-tertiary truncate">
-                                +56 9 5332 1695
-                            </p>
+                        <a href="{{ url_for('main.index') }}" class="inline-flex items-center text-sm font-medium text-green-600 hover:text-green-700 transition-smooth">
+                            <i class="bi bi-info-circle mr-2"></i>
+                            Conoce más
                         </a>
                     </div>
+                </div>
 
-                    <div class="flex items-center space-x-4">
-                        <div class="relative self-center flex">
-                            <a href="#" target="_blank" rel="noopener noreferrer">
-                                <i class="bi bi-envelope h-6 w-6 text-sm font-medium text-green-500 hover:text-green-600"></i>
-                            </a>
+                <!-- Tarjeta de contacto mejorada -->
+                <div class="bg-white p-6 rounded-2xl shadow-soft border border-gray-100">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                        <i class="bi bi-chat-dots text-green-600 mr-2"></i>
+                        Contacto
+                    </h3>
+                    <div class="space-y-3">
+                        <div class="flex items-center p-3 rounded-lg bg-green-50 hover:bg-green-100 transition-smooth">
+                            <i class="bi bi-whatsapp text-green-600 text-lg mr-3"></i>
+                            <a href="tel:+56953321695" class="text-sm text-gray-700 hover:text-green-600">+56 9 5332 1695</a>
                         </div>
-                        <a href="#" class="overflow-hidden hover:underline">
-                            <p class="text-sm block font-light text-tertiary truncate">
-                                Gloobacl@gmail.com
-                            </p>
-                        </a>
-                    </div>         
+                        <div class="flex items-center p-3 rounded-lg bg-green-50 hover:bg-green-100 transition-smooth">
+                            <i class="bi bi-envelope text-green-600 text-lg mr-3"></i>
+                            <a href="mailto:Gloobacl@gmail.com" class="text-sm text-gray-700 hover:text-green-600">Gloobacl@gmail.com</a>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- Columna derecha -->
-            <div class="col-span-1 sm:col-span-1 lg:col-span-2">
-
-                    <div class="bg-white rounded-full mb-3 px-2">
-                        <p id="user-address" class="text-sm sm:text-base overflow-hidden text-ellipsis whitespace-nowrap bg-gray-50 font-medium sm:font-normal">
-                            <i class="bi bi-geo-alt text-green-500 mr-2"></i> 
-                            <span id="location-text">Obteniendo tu ubicación...</span>
-                        </p>       
+            <!-- Contenido principal mejorado -->
+            <div class="lg:col-span-3">
+                <!-- Header mejorado -->
+                <div class="mb-6 space-y-4">
+                    <div class="bg-white rounded-full px-1 py-1">
+                        <div class="flex items-center text-sm font-medium text-tertiary-light">
+                            <i class="bi bi-geo-alt text-green-600 mx-2"></i>
+                            <span id="location-text" class="truncate">Detectando tu ubicación...</span>
+                        </div>
                     </div>
 
+                    <!-- Buscador mejorado -->
                     <form method="GET" action="{{ url_for('main.empresas') }}">
                         <!-- Filtro de Búsqueda -->
                         <div class="mb-6 relative">
-                            <input type="text" name="search" id="search" value="{{ search }}" placeholder="¿Qué buscas?" class="font-medium mt-2 py-1 pl-10 block w-full rounded-full border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500">
+                            <input type="text" name="search" id="search" value="{{ search }}" placeholder="¿Qué buscas?" class="font-medium w-full pl-12 pr-5 py-2 rounded-full border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500">
                             <i class="bi bi-search absolute left-3 top-1/2 transform -translate-y-1/2 "></i>
                         </div>
                     </form>
+                </div>
 
-                        <!-- Botones de Explorar y Mapa -->
-                        <div class="flex justify-center mx-4">
-                            <div class="flex items-center bg-green-100 rounded-full shadow-md w-full">
-                                <button id="map-btn" class="flex-grow px-6 py-1 text-sm sm:text-base text-green-600 font-semibold rounded-full focus:outline-none focus:ring-2 focus:ring-green-500 transition duration-200">
-                                    Mapa
-                                </button>
-                                <button id="list-btn" class="flex-grow px-6 py-1 text-sm sm:text-base text-white font-semibold bg-green-500 rounded-full focus:outline-none focus:ring-2 focus:ring-green-500 transition duration-200">
-                                    Lista
-                                </button>
-                            </div>
+                <!-- Filtros mejorados -->
+                <div class="mb-6 space-y-4">
+                    <!-- Botones de Explorar y Mapa -->
+                    <div class="flex justify-center mx-4">
+                        <div class="flex items-center bg-green-100 rounded-full shadow-md w-full">
+                            <button id="map-btn" class="flex-grow px-6 py-2 text-sm sm:text-base text-green-600 font-semibold rounded-full focus:outline-none focus:ring-2 focus:ring-green-500 transition duration-200">
+                                Mapa
+                            </button>
+                            <button id="list-btn" class="flex-grow px-6 py-2 text-sm sm:text-base text-white font-semibold bg-green-500 rounded-full focus:outline-none focus:ring-2 focus:ring-green-500 transition duration-200">
+                                Lista
+                            </button>
                         </div>
-                    
-                    <form method="GET" action="{{ url_for('main.empresas') }}">
-                        <!-- Botones de filtros -->
-                        <div class="flex justify-center py-4">
-                            <div class="flex space-x-4 overflow-y-scroll no-scrollbar">
-                                <!-- Botón Ordenar -->
-                                <button class="flex items-center space-x-2 px-3 py-1 bg-gray-100 text-sm sm:text-base font-medium rounded-full hover:bg-gray-200 transition duration-200 whitespace-nowrap">
-                                    <i class="bi bi-arrow-down-up"></i>
-                                    <span>Ordenar</span>
-                                    <i class="bi bi-caret-down-fill"></i>
-                                </button>
-                        
-                                <!-- Botón Rubros -->
-                                <button class="flex items-center space-x-2 px-3 py-1 bg-gray-100 text-sm sm:text-base font-medium rounded-full hover:bg-gray-200 transition duration-200 whitespace-nowrap">
-                                    <i class="bi bi-shop-window"></i>
-                                    <span>Rubros</span>
-                                    <i class="bi bi-caret-down-fill"></i>
-                                </button>
-                        
-                                <button class="flex items-center space-x-2 px-3 py-1 bg-gray-100 text-sm sm:text-base font-medium rounded-full hover:bg-gray-200 transition duration-200 whitespace-nowrap">
-                                    <!-- Botón Certificaciones -->
-                                    <i class="bi bi-award"></i>
-                                    <span>Certificaciones</span>
-                                    <i class="bi bi-caret-down-fill"></i>
-                                </button>
-                        
-                                <!-- Botón Servicio a domicilio -->
-                                <button class="flex items-center space-x-2 px-3 py-1 bg-gray-100 text-sm sm:text-base font-medium rounded-full hover:bg-gray-200 transition duration-200 whitespace-nowrap !important">
-                                    <i class="bi bi-car-front"></i>
-                                    <span>Servicio a domicilio</span>
-                                </button>
-                            </div>
-                        </div>                        
+                    </div>
 
-                    </form>
-                    
-                <!-- Lista de empresas -->
-                <div id="empresa-list" class="mb-4">
-                    {% for empresa in empresas %}
-                        <div class="space-y-6 hidden sm:block">
-                            <a href="{{ url_for('main.perfil_empresa', empresa_id=empresa.id) }}" class="group block transform hover:scale-102 focus:scale-102 transition-all duration-200">
-                                <div class="bg-white ring-opacity-50 p-3 sm:p-4 rounded-xl shadow-card group-hover:bg-gray-lightest group-hover:bg-opacity-50">
-                                    <div class="flex items-center space-x-2 lg:space-x-6">
-                                        
-                                        <!-- Imagen -->
-                                        <div class="w-20 sm:w-30 overflow-hidden-z rounded-md">
-                                            <img src="{{ empresa.imagen_perfil }}" class="object-contain w-full h-full">
+                    <div class="flex overflow-x-auto pb-2 gap-3 no-scrollbar sm:justify-center">
+                        {% set filters = [
+                            ('bi-arrow-down-up', 'Ordenar'),
+                            ('bi-shop-window', 'Rubros'),
+                            ('bi-award', 'Certificaciones'),
+                            ('bi-car-front', 'Servicio a domicilio')
+                        ] %}
+                        {% for icon, text in filters %}
+                        <button class="flex items-center px-2 px-md-4 py-2 rounded-full bg-gray-100 hover:bg-gray-200 text-sm font-medium text-gray-900 ring-1 ring-gray-200 hover:ring-green-500 hover:text-black transition-smooth whitespace-nowrap">
+                            <i class="bi {{ icon }} mr-2"></i>
+                            {{ text }}
+                            <i class="bi bi-chevron-down ml-2 text-xs text-gray-900"></i>
+                        </button>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Mapa -->
+                <div id="map-view" class="hidden mt-6 mx-4 lg:mx-0">
+                    <div id="map" style="width: 100%; height: 400px; border-radius: 10px; border: 1px solid #e2e2e2;"></div>
+                </div>
+
+                <!-- Listado de empresas -->
+                <div id="list-container">
+                    <!-- Listado de empresas -->
+                    <div id="empresa-list" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {% for empresa in empresas %}
+                            <!-- Vista móvil -->
+                            <div class="sm:hidden">
+                                <div class="relative bg-white rounded-xl shadow-md overflow-hidden mt-1">
+                                    <div class="relative">
+                                        <a href="{{ url_for('main.perfil_empresa', empresa_id=empresa.id) }}">
+                                            <img src="{{ empresa.imagen_fondo }}" alt="Imagen empresa {{ empresa.nombre}}" 
+                                                class="w-full h-24 object-cover filter border border-gray-200 rounded-lg">
+                                        </a>
+
+                                        <!-- Logo del negocio -->
+                                        <div class="absolute -bottom-3 right-10 w-16 h-16 bg-white border border-gray-300 rounded-full shadow-md flex items-center justify-center">
+                                            <img src="{{ empresa.imagen_perfil }}" alt="Logo" class="w-16 h-16 rounded-full">
                                         </div>
+                                    </div>
 
-                                        <!-- Información -->
+                                    <!-- Contenido -->
+                                    <div class="p-2 bg-white">
                                         <div class="flex-1 min-w-0">
-                                            <div class="flex items-center space-x-1">
-                                                <p class="text-base sm:text-lg font-extrabold text-tertiary break-words">
-                                                    {{ empresa.nombre }}
-                                                </p>
-                                                
-                                                <!-- Icono de notificación SVG -->
-                                                <svg xmlns="http://www.w3.org/2000/svg" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" image-rendering="optimizeQuality" fill-rule="evenodd" clip-rule="evenodd" viewBox="0 0 512 490.14" 
-                                                    class="w-4 h-4 text-tertiary fill-current hover:text-black transition duration-200">
-                                                    <path fill-rule="nonzero" d="M294.46 29.9c12.39 3.8 24.2 9.01 35.27 15.44a156.607 156.607 0 0 0-30.75 14.99 140.81 140.81 0 0 0-18.19-6.12c-4.49-1.17-8.25-4.58-9.64-9.35-1.74-6.02-5.46-10.49-10.07-13.37l-.62-.36c-4.38-2.58-9.63-3.89-14.93-3.89-5.29 0-10.5 1.29-14.79 3.84-4.73 2.82-8.56 7.37-10.33 13.58-1.34 4.54-4.98 8.28-9.89 9.46-26.93 6.56-50.97 21.18-69.53 40.94-18.62 19.82-31.71 44.85-36.66 72.17-3.33 18.46-2.9 41.7-2.53 63.07l.3 19.8c0 31.56-5.51 58.12-17.72 81.51C72.69 354 55.01 373.03 30.3 390.32l429.55.02c-18.55-12.92-33.13-26.88-44.18-42.53 9.55-2.02 18.8-4.9 27.64-8.57 9.21 11.19 20.98 21.46 35.51 31.18 5.63 3.76 9.06 9 10.54 14.56 1.25 4.67 1.09 9.64-.3 14.21-1.39 4.6-4.02 8.83-7.63 12l-1.15.91c-4.2 3.29-9.56 5.34-15.73 5.37l-136.31.03-.1.36c-16.52 96.56-150.1 96.3-166.18-.33l-136.25.03c-7.13 0-13.11-2.71-17.57-6.91-3.5-3.28-5.95-7.5-7.19-11.98-1.23-4.45-1.29-9.28-.04-13.86 1.63-5.92 5.37-11.38 11.47-15.06 22.31-15.21 37.99-31.63 47.94-50.7 10.02-19.19 14.55-41.69 14.55-68.95l-.2-19.38c-.39-22.64-.85-47.25 2.95-68.29 5.9-32.62 21.46-62.42 43.59-85.98 20.42-21.74 46.51-38.25 75.83-46.8 4.42-9.61 11.43-16.9 19.76-21.87C225.49 2.59 235.59 0 245.53 0c9.97 0 20.06 2.59 28.77 7.73l.8.51c8.14 5 14.99 12.22 19.36 21.66zm144.97 154.62v18.36c0 4.3-3.62 7.91-7.93 7.91H400v31.53c0 4.3-3.61 7.91-7.92 7.91h-18.36c-4.3 0-7.91-3.56-7.91-7.91v-31.53h-31.54c-4.3 0-7.91-3.55-7.91-7.91v-18.36c0-4.35 3.56-7.91 7.91-7.91h31.54v-31.52c0-4.36 3.55-7.91 7.91-7.91h18.36c4.36 0 7.92 3.61 7.92 7.91v31.52h31.5c4.35 0 7.93 3.65 7.93 7.91zM382.89 64.59c35.63 0 67.94 14.46 91.29 37.82C497.53 125.76 512 158.04 512 193.7c0 35.63-14.47 67.93-37.82 91.29-23.35 23.35-55.66 37.81-91.29 37.81-35.63 0-67.93-14.46-91.29-37.81l-.58-.63c-23.01-23.33-37.24-55.35-37.24-90.66 0-35.63 14.47-67.94 37.82-91.29 23.36-23.36 55.66-37.82 91.29-37.82zm75.65 53.46c-19.34-19.34-46.1-31.33-75.65-31.33-29.54 0-56.31 11.99-75.65 31.33-19.34 19.33-31.33 46.1-31.33 75.65 0 29.29 11.77 55.84 30.82 75.17l.51.48c19.34 19.34 46.11 31.33 75.65 31.33 29.55 0 56.31-11.99 75.65-31.33 19.34-19.34 31.33-46.11 31.33-75.65 0-29.55-11.99-56.32-31.33-75.65z"/>
-                                                </svg>
-                                            </div>
-                                            
-                                            <p class="text-xs sm:text-sm block font-normal text-tertiary-light py-1">
-                                                <span>{{ empresa.rubro }}</span>
+                                            <p class="font-semibold text-gray-600 text-xs flex items-baseline gap-1">
+                                                <span class="font-extrabold text-tertiary text-sm">{{ empresa.nombre }}</span> 
+                                                ({{ empresa.rubro }})
                                             </p>
 
-                                            <div class="line-clamp-3">
-                                                <p class="text-xs sm:text-sm block font-normal text-tertiary-light">
-                                                    <span class="break-words">
-                                                        {{ empresa.descripcion }}
-                                                    </span>
-                                                </p>
-                                            </div>
-
-                                            <div class="flex items-center mt-2">
+                                            <div class="flex items-center mt-0.5 flex-wrap gap-1">
                                                 <div class="flex items-center">
-                                                    <i class="bi bi-bookmark-check text-green-500"></i>
-                                                    <a href="{{ url_for('main.perfil_empresa', empresa_id=empresa.id) }}#ofertas" class="text-xs sm:text-sm block font-normal text-tertiary-light mx-1">
-                                                        <span class="break-words">
-                                                            Ofertas
-                                                        </span>
+                                                    <i class="bi bi-bookmark-check text-green-500 text-xs"></i>
+                                                    <a href="{{ url_for('main.perfil_empresa', empresa_id=empresa.id) }}#ofertas" 
+                                                    class="text-xs font-semibold text-tertiary-light mx-1">
+                                                        Publicaciones
                                                     </a>
                                                 </div>
                                                 <div class="flex items-center">
-                                                    <i class="bi bi-pin-map text-green-500 ml-2"></i>
-                                                    <a href="{{ url_for('main.perfil_empresa', empresa_id=empresa.id) }}#ubicaciones" class="text-xs sm:text-sm block font-normal text-tertiary-light mx-1">
-                                                        <span class="break-words">
-                                                            Ubicaciones
-                                                        </span>
+                                                    <i class="bi bi-pin-map text-green-500 text-xs ml-1"></i>
+                                                    <a href="{{ url_for('main.perfil_empresa', empresa_id=empresa.id) }}#ubicaciones" 
+                                                    class="text-xs font-semibold text-tertiary-light mx-1">
+                                                        Ubicaciones
                                                     </a>
                                                 </div>
-                                                <!-- Sitio Web -->
                                                 {% if empresa.sitio_web and empresa.sitio_web != "https://-" %}
-                                                    <div class="flex items-center">
-                                                        <i class="bi bi-globe text-green-500 ml-2"></i>
-                                                        <a href="{{ empresa.sitio_web }}" class="text-xs sm:text-sm block font-normal text-tertiary-light mx-1" target="_blank">
-                                                            <span class="break-words">
-                                                                Sitio Web
-                                                            </span>
-                                                        </a>
-                                                    </div>
+                                                <div class="flex items-center">
+                                                    <i class="bi bi-globe text-green-500 text-xs ml-1"></i>
+                                                    <a href="{{ empresa.sitio_web }}" 
+                                                    class="text-xs font-semibold text-tertiary-light mx-1" 
+                                                    target="_blank">
+                                                        Sitio Web
+                                                    </a>
+                                                </div>
                                                 {% endif %}
                                             </div>
                                         </div>
                                     </div>
-                                </div>                            
-                            </a>
-                        </div>
-
-                        <!-- Para pantallas pequeñas -->
-                        <div class="relative bg-white rounded-xl shadow-md overflow-hidden mt-1 mb-6 sm:hidden">
-                            <div class="relative">
-                                <a href="{{ url_for('main.perfil_empresa', empresa_id=empresa.id) }}">
-                                    <img src="{{ empresa.imagen_fondo }}" alt="Imagen empresa {{ empresa.nombre}}" class="w-full h-24 object-cover filter border border-gray-200 rounded-lg">
-                                </a>
-                                
-                                <!-- Etiqueta "Retiro o delivery"
-                                <span class="absolute top-2 left-2 bg-black/70 text-white text-xs font-semibold px-2 py-0.5 rounded-full">
-                                    Retiro o delivery 
-                                </span>
-                                -->
-
-                                <!-- Icono de notificación -->
-                                <button class="absolute top-2 right-2 bg-white w-10 h-10 p-2 rounded-full shadow-lg flex items-center justify-center hover:bg-gray-200 transition">
-                                    <svg xmlns="http://www.w3.org/2000/svg" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" image-rendering="optimizeQuality" fill-rule="evenodd" clip-rule="evenodd" viewBox="0 0 512 490.14"><path fill-rule="nonzero" d="M294.46 29.9c12.39 3.8 24.2 9.01 35.27 15.44a156.607 156.607 0 0 0-30.75 14.99 140.81 140.81 0 0 0-18.19-6.12c-4.49-1.17-8.25-4.58-9.64-9.35-1.74-6.02-5.46-10.49-10.07-13.37l-.62-.36c-4.38-2.58-9.63-3.89-14.93-3.89-5.29 0-10.5 1.29-14.79 3.84-4.73 2.82-8.56 7.37-10.33 13.58-1.34 4.54-4.98 8.28-9.89 9.46-26.93 6.56-50.97 21.18-69.53 40.94-18.62 19.82-31.71 44.85-36.66 72.17-3.33 18.46-2.9 41.7-2.53 63.07l.3 19.8c0 31.56-5.51 58.12-17.72 81.51C72.69 354 55.01 373.03 30.3 390.32l429.55.02c-18.55-12.92-33.13-26.88-44.18-42.53 9.55-2.02 18.8-4.9 27.64-8.57 9.21 11.19 20.98 21.46 35.51 31.18 5.63 3.76 9.06 9 10.54 14.56 1.25 4.67 1.09 9.64-.3 14.21-1.39 4.6-4.02 8.83-7.63 12l-1.15.91c-4.2 3.29-9.56 5.34-15.73 5.37l-136.31.03-.1.36c-16.52 96.56-150.1 96.3-166.18-.33l-136.25.03c-7.13 0-13.11-2.71-17.57-6.91-3.5-3.28-5.95-7.5-7.19-11.98-1.23-4.45-1.29-9.28-.04-13.86 1.63-5.92 5.37-11.38 11.47-15.06 22.31-15.21 37.99-31.63 47.94-50.7 10.02-19.19 14.55-41.69 14.55-68.95l-.2-19.38c-.39-22.64-.85-47.25 2.95-68.29 5.9-32.62 21.46-62.42 43.59-85.98 20.42-21.74 46.51-38.25 75.83-46.8 4.42-9.61 11.43-16.9 19.76-21.87C225.49 2.59 235.59 0 245.53 0c9.97 0 20.06 2.59 28.77 7.73l.8.51c8.14 5 14.99 12.22 19.36 21.66zm144.97 154.62v18.36c0 4.3-3.62 7.91-7.93 7.91H400v31.53c0 4.3-3.61 7.91-7.92 7.91h-18.36c-4.3 0-7.91-3.56-7.91-7.91v-31.53h-31.54c-4.3 0-7.91-3.55-7.91-7.91v-18.36c0-4.35 3.56-7.91 7.91-7.91h31.54v-31.52c0-4.36 3.55-7.91 7.91-7.91h18.36c4.36 0 7.92 3.61 7.92 7.91v31.52h31.5c4.35 0 7.93 3.65 7.93 7.91zM382.89 64.59c35.63 0 67.94 14.46 91.29 37.82C497.53 125.76 512 158.04 512 193.7c0 35.63-14.47 67.93-37.82 91.29-23.35 23.35-55.66 37.81-91.29 37.81-35.63 0-67.93-14.46-91.29-37.81l-.58-.63c-23.01-23.33-37.24-55.35-37.24-90.66 0-35.63 14.47-67.94 37.82-91.29 23.36-23.36 55.66-37.82 91.29-37.82zm75.65 53.46c-19.34-19.34-46.1-31.33-75.65-31.33-29.54 0-56.31 11.99-75.65 31.33-19.34 19.33-31.33 46.1-31.33 75.65 0 29.29 11.77 55.84 30.82 75.17l.51.48c19.34 19.34 46.11 31.33 75.65 31.33 29.55 0 56.31-11.99 75.65-31.33 19.34-19.34 31.33-46.11 31.33-75.65 0-29.55-11.99-56.32-31.33-75.65z"/></svg>
-                                </button>
-
-                                <!-- Logo del negocio (Más pequeño y mejor posicionado) -->
-                                <div class="absolute -bottom-3 right-10 w-16 h-16 bg-white border border-gray-300 rounded-full shadow-md flex items-center justify-center">
-                                    <img src="{{ empresa.imagen_perfil }}" alt="Logo" class="w-16 h-16 rounded-full">
                                 </div>
                             </div>
 
-                            <!-- Contenido con borde redondeado -->
-                            <div class="p-2 bg-white">
-                                <!-- Información -->
-                                <div class="flex-1 min-w-0">
-
-                                    <p class="font-semibold text-gray-600 text-xs flex items-baseline gap-1">
-                                        <span class="font-extrabold text-tertiary text-sm">{{ empresa.nombre }}</span> ({{ empresa.rubro }})
-                                    </p>
-
-                                    <div class="flex items-center mt-0.5">
-                                        <div class="flex items-center">
-                                            <i class="bi bi-bookmark-check text-green-500 text-xs"></i>
-                                            <a href="{{ url_for('main.perfil_empresa', empresa_id=empresa.id) }}#ofertas" class="text-xs sm:text-sm block font-semibold text-tertiary-light mx-1">
-                                                <span class="break-words">
-                                                    Ofertas
-                                                </span>
-                                            </a>
+                            <!-- Vista desktop (existente) -->
+                            <a href="{{ url_for('main.perfil_empresa', empresa_id=empresa.id) }}" 
+                            class="hidden sm:block group bg-white p-4 rounded-xl shadow-soft hover:shadow-lg border border-gray-200 transition-smooth">
+                                <div class="flex items-start gap-4">
+                                    <div class="w-20  h-20 flex-shrink-0 relative rounded-xl overflow-hidden">
+                                        <img src="{{ empresa.imagen_perfil }}" 
+                                            class="object-contain w-full h-full transition-smooth group-hover:scale-105">
+                                    </div>
+                                    
+                                    <div class="flex-1 min-w-0">
+                                        <div class="flex items-baseline gap-2 mb-2">
+                                            <h3 class="text-lg font-bold text-tertiary group-hover:text-green-600 transition-smooth">
+                                                {{ empresa.nombre }}
+                                            </h3>
+                                            <span class="text-sm text-tertiary-light rounded-full py-0.5 px-2 bg-green-100 text-green-800">{{ empresa.rubro }}</span>
                                         </div>
-                                        <div class="flex items-center">
-                                            <i class="bi bi-pin-map text-green-500 ml-2 text-xs"></i>
-                                            <a href="{{ url_for('main.perfil_empresa', empresa_id=empresa.id) }}#ubicaciones" class="text-xs sm:text-sm block font-semibold text-tertiary-light mx-1">
-                                                <span class="break-words">
-                                                    Ubicaciones
-                                                </span>
-                                            </a>
-                                        </div>
-                                        <!-- Sitio Web -->
-                                        {% if empresa.sitio_web and empresa.sitio_web != "https://-" %}
-                                            <div class="flex items-center">
-                                                <i class="bi bi-globe text-green-500 ml-2 text-xs"></i>
-                                                <a href="{{ empresa.sitio_web }}" class="text-xs sm:text-sm block font-semibold text-tertiary-light mx-1" target="_blank">
-                                                    <span class="break-words">
-                                                        Sitio Web
-                                                    </span>
-                                                </a>
+                                        
+                                        <p class="text-sm text-tertiary-light mb-3 line-clamp-3">
+                                            {{ empresa.descripcion }}
+                                        </p>
+                                        
+                                        <div class="flex flex-wrap gap-x-3 gap-y-1 text-sm">
+                                            <div class="flex items-center text-tertiary-light hover:text-green-600 transition-colors">
+                                                <i class="bi bi-bookmark-check text-green-600 mr-1.5"></i>
+                                                Publicaciones
                                             </div>
-                                        {% endif %}
+                                            <div class="flex items-center text-tertiary-light hover:text-green-600 transition-colors">
+                                                <i class="bi bi-geo-alt text-green-600 mr-1.5"></i>
+                                                Ubicaciones
+                                            </div>
+                                            {% if empresa.sitio_web %}
+                                            <div class="flex items-center text-tertiary-light hover:text-green-600 transition-colors">
+                                                <i class="bi bi-globe text-green-600 mr-1.5"></i>
+                                                Sitio Web
+                                            </div>
+                                            {% endif %}
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    {% endfor %}
+                            </a>
+                        {% endfor %}
+                    </div>
 
+                    <!-- Paginación mejorada -->
                     {% if pagination.pages > 1 %}
-                        <div class="mt-8 flex flex-wrap justify-center gap-2">
-                            <!-- Botón Anterior -->
-                            {% if pagination.has_prev %}
-                            <a href="{{ url_for('main.empresas', page=pagination.prev_num, search=search, categoria=categoria_actual) }}"
-                                class="px-3 py-1 text-sm font-medium rounded-xl text-white bg-green-500 hover:bg-green-600 transition">
-                                «
-                            </a>
+                    <div class="mt-8 flex justify-center gap-1.5">
+                        {% if pagination.has_prev %}
+                        <a href="{{ url_for('main.empresas', page=pagination.prev_num) }}" 
+                        class="px-4 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100 transition-smooth">
+                            &laquo;
                             {% endif %}
+                        </a>
 
-                            <!-- Páginas -->
-                            {% for page_num in range(1, pagination.pages + 1) %}
-                                {% if page_num == 1 or page_num == pagination.pages or (page_num >= pagination.page - 2 and page_num <= pagination.page + 2) %}
-                                    <a href="{{ url_for('main.empresas', page=page_num, search=search, categoria=categoria_actual) }}"
-                                        class="px-3 py-1 text-sm font-medium rounded-xl {% if page_num == pagination.page %} bg-green-600 text-white {% else %} bg-green-500 text-white hover:bg-green-600 {% endif %}">
-                                        {{ page_num }}
-                                    </a>
-                                {% elif page_num == pagination.page - 3 or page_num == pagination.page + 3 %}
-                                    <span class="px-3 py-1 text-sm font-medium text-gray-500">...</span>
-                                {% endif %}
-                            {% endfor %}
-
-                            <!-- Botón Siguiente -->
-                            {% if pagination.has_next %}
-                            <a href="{{ url_for('main.empresas', page=pagination.next_num, search=search, categoria=categoria_actual) }}"
-                                class="px-3 py-1 text-sm font-medium rounded-xl text-white bg-green-500 hover:bg-green-600 transition">
-                                »
-                            </a>
+                        {% for page_num in pagination.iter_pages() %}
+                            {% if page_num %}
+                                <a href="{{ url_for('main.empresas', page=page_num) }}" 
+                                class="px-4 py-2 rounded-lg text-sm font-medium {% if page_num == pagination.page %}bg-green-600 text-white{% else %}text-gray-600 hover:bg-gray-100{% endif %} transition-smooth">
+                                    {{ page_num }}
+                                </a>
+                            {% else %}
+                                <span class="px-4 py-2 text-gray-400">...</span>
                             {% endif %}
-                        </div>
+                        {% endfor %}
+
+                        {% if pagination.has_next %}
+                        <a href="{{ url_for('main.empresas', page=pagination.next_num) }}" 
+                        class="px-4 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100 transition-smooth">
+                            &raquo;
+                        </a>
+                        {% endif %}
+                    </div>
                     {% endif %}
-                </div>
-
-                <!-- Mapa -->
-                <div id="map-view" class="hidden mt-1 sm:mt-0">
-                    <div id="map" style="width: 100%; height: 400px; border-radius: 10px; border: 1px solid #e2e2e2;"></div>
                 </div>
             </div>
         </div>
@@ -323,234 +262,235 @@
 <!-- Scripts -->
 <script>
 
-// Función para cambiar entre vista de lista y mapa
-document.getElementById('map-btn').addEventListener('click', function() {
-    document.getElementById('empresa-list').classList.add('hidden');  // Ocultar la lista
-    document.getElementById('map-view').classList.remove('hidden');   // Mostrar el mapa
-
-    // Cambiar el estilo de los botones
-    document.getElementById('list-btn').classList.remove('bg-green-500', 'text-white');
-    document.getElementById('list-btn').classList.add('text-green-600', 'bg-green-100');
-    document.getElementById('map-btn').classList.remove('text-green-600', 'bg-green-100');
-    document.getElementById('map-btn').classList.add('text-white', 'bg-green-500');
-});
-
-document.getElementById('list-btn').addEventListener('click', function() {
-    document.getElementById('empresa-list').classList.remove('hidden'); // Mostrar la lista
-    document.getElementById('map-view').classList.add('hidden');        // Ocultar el mapa
-
-    // Cambiar el estilo de los botones
-    document.getElementById('map-btn').classList.remove('bg-green-500', 'text-white');
-    document.getElementById('map-btn').classList.add('text-green-600', 'bg-green-100');
-    document.getElementById('list-btn').classList.remove('text-green-600', 'bg-green-100');
-    document.getElementById('list-btn').classList.add('text-white', 'bg-green-500');
-});
-
-// Opcional: Si deseas que el mapa se inicie con la vista de mapa por defecto, puedes descomentar lo siguiente:
-// document.getElementById('map-btn').click(); 
-    
-
-// Variables globales del mapa
-let map;
-let markers = [];
-let allUbicaciones = [];
-
-function initMap() {
-    console.log('Iniciando mapa...');
-    const talca = { lat: -35.4264, lng: -71.6553 };
-    
-    map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 15,
-        center: talca,
-        styles: [
-            {
-                featureType: "poi",
-                elementType: "labels",
-                stylers: [{ visibility: "off" }]
-            },
-            {
-                featureType: "transit",
-                elementType: "labels",
-                stylers: [{ visibility: "off" }]
-            }
-        ]
+    // Función para cambiar entre vista de lista y mapa
+    document.getElementById('map-btn').addEventListener('click', function() {
+        document.getElementById('list-container').classList.add('hidden');
+        document.getElementById('map-view').classList.remove('hidden');
+        
+        // Actualizar estilos de botones
+        document.getElementById('list-btn').classList.remove('bg-green-500', 'text-white');
+        document.getElementById('list-btn').classList.add('text-green-600', 'bg-green-100');
+        document.getElementById('map-btn').classList.remove('text-green-600', 'bg-green-100');
+        document.getElementById('map-btn').classList.add('text-white', 'bg-green-500');
     });
 
-    // Cargar ubicaciones iniciales
-    cargarUbicacionesDesdeEmpresas();
-
-    // Geolocalización
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-            (position) => {
-                const pos = {
-                    lat: position.coords.latitude,
-                    lng: position.coords.longitude
-                };
-
-                // Centrar mapa en la ubicación del usuario
-                map.setCenter(pos);
-
-                // Agregar marcador en la ubicación actual del usuario
-                const userMarker = new google.maps.Marker({
-                    position: pos,
-                    map: map,
-                    title: "Ubicación Actual",
-                    icon: {
-                        path: google.maps.SymbolPath.CIRCLE,
-                        fillColor: "#059669", // Verde azulado similar a la imagen
-                        fillOpacity: 1, // Opacidad máxima para el centro
-                        strokeWeight: 2,
-                        strokeColor: "#ffffff", // Borde blanco
-                        scale: 10 // Tamaño del punto central
-                    }           
-                });
-
-                // Agregar un círculo de fondo difuminado
-                const circle = new google.maps.Circle({
-                    strokeColor: "transparent",
-                    strokeOpacity: 0,
-                    strokeWeight: 0,
-                    fillColor: "#059669", // Mismo color del punto, pero con menor opacidad
-                    fillOpacity: 0.3, // Hacerlo semitransparente
-                    map,
-                    center: { lat: yourLatitude, lng: yourLongitude },
-                    radius: 30, // Ajusta el tamaño para un efecto difuminado
-                });
-
-                // Opcional: Mostrar un InfoWindow con un mensaje
-                const infoWindow = new google.maps.InfoWindow({
-                    content: "<p>Ubicación actual del usuario</p>"
-                });
-
-                userMarker.addListener("click", function() {
-                    infoWindow.open(map, userMarker);
-                });
-            },
-            () => {
-                console.log("Error: El servicio de geolocalización falló.");
-            }
-        );
-    }
-}
-
-function cargarUbicacionesDesdeEmpresas() {
-    fetch('/mapa/ubicaciones')
-        .then(response => {
-            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-            return response.json();
-        })
-        .then(ubicaciones => {
-            console.log('Ubicaciones cargadas:', ubicaciones);
-            allUbicaciones = ubicaciones;
-            createMarkers(ubicaciones);
-
-        })
-        .catch(error => {
-            console.error('Error cargando ubicaciones:', error);
-        });
-}
-
-function createMarkers(ubicaciones) {
-    markers.forEach(marker => marker.setMap(null));
-    markers = [];
-    
-    ubicaciones.forEach(ubicacion => {
-        const lat = parseFloat(ubicacion.lat);
-        const lng = parseFloat(ubicacion.lng);
+    document.getElementById('list-btn').addEventListener('click', function() {
+        document.getElementById('list-container').classList.remove('hidden');
+        document.getElementById('map-view').classList.add('hidden');
         
-        if (isNaN(lat) || isNaN(lng)) {
-            console.error('Coordenadas inválidas para ubicación:', ubicacion);
-            return;
-        }
-
-        const marker = new google.maps.Marker({
-            position: { lat, lng },
-            map: map,
-            title: ubicacion.nombre,
-            icon: ubicacion.es_propia ? null : {
-                path: "M-1.547 12l6.563-6.609-1.406-1.406-5.156 5.203-2.063-2.109-1.406 1.406zM0 0q2.906 0 4.945 2.039t2.039 4.945q0 1.453-0.727 3.328t-1.758 3.516-2.039 3.070-1.711 2.273l-0.75 0.797q-0.281-0.328-0.75-0.867t-1.688-2.156-2.133-3.141-1.664-3.445-0.75-3.375q0-2.906 2.039-4.945t4.945-2.039z",
-                fillColor: "#22c55e",
-                fillOpacity: 1,
-                strokeWeight: 0,
-                rotation: 0,
-                scale: 2,
-                anchor: new google.maps.Point(0, 20),
-            }
-        });
-
-        const infowindow = new google.maps.InfoWindow({
-            content: `
-                <div class="p-4">
-                    <h3 class="font-bold flex items-center">
-                        ${ubicacion.nombre}
-                        <a href="${ubicacion.sitio_web}" class="ml-1 text-blue-500 hover:underline" target="_blank">
-                            <i class="bi bi-info-circle-fill"></i>
-                        </a>
-                    </h3>
-                    <p>${ubicacion.direccion}</p>
-                    <p>${ubicacion.ciudad}, ${ubicacion.region}</p>
-                    <a href="${ubicacion.sitio_web}" class="flex items-center text-blue-500 hover:underline" target="_blank">
-                        <i class="bi bi-globe mr-1"></i>Sitio web
-                    </a>
-                </div>
-            `
-        });
-
-        marker.addListener('click', () => {
-            infowindow.open(map, marker);
-        });
-        
-        markers.push(marker);
+        // Actualizar estilos de botones
+        document.getElementById('map-btn').classList.remove('bg-green-500', 'text-white');
+        document.getElementById('map-btn').classList.add('text-green-600', 'bg-green-100');
+        document.getElementById('list-btn').classList.remove('text-green-600', 'bg-green-100');
+        document.getElementById('list-btn').classList.add('text-white', 'bg-green-500');
     });
-}
-
-function obtenerUbicacion() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-            (position) => {
-                const { latitude, longitude } = position.coords;
-
-                // Llamada a Nominatim API para obtener dirección legible
-                const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`;
-                fetch(url)
-                    .then((response) => response.json())
-                    .then((data) => {
-                        const direccion = data.display_name || "No se pudo obtener la dirección.";
-                        document.getElementById("location-text").textContent = direccion;
-                    })
-                    .catch(() => {
-                        document.getElementById("location-text").textContent = "Error al obtener la dirección.";
-                    });
-            },
-            (error) => {
-                // Manejo de errores en caso de que no se permita la geolocalización
-                let mensajeError = "";
-                switch (error.code) {
-                    case error.PERMISSION_DENIED:
-                        mensajeError = "Permiso denegado para acceder a tu ubicación.";
-                        break;
-                    case error.POSITION_UNAVAILABLE:
-                        mensajeError = "Ubicación no disponible.";
-                        break;
-                    case error.TIMEOUT:
-                        mensajeError = "Tiempo de espera agotado para obtener la ubicación.";
-                        break;
-                    default:
-                        mensajeError = "Error desconocido.";
+    
+    // Opcional: Si deseas que el mapa se inicie con la vista de mapa por defecto, puedes descomentar lo siguiente:
+    // document.getElementById('map-btn').click(); 
+        
+    
+    // Variables globales del mapa
+    let map;
+    let markers = [];
+    let allUbicaciones = [];
+    
+    function initMap() {
+        console.log('Iniciando mapa...');
+        const talca = { lat: -35.4264, lng: -71.6553 };
+        
+        map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 15,
+            center: talca,
+            styles: [
+                {
+                    featureType: "poi",
+                    elementType: "labels",
+                    stylers: [{ visibility: "off" }]
+                },
+                {
+                    featureType: "transit",
+                    elementType: "labels",
+                    stylers: [{ visibility: "off" }]
                 }
-                document.getElementById("location-text").textContent = mensajeError;
-            }
-        );
-    } else {
-        document.getElementById("location-text").textContent = "Geolocalización no soportada por tu navegador.";
+            ]
+        });
+    
+        // Cargar ubicaciones iniciales
+        cargarUbicacionesDesdeEmpresas();
+    
+        // Geolocalización
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const pos = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    };
+    
+                    // Centrar mapa en la ubicación del usuario
+                    map.setCenter(pos);
+    
+                    // Agregar marcador en la ubicación actual del usuario
+                    const userMarker = new google.maps.Marker({
+                        position: pos,
+                        map: map,
+                        title: "Ubicación Actual",
+                        icon: {
+                            path: google.maps.SymbolPath.CIRCLE,
+                            fillColor: "#059669", // Verde azulado similar a la imagen
+                            fillOpacity: 1, // Opacidad máxima para el centro
+                            strokeWeight: 2,
+                            strokeColor: "#ffffff", // Borde blanco
+                            scale: 10 // Tamaño del punto central
+                        }           
+                    });
+    
+                    // Agregar un círculo de fondo difuminado
+                    const circle = new google.maps.Circle({
+                        strokeColor: "transparent",
+                        strokeOpacity: 0,
+                        strokeWeight: 0,
+                        fillColor: "#059669", // Mismo color del punto, pero con menor opacidad
+                        fillOpacity: 0.3, // Hacerlo semitransparente
+                        map,
+                        center: { lat: yourLatitude, lng: yourLongitude },
+                        radius: 30, // Ajusta el tamaño para un efecto difuminado
+                    });
+    
+                    // Opcional: Mostrar un InfoWindow con un mensaje
+                    const infoWindow = new google.maps.InfoWindow({
+                        content: "<p>Ubicación actual del usuario</p>"
+                    });
+    
+                    userMarker.addListener("click", function() {
+                        infoWindow.open(map, userMarker);
+                    });
+                },
+                () => {
+                    console.log("Error: El servicio de geolocalización falló.");
+                }
+            );
+        }
     }
-}
-
-// Llamar a la función al cargar la página
-obtenerUbicacion();
-
+    
+    function cargarUbicacionesDesdeEmpresas() {
+        fetch('/mapa/ubicaciones')
+            .then(response => {
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                return response.json();
+            })
+            .then(ubicaciones => {
+                console.log('Ubicaciones cargadas:', ubicaciones);
+                allUbicaciones = ubicaciones;
+                createMarkers(ubicaciones);
+    
+            })
+            .catch(error => {
+                console.error('Error cargando ubicaciones:', error);
+            });
+    }
+    
+    function createMarkers(ubicaciones) {
+        markers.forEach(marker => marker.setMap(null));
+        markers = [];
+        
+        ubicaciones.forEach(ubicacion => {
+            const lat = parseFloat(ubicacion.lat);
+            const lng = parseFloat(ubicacion.lng);
+            
+            if (isNaN(lat) || isNaN(lng)) {
+                console.error('Coordenadas inválidas para ubicación:', ubicacion);
+                return;
+            }
+    
+            const marker = new google.maps.Marker({
+                position: { lat, lng },
+                map: map,
+                title: ubicacion.nombre,
+                icon: ubicacion.es_propia ? null : {
+                    path: "M-1.547 12l6.563-6.609-1.406-1.406-5.156 5.203-2.063-2.109-1.406 1.406zM0 0q2.906 0 4.945 2.039t2.039 4.945q0 1.453-0.727 3.328t-1.758 3.516-2.039 3.070-1.711 2.273l-0.75 0.797q-0.281-0.328-0.75-0.867t-1.688-2.156-2.133-3.141-1.664-3.445-0.75-3.375q0-2.906 2.039-4.945t4.945-2.039z",
+                    fillColor: "#22c55e",
+                    fillOpacity: 1,
+                    strokeWeight: 0,
+                    rotation: 0,
+                    scale: 2,
+                    anchor: new google.maps.Point(0, 20),
+                }
+            });
+    
+            const infowindow = new google.maps.InfoWindow({
+                content: `
+                    <div class="p-4">
+                        <h3 class="font-bold flex items-center">
+                            ${ubicacion.nombre}
+                            <a href="${ubicacion.sitio_web}" class="ml-1 text-blue-500 hover:underline" target="_blank">
+                                <i class="bi bi-info-circle-fill"></i>
+                            </a>
+                        </h3>
+                        <p>${ubicacion.direccion}</p>
+                        <p>${ubicacion.ciudad}, ${ubicacion.region}</p>
+                        <a href="${ubicacion.sitio_web}" class="flex items-center text-blue-500 hover:underline" target="_blank">
+                            <i class="bi bi-globe mr-1"></i>Sitio web
+                        </a>
+                    </div>
+                `
+            });
+    
+            marker.addListener('click', () => {
+                infowindow.open(map, marker);
+            });
+            
+            markers.push(marker);
+        });
+    }
+    
+    function obtenerUbicacion() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const { latitude, longitude } = position.coords;
+    
+                    // Llamada a Nominatim API para obtener dirección legible
+                    const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`;
+                    fetch(url)
+                        .then((response) => response.json())
+                        .then((data) => {
+                            const direccion = data.display_name || "No se pudo obtener la dirección.";
+                            document.getElementById("location-text").textContent = direccion;
+                        })
+                        .catch(() => {
+                            document.getElementById("location-text").textContent = "Error al obtener la dirección.";
+                        });
+                },
+                (error) => {
+                    // Manejo de errores en caso de que no se permita la geolocalización
+                    let mensajeError = "";
+                    switch (error.code) {
+                        case error.PERMISSION_DENIED:
+                            mensajeError = "Permiso denegado para acceder a tu ubicación.";
+                            break;
+                        case error.POSITION_UNAVAILABLE:
+                            mensajeError = "Ubicación no disponible.";
+                            break;
+                        case error.TIMEOUT:
+                            mensajeError = "Tiempo de espera agotado para obtener la ubicación.";
+                            break;
+                        default:
+                            mensajeError = "Error desconocido.";
+                    }
+                    document.getElementById("location-text").textContent = mensajeError;
+                }
+            );
+        } else {
+            document.getElementById("location-text").textContent = "Geolocalización no soportada por tu navegador.";
+        }
+    }
+    
+    // Llamar a la función al cargar la página
+    obtenerUbicacion();
+    
 </script>
-
+    
 <script src="https://maps.googleapis.com/maps/api/js?key={{ api_key }}&callback=initMap" async defer></script>
+
 {% endblock %}
