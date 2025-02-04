@@ -1,290 +1,67 @@
+<!-- signup.html -->
 {% extends 'login-base.html' %}
 
-{% block title %}- Registro{% endblock %}
+{% block title %}Registro - Glooba{% endblock %}
 
-{% block auth_header %}
-<h2 class="text-3xl font-bold text-white">Crear una cuenta</h2>
-<p class="mt-2 text-gray-100">Únete a nuestra comunidad eco-amigable</p>
-{% endblock %}
+{% block page_title %}Únete a Glooba{% endblock %}
+{% block page_subtitle %}Crea tu cuenta para comenzar{% endblock %}
 
 {% block auth_content %}
-<div class="max-w-2xl mx-auto px-4">
-    <!-- Formulario -->
-    {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            {% for message in messages %}
-                <div class="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded-lg mb-4" role="alert">
-                    <span class="block sm:inline">{{ message }}</span>
-                    <a href="{{ url_for('auth.login') }}" class="underline text-blue-700 hover:text-blue-900 ml-2">
-                        Iniciar sesión
-                    </a>
-                </div>
-            {% endfor %}
-        {% endif %}
-    {% endwith %}
-    
-    <div class="bg-white rounded-lg shadow-xl p-3">
-        <form method="POST" action="{{ url_for('auth.signup') }}" class="space-y-6" id="registroForm">
-            {{ form.hidden_tag() }}
-            <!-- Información Personal -->
-            <div class="space-y-6">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <!-- Nombre -->
-                    <div>
-                        <label for="nombre" class="block text-gray-700">Nombre *</label>
-                        <input type="text" 
-                                name="nombre" 
-                                id="nombre" 
-                                required 
-                                class="text-lg h-8 px-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#0d8ba7] focus:ring focus:ring-[#0d8ba7] focus:ring-opacity-50">
-                    </div>
+<form method="POST" action="{{ url_for('auth.signup') }}" class="space-y-6">
+    {{ form.hidden_tag() }}
 
-                    <!-- Primer Apellido -->
-                    <div>
-                        <label for="apellido1" class="block font-medium text-gray-700">Primer Apellido *</label>
-                        <input type="text" 
-                                name="apellido1" 
-                                id="apellido1" 
-                                required 
-                                class="text-lg h-8 px-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#0d8ba7] focus:ring focus:ring-[#0d8ba7] focus:ring-opacity-50">
-                    </div>
-                </div>
+    <div class="grid md:grid-cols-2 gap-6">
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Nombre</label>
+            <input type="text" name="first_name" required
+                   class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all">
+        </div>
 
-                <!-- Segundo Apellido -->
-                <div>
-                    <label for="apellido2" class="block font-medium text-gray-700">Segundo Apellido</label>
-                    <input type="text" 
-                            name="apellido2" 
-                            id="apellido2" 
-                            class="text-lg h-8 px-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#0d8ba7] focus:ring focus:ring-[#0d8ba7] focus:ring-opacity-50">
-                </div>
-
-                <!-- Fecha de Nacimiento -->
-                <div>
-                    <label for="fecha_nacimiento" class="block font-medium text-gray-700">Fecha de Nacimiento *</label>
-                    <input type="date" 
-                            name="fecha_nacimiento" 
-                            id="fecha_nacimiento" 
-                            required 
-                            max="{{ fecha_maxima }}"
-                            class="text-lg h-8 px-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#0d8ba7] focus:ring focus:ring-[#0d8ba7] focus:ring-opacity-50">
-                    <p class="mt-1  text-gray-500">Debes ser mayor de 18 años para registrarte</p>
-                </div>
-
-                <!-- Email -->
-                <div>
-                    <label for="email" class="block font-medium text-gray-700">Email *</label>
-                    <input type="email" 
-                            name="email" 
-                            id="email" 
-                            required 
-                            class="text-lg h-8 px-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#0d8ba7] focus:ring focus:ring-[#0d8ba7] focus:ring-opacity-50">
-                    <p class="mt-1  text-gray-500">Te enviaremos un correo de verificación</p>
-                </div>
-
-                <!-- Teléfono -->
-                <div>
-                    <label for="telefono" class="block  font-medium text-gray-700">Teléfono</label>
-                    <input type="tel" 
-                            name="telefono" 
-                            id="telefono" 
-                            placeholder="+56 9 1234 5678"
-                            class="text-lg h-8 px-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#0d8ba7] focus:ring focus:ring-[#0d8ba7] focus:ring-opacity-50">
-                </div>
-
-                <!-- Contraseña -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                        <label for="password" class="block  font-medium text-gray-700">Contraseña *</label>
-                        <input type="password" 
-                                name="password" 
-                                id="password" 
-                                required 
-                                minlength="8"
-                                class="text-lg h-8 px-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#0d8ba7] focus:ring focus:ring-[#0d8ba7] focus:ring-opacity-50">
-                    </div>
-                    <div>
-                        <label for="password_confirm" class="block font-medium text-gray-700">Confirmar Contraseña *</label>
-                        <input 
-                            type="password" 
-                            name="password_confirm" 
-                            id="password_confirm" 
-                            required 
-                            minlength="8"
-                            class="text-lg h-8 px-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#0d8ba7] focus:ring focus:ring-[#0d8ba7] focus:ring-opacity-50"
-                        >
-                    </div>
-                </div>
-                <div class=" text-gray-500">
-                    <p>La contraseña debe tener al menos:</p>
-                    <ul class="list-disc pl-5 space-y-1 mt-1">
-                        <li id="length-check">8 caracteres</li>
-                    </ul>
-                </div>
-                <!-- <div class=" text-gray-500">
-                    <p>La contraseña debe tener al menos:</p>
-                    <ul class="list-disc pl-5 space-y-1 mt-1">
-                        <li id="length-check">8 caracteres</li>
-                        <li id="uppercase-check">Una letra mayúscula</li>
-                        <li id="lowercase-check">Una letra minúscula</li>
-                        <li id="number-check">Un número</li>
-                        <li id="special-check">Un carácter especial</li>
-                    </ul>
-                </div> -->
-            </div>
-
-            <!-- Términos y Condiciones -->
-            <!-- <div class="mt-6">
-                <div class="flex items-start">
-                    <div class="flex items-center h-5">
-                        <input type="checkbox" 
-                                name="accept_terms" 
-                                id="accept_terms" 
-                                required
-                                class="h-4 w-4 text-[#0d8ba7] border-gray-300 rounded focus:ring-[#0d8ba7]">
-                    </div>
-                    <div class="ml-3 ">
-                        <label for="accept_terms" class="font-medium text-gray-700">Acepto los términos y condiciones</label>
-                        <p class="text-gray-500">Al registrarte, aceptas nuestros <a href="#" class="text-[#0d8ba7] hover:text-[#423a68]">Términos de Servicio</a> y <a href="#" class="text-[#0d8ba7] hover:text-[#423a68]">Política de Privacidad</a>.</p>
-                    </div>
-                </div>
-            </div> -->
-
-            <!-- Botones de acción -->
-            <div class="flex flex-col sm:flex-row-reverse gap-3 pt-6">
-                <button type="submit" class="btn btn-primary">
-                    Crear cuenta
-                </button>
-                
-                <a href="{{ url_for('main.index') }}" class="btn btn-secondary">
-                    Cancelar
-                </a>
-            </div>
-            
-        </form>
-
-        <!-- Link a Login
-        <div class="mt-6 text-center">
-            <p class=" text-gray-600">
-                ¿Ya tienes una cuenta? 
-                <a href="{{ url_for('auth.login') }}" class="text-[#0d8ba7] hover:text-[#423a68] font-medium">
-                    Inicia sesión
-                </a>
-            </p>
-        </div> -->
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Apellido</label>
+            <input type="text" name="last_name" required
+                   class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all">
+        </div>
     </div>
-</div>
 
+    <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">Correo electrónico</label>
+        <input type="email" name="email" required
+               class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all">
+    </div>
 
-<script>
-    // Formatear teléfono mientras se escribe
-    document.getElementById('telefono').addEventListener('input', function(e) {
-        let value = e.target.value.replace(/\D/g, '');
-        if (value.length > 0) {
-            if (value.length <= 3) {
-                value = '+' + value;
-            } else if (value.length <= 5) {
-                value = '+' + value.slice(0, 2) + ' ' + value.slice(2);
-            } else if (value.length <= 9) {
-                value = '+' + value.slice(0, 2) + ' ' + value.slice(2, 3) + ' ' + value.slice(3);
-            } else {
-                value = '+' + value.slice(0, 2) + ' ' + value.slice(2, 3) + ' ' + 
-                        value.slice(3, 7) + ' ' + value.slice(7, 11);
-            }
-        }
-        e.target.value = value;
-    });
+    <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">Contraseña</label>
+        <input type="password" name="password" required
+               class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all">
+    </div>
 
-    // Validación de edad
-    document.getElementById('fecha_nacimiento').addEventListener('change', function(e) {
-        const fechaNacimiento = new Date(e.target.value);
-        const hoy = new Date();
-        let edad = hoy.getFullYear() - fechaNacimiento.getFullYear();
-        const mes = hoy.getMonth() - fechaNacimiento.getMonth();
-        
-        if (mes < 0 || (mes === 0 && hoy.getDate() < fechaNacimiento.getDate())) {
-            edad--;
-        }
-        
-        if (edad < 18) {
-            alert('Debes ser mayor de 18 años para registrarte');
-            e.target.value = '';
-        }
-    });
+    <div class="flex items-start">
+        <input type="checkbox" name="terms" required
+               class="mt-1 rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+        <label class="ml-2 text-sm text-gray-600">
+            Acepto los <a href="#" class="text-blue-600 hover:text-blue-800">Términos de servicio</a> y 
+            <a href="#" class="text-blue-600 hover:text-blue-800">Política de privacidad</a>
+        </label>
+    </div>
 
-    // Validación de contraseña en tiempo real
-    const password = document.getElementById('password');
-    const passwordConfirm = document.getElementById('password_confirm');
-    const lengthCheck = document.getElementById('length-check');
-    const upperCheck = document.getElementById('uppercase-check');
-    const lowerCheck = document.getElementById('lowercase-check');
-    const numberCheck = document.getElementById('number-check');
-    const specialCheck = document.getElementById('special-check');
+    <button type="submit" 
+            class="w-full btn-primary text-white py-3 px-6 rounded-lg font-medium">
+        Crear cuenta
+    </button>
 
-    function validatePassword() {
-        const value = password.value;
-        
-        // Longitud mínima
-        if (value.length >= 8) {
-            lengthCheck.style.color = 'green';
-        } else {
-            lengthCheck.style.color = 'inherit';
-        }
-        
-        // // Mayúscula
-        // if (/[A-Z]/.test(value)) {
-        //     upperCheck.style.color = 'green';
-        // } else {
-        //     upperCheck.style.color = 'inherit';
-        // }
-        
-        // // Minúscula
-        // if (/[a-z]/.test(value)) {
-        //     lowerCheck.style.color = 'green';
-        // } else {
-        //     lowerCheck.style.color = 'inherit';
-        // }
-        
-        // // Número
-        // if (/[0-9]/.test(value)) {
-        //     numberCheck.style.color = 'green';
-        // } else {
-        //     numberCheck.style.color = 'inherit';
-        // }
-        
-        // // Carácter especial
-        // if (/[!@#$%^&*(),.?":{}|<>]/.test(value)) {
-        //     specialCheck.style.color = 'green';
-        // } else {
-        //     specialCheck.style.color = 'inherit';
-        // }
-    }
+    <div class="relative mt-8">
+        <div class="absolute inset-0 flex items-center">
+            <div class="w-full border-t border-gray-200"></div>
+        </div>
+        <div class="relative flex justify-center text-sm">
+            <span class="px-2 bg-white text-gray-500">¿Ya tienes cuenta?</span>
+        </div>
+    </div>
 
-    password.addEventListener('input', validatePassword);
-    
-    // Validación del formulario antes de enviar
-    document.getElementById('registroForm').addEventListener('submit', function(e) {
-        if (password.value !== passwordConfirm.value) {
-            e.preventDefault();
-            alert('Las contraseñas no coinciden');
-            return;
-        }
-        
-        //const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>])[A-Za-z\d!@#$%^&*(),.?":{}|<>]{8,}$/;
-        if (!passwordRegex.test(password.value)) {
-            e.preventDefault();
-            alert('La contraseña debe tener al menos 8 caracteres');
-            return;
-        }
-    });
-</script>
-{% endblock %}
-
-{% block auth_footer %}
-<p class="text-center  text-gray-600">
-    ¿Ya tienes una cuenta? 
-    <a href="{{ url_for('auth.login') }}" class="auth-link">
-        Inicia sesión
+    <a href="{{ url_for('auth.login') }}"
+       class="w-full inline-flex items-center justify-center py-3 px-6 border border-gray-200 rounded-lg font-medium text-gray-700 hover:border-blue-500 hover:text-blue-600 transition-all">
+        Iniciar sesión
     </a>
-</p>
+</form>
 {% endblock %}
