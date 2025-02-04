@@ -118,7 +118,7 @@
                 </div>
 
                 <!-- Mapa -->
-                <div id="map-view" class="hidden mt-6 mx-4 lg:mx-0">
+                <div id="map-view" class="hidden mt-6">
                     <div id="map" style="width: 100%; height: 400px; border-radius: 10px; border: 1px solid #e2e2e2;"></div>
                 </div>
 
@@ -224,30 +224,30 @@
                         {% endfor %}
                     </div>
 
-                    <!-- Paginación mejorada -->
+                    <!-- Paginación -->
                     {% if pagination.pages > 1 %}
-                    <div class="mt-8 flex justify-center gap-1.5">
+                    <div class="mt-8 flex justify-center flex-wrap gap-1.5 sm:gap-2">
                         {% if pagination.has_prev %}
                         <a href="{{ url_for('main.empresas', page=pagination.prev_num) }}" 
-                        class="px-4 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100 transition-smooth">
+                        class="px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100 transition-smooth">
                             &laquo;
-                            {% endif %}
                         </a>
+                        {% endif %}
 
                         {% for page_num in pagination.iter_pages() %}
                             {% if page_num %}
                                 <a href="{{ url_for('main.empresas', page=page_num) }}" 
-                                class="px-4 py-2 rounded-lg text-sm font-medium {% if page_num == pagination.page %}bg-green-600 text-white{% else %}text-gray-600 hover:bg-gray-100{% endif %} transition-smooth">
+                                class="px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg text-sm font-medium {% if page_num == pagination.page %}bg-green-600 text-white{% else %}text-gray-600 hover:bg-gray-100{% endif %} transition-smooth">
                                     {{ page_num }}
                                 </a>
                             {% else %}
-                                <span class="px-4 py-2 text-gray-400">...</span>
+                                <span class="px-2 sm:px-4 py-1.5 text-gray-400">...</span>
                             {% endif %}
                         {% endfor %}
 
                         {% if pagination.has_next %}
                         <a href="{{ url_for('main.empresas', page=pagination.next_num) }}" 
-                        class="px-4 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100 transition-smooth">
+                        class="px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100 transition-smooth">
                             &raquo;
                         </a>
                         {% endif %}
