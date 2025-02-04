@@ -12,7 +12,7 @@ main_bp = Blueprint("main", __name__, template_folder="templates")
 # def bienvenida():
 #     return render_template('bienvenida.html')
 
-@main_bp.route("/informacion")
+@main_bp.route("/")
 def index():
     return render_template('informative_page.html')
 
@@ -28,7 +28,7 @@ def nosotros():
 def configuracion():
     return render_template('dashboard-base.html')
 
-@main_bp.route("/")
+@main_bp.route("/explorar")
 def empresas():
     # Obtener parámetros de la URL
     page = request.args.get('page', 1, type=int)
