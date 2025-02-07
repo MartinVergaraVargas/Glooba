@@ -1,9 +1,10 @@
 import os
 from flask import Blueprint, render_template, redirect, request, url_for, flash, current_app
 from flask_login import login_required, current_user
-from Glooba.models import Empresa, Oferta, Ubicacion
+from Glooba.models import Empresa, Oferta, Ubicacion, Solicitud_Registro_Empresa
 from sqlalchemy import func
 from Glooba import db
+from .forms.enrollmentForm import EmpresaEnrollmentForm
 
 
 main_bp = Blueprint("main", __name__, template_folder="templates")
@@ -14,11 +15,30 @@ main_bp = Blueprint("main", __name__, template_folder="templates")
 
 @main_bp.route("/")
 def index():
-    return render_template('informative_page.html')
+    empresas = db.session.query(Empresa).order_by(func.random()).limit(20).all()
+    return render_template('informative_page.html', empresas=empresas)
 
-@main_bp.route("/enrolamiento_empresas")
+@main_bp.route('/enrolamiento_empresas', methods=['GET', 'POST'])
 def enrolamiento_empresas():
-    return render_template('empresa_enrollment.html')
+    form = EmpresaEnrollmentForm()
+    
+    if form.validate_on_submit():
+        try:
+            solicitudRegistroEmpresa = Solicitud_Registro_Empresa(
+                nombre=form.nombre_empresa.data,
+                email=form.email.data,
+                certificaciones=form.certificaciones.data,
+                descripcion=form.descripcion.data
+            )
+            db.session.add(solicitudRegistroEmpresa)
+            db.session.commit()
+            flash('Tu solicitud ha sido enviada exitosamente', 'success')
+            return redirect(url_for('main.enrolamiento_empresas'))
+        except Exception as e:
+            db.session.rollback()
+            flash('Error al procesar tu solicitud: ' + str(e), 'danger')
+    
+    return render_template('empresa_enrollment.html', form=form)
 
 @main_bp.route("/nosotros")
 def nosotros():
