@@ -251,3 +251,13 @@ class UsuarioStock(db.Model):
     usuario_id = db.Column(db.Integer, db.ForeignKey('common_user.id'), nullable=False)
     stock_id = db.Column(db.Integer, db.ForeignKey('stock.id'), nullable=False)
     fecha_reporte = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc), nullable=False)
+    
+class Solicitud_Registro_Empresa(db.Model):
+    __tablename__ = 'solicitud_registro_empresa'
+    id = db.Column(db.Integer, primary_key=True)
+    nombre = db.Column(db.String(255), nullable=False)
+    email = db.Column(db.String(255), nullable=False)
+    certificaciones = db.Column(db.String(255), nullable=True)
+    descripcion = db.Column(db.Text, nullable=True)
+    fecha_solicitud = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc), nullable=False)
+    estado = db.Column(db.String(50), nullable=True)
