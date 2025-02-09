@@ -29,7 +29,7 @@
                             Glooba
                         </h2>
                         <p class="text-sm text-gray-600 leading-relaxed">
-                            Conectamos consumidores con empresas comprometidas con la economía circular
+                            Conectamos a personas con organizaciones que impulsan iniciativas sostenibles
                         </p>
                         <div class="flex justify-center space-x-3">
                             <a href="https://www.instagram.com/gloobacl/" target="_blank" class="p-2 rounded-full bg-green-50 hover:bg-green-100 transition-smooth">
@@ -108,13 +108,13 @@
                             ('bi-car-front', 'Servicio a domicilio')
                         ] %}
                         {% for icon, text in filters %}
-                        <button class="flex items-center px-2 px-md-4 py-2 rounded-full bg-gray-100 hover:bg-gray-200 text-sm font-medium text-gray-900 ring-1 ring-gray-200 hover:ring-green-500 hover:text-black transition-smooth whitespace-nowrap">
+                        <button onclick="window.location.href='{{ url_for('main.en_desarrollo') }}'" class="flex items-center px-2 px-md-4 py-2 rounded-full bg-gray-100 hover:bg-gray-200 text-sm font-medium text-gray-900 ring-1 ring-gray-200 hover:ring-green-500 hover:text-black transition-smooth whitespace-nowrap">
                             <i class="bi {{ icon }} mr-2"></i>
                             {{ text }}
                             <i class="bi bi-chevron-down ml-2 text-xs text-gray-900"></i>
                         </button>
                         {% endfor %}
-                    </div>
+                    </div>                    
                 </div>
 
                 <!-- Mapa -->
@@ -182,19 +182,18 @@
                             </div>
 
                             <!-- Vista desktop (existente) -->
-                            <a href="{{ url_for('main.perfil_empresa', empresa_id=empresa.id) }}" 
-                            class="hidden sm:block group bg-white p-4 rounded-xl shadow-soft hover:shadow-lg border border-gray-200 transition-smooth">
+                            <div class="hidden sm:block group bg-white p-4 rounded-xl shadow-soft hover:shadow-lg border border-gray-200 transition-smooth">
                                 <div class="flex items-start gap-4">
-                                    <div class="w-20  h-20 flex-shrink-0 relative rounded-xl overflow-hidden">
+                                    <a href="{{ url_for('main.perfil_empresa', empresa_id=empresa.id) }}" class="w-20 h-20 flex-shrink-0 relative rounded-xl overflow-hidden">
                                         <img src="{{ empresa.imagen_perfil }}" 
                                             class="object-contain w-full h-full transition-smooth group-hover:scale-105">
-                                    </div>
+                                    </a>
                                     
                                     <div class="flex-1 min-w-0">
                                         <div class="flex items-baseline gap-2 mb-2">
-                                            <h3 class="text-lg font-bold text-tertiary group-hover:text-green-600 transition-smooth">
+                                            <a href="{{ url_for('main.perfil_empresa', empresa_id=empresa.id) }}" class="text-lg font-bold text-tertiary hover:text-green-600 transition-smooth">
                                                 {{ empresa.nombre }}
-                                            </h3>
+                                            </a>
                                             <span class="text-sm text-tertiary-light rounded-full py-0.5 px-2 bg-green-100 text-green-800">{{ empresa.rubro }}</span>
                                         </div>
                                         
@@ -203,24 +202,31 @@
                                         </p>
                                         
                                         <div class="flex flex-wrap gap-x-3 gap-y-1 text-sm">
-                                            <div class="flex items-center text-tertiary-light hover:text-green-600 transition-colors">
+                                            <a href="{{ url_for('main.perfil_empresa', empresa_id=empresa.id) }}#ofertas" 
+                                            class="flex items-center text-tertiary-light hover:text-green-600 transition-colors">
                                                 <i class="bi bi-bookmark-check text-green-600 mr-1.5"></i>
                                                 Publicaciones
-                                            </div>
-                                            <div class="flex items-center text-tertiary-light hover:text-green-600 transition-colors">
+                                            </a>
+                                            
+                                            <a href="{{ url_for('main.perfil_empresa', empresa_id=empresa.id) }}#ubicaciones" 
+                                            class="flex items-center text-tertiary-light hover:text-green-600 transition-colors">
                                                 <i class="bi bi-geo-alt text-green-600 mr-1.5"></i>
                                                 Ubicaciones
-                                            </div>
+                                            </a>
+                                            
                                             {% if empresa.sitio_web %}
-                                            <div class="flex items-center text-tertiary-light hover:text-green-600 transition-colors">
+                                            <a href="{{ empresa.sitio_web }}" 
+                                            class="flex items-center text-tertiary-light hover:text-green-600 transition-colors"
+                                            target="_blank" 
+                                            rel="noopener noreferrer">
                                                 <i class="bi bi-globe text-green-600 mr-1.5"></i>
                                                 Sitio Web
-                                            </div>
+                                            </a>
                                             {% endif %}
                                         </div>
                                     </div>
                                 </div>
-                            </a>
+                            </div>
                         {% endfor %}
                     </div>
 
@@ -292,7 +298,10 @@
     // Variables globales del mapa
     let map;
     let markers = [];
-    let allUbicaciones = [];
+    let allUbicaciones = {{ ubicaciones_json | safe }};
+    const ROUTES = {
+        perfilEmpresa: "{{ url_for('main.perfil_empresa', empresa_id=0) }}".replace('/0', '') + '/'
+    };
     
     function initMap() {
         console.log('Iniciando mapa...');
@@ -374,20 +383,7 @@
     }
     
     function cargarUbicacionesDesdeEmpresas() {
-        fetch('/mapa/ubicaciones')
-            .then(response => {
-                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-                return response.json();
-            })
-            .then(ubicaciones => {
-                console.log('Ubicaciones cargadas:', ubicaciones);
-                allUbicaciones = ubicaciones;
-                createMarkers(ubicaciones);
-    
-            })
-            .catch(error => {
-                console.error('Error cargando ubicaciones:', error);
-            });
+        createMarkers(allUbicaciones);  // Usa los datos ya cargados
     }
     
     function createMarkers(ubicaciones) {
@@ -407,7 +403,7 @@
                 position: { lat, lng },
                 map: map,
                 title: ubicacion.nombre,
-                icon: ubicacion.es_propia ? null : {
+                icon: {
                     path: "M-1.547 12l6.563-6.609-1.406-1.406-5.156 5.203-2.063-2.109-1.406 1.406zM0 0q2.906 0 4.945 2.039t2.039 4.945q0 1.453-0.727 3.328t-1.758 3.516-2.039 3.070-1.711 2.273l-0.75 0.797q-0.281-0.328-0.75-0.867t-1.688-2.156-2.133-3.141-1.664-3.445-0.75-3.375q0-2.906 2.039-4.945t4.945-2.039z",
                     fillColor: "#22c55e",
                     fillOpacity: 1,
@@ -420,16 +416,30 @@
     
             const infowindow = new google.maps.InfoWindow({
                 content: `
-                    <div class="p-4">
-                        <h3 class="font-bold flex items-center">
-                            ${ubicacion.nombre}
-                            <a href="${ubicacion.sitio_web}" class="ml-1 text-blue-500 hover:underline" target="_blank">
-                                <i class="bi bi-info-circle-fill"></i>
-                            </a>
-                        </h3>
-                        <p>${ubicacion.direccion}</p>
-                        <p>${ubicacion.ciudad}, ${ubicacion.region}</p>
-                        <a href="${ubicacion.sitio_web}" class="flex items-center text-blue-500 hover:underline" target="_blank">
+                    <div class="p-2 max-w-[180px]">
+                        ${ubicacion.imagen_perfil_url ? 
+                            `<div class="mb-1 px-2" style="max-width: 200px;">
+                                <img src="${ubicacion.imagen_perfil_url}" 
+                                     class="w-full max-h-[50px] object-contain rounded-lg">
+                            </div>` 
+                            : ''
+                        }
+                        <div class="px-2">
+                            <h3 class="text-tertiary font-semibold text-sm flex items-center">
+                                ${ubicacion.nombre}
+                                <a href="${ROUTES.perfilEmpresa}${ubicacion.empresa_id}" 
+                                class="ml-1 text-blue-500 hover:underline" 
+                                target="_blank">
+                                    <i class="bi bi-info-circle-fill text-[0.6rem]"></i>
+                                </a>
+                            </h3>
+                            <p class="font-medium text-tertiary-light text-[0.7rem] text-xs mt-0.5">${ubicacion.rubro}</p>
+                        </div>
+                        <div class="text-[0.7rem] px-2 space-y-0.5 mt-1">
+                            <p class="text-tertiary-light">${ubicacion.direccion}</p>
+                            <p class="text-tertiary-light">${ubicacion.ciudad}, ${ubicacion.region}</p>
+                        </div>
+                        <a href="${ubicacion.sitio_web}" class="px-2 inline-flex items-center text-blue-500 hover:underline mt-1 text-[0.7rem]">
                             <i class="bi bi-globe mr-1"></i>Sitio web
                         </a>
                     </div>

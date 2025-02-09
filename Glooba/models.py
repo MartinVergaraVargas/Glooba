@@ -211,6 +211,17 @@ class Ubicacion(db.Model):
     
     # Relaciones
     ofertas = db.relationship('UbicacionOferta', backref='ubicacion', lazy=True, cascade='all, delete-orphan')
+    
+    @property
+    def logo_empresa_url(self):
+        """Retorna la URL de la imagen del perfil."""
+        nombre_empresa = secure_filename(self.empresa.nombre) if self.empresa else "default"
+        return url_for(
+            'static', 
+            filename=f'uploads/profile/empresa/{nombre_empresa}/picture/ubicacion/{self.imagen}', 
+            _external=True
+        ) if self.imagen else None
+    
 
 class Favorito(db.Model):
     __tablename__ = 'favorito'
