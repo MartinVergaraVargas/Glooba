@@ -40,6 +40,9 @@
                 <a href="{{ url_for('main.empresas') }}" class="text-white text-decoration-none d-flex flex-column align-items-center">
                     <i class="bi bi-map-fill text-4xl"></i>
                 </a>
+                <a href="{{ url_for('main.blog') }}" class="text-white text-decoration-none d-flex flex-column align-items-center">
+                    <i class="bi bi-chat-text-fill text-4xl"></i>
+                </a>
             </div>
 
             <!-- Iconos a la derecha -->
@@ -61,6 +64,7 @@
                         <!-- Enlaces adicionales en pantallas pequeñas -->
                         <li class="d-lg-none"><a class="dropdown-item text-white" href="{{ url_for('main.index') }}"><i class="bi bi-house-fill"></i> Inicio</a></li>
                         <li class="d-lg-none"><a class="dropdown-item text-white" href="{{ url_for('main.empresas') }}"><i class="bi bi-map-fill"></i> Explorar</a></li>
+                        <li class="d-lg-none"><a class="dropdown-item text-white" href="{{ url_for('main.blog') }}"><i class="bi bi-chat-text-fill"></i> Blog </a></li>
                         <li class="d-lg-none"><div class="dropdown-divider bg-white"></div></li>
                         
                         {% if not current_user.is_authenticated or current_user.is_anonymous %}
@@ -123,7 +127,7 @@
                     <h4 class="font-semibold text-green-600 mb-2 text-center sm:text-justify">Información</h4>
                     <ul class="space-y-2 text-center sm:text-justify">
                         <li>
-                            <a href="#" class="hover:underline text-tertiary-light">Políticas de privacidad</a>
+                            <a href="{{ url_for('main.politicas_privacidad') }}" class="hover:underline text-tertiary-light">Políticas de privacidad</a>
                         </li>
                     </ul>
                 </div>

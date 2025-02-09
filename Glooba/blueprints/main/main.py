@@ -1,5 +1,5 @@
 import os
-from flask import Blueprint, render_template, redirect, request, url_for, flash, current_app
+from flask import Blueprint, json, render_template, redirect, request, url_for, flash, current_app
 from flask_login import login_required, current_user
 from Glooba.models import Empresa, Oferta, Ubicacion, Solicitud_Registro_Empresa
 from sqlalchemy import func
@@ -17,6 +17,18 @@ main_bp = Blueprint("main", __name__, template_folder="templates")
 def index():
     empresas = db.session.query(Empresa).order_by(func.random()).limit(20).all()
     return render_template('informative_page.html', empresas=empresas)
+
+@main_bp.route("/en_desarrollo")
+def en_desarrollo():
+    return render_template('in_progress.html')
+
+@main_bp.route("/politicas_privacidad")
+def politicas_privacidad():
+    return render_template('privacy_policies.html')
+
+@main_bp.route("/blog")
+def blog():
+    return redirect(url_for('main.en_desarrollo'))
 
 @main_bp.route('/enrolamiento_empresas', methods=['GET', 'POST'])
 def enrolamiento_empresas():
@@ -143,9 +155,28 @@ def empresas():
     ubicaciones = Ubicacion.query.filter_by(activa=True).all()
     api_key = current_app.config['GOOGLE_MAPS_API_KEY']
     
+    # Procesar ubicaciones para incluir datos de la empresa
+    ubicaciones_data = []
+    for ubicacion in ubicaciones:
+        empresa = ubicacion.empresa
+        ubicaciones_data.append({
+            'nombre': ubicacion.nombre,
+            'lat': ubicacion.latitud,
+            'lng': ubicacion.longitud,
+            'direccion': ubicacion.direccion,
+            'ciudad': ubicacion.ciudad,
+            'region': ubicacion.region,
+            'es_propia': ubicacion.es_propia,
+            'empresa_id': ubicacion.empresa_id,
+            'rubro': empresa.rubro if empresa else None,
+            'sitio_web': empresa.sitio_web_formateado if empresa else None,
+            'imagen_perfil_url': empresa.imagen_perfil_url if empresa else None
+        })
+    
     return render_template(
         'main_page.html',
         empresas=empresas_data,
+        ubicaciones_json=json.dumps(ubicaciones_data),
         pagination=pagination,
         search=search,
         categoria_actual=categoria,
