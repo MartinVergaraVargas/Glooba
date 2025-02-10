@@ -79,22 +79,18 @@
                 {% for oferta in ofertas %}
                 <div class="bg-white rounded-xl p-4 sm:p-6 shadow-lg hover:shadow-xl transition-all border border-gray-100">
                     <div class="flex flex-col sm:flex-row gap-4">
-                        <!-- Imagen más compacta -->
                         <div class="w-full sm:w-24 h-24 flex-shrink-0 rounded-xl overflow-hidden border-2 border-white shadow-md">
-                            <img src="{{ oferta.imagen_oferta_url }}" 
-                                class="w-full h-full object-cover transform hover:scale-105 transition-transform">
+                            <img src="{{ oferta.imagen_oferta_url }}"
+                                 class="w-full h-full object-cover transform hover:scale-105 transition-transform">
                         </div>
-                        
-                        <!-- Contenido más denso -->
+                
                         <div class="flex-1 space-y-2">
                             <h4 class="text-lg font-bold text-gray-900 leading-tight">{{ oferta.titulo }}</h4>
-                            
-                            <!-- Descripción más compacta -->
+                
                             <p class="text-gray-600 text-sm line-clamp-2 mb-2">
                                 {{ oferta.descripcion }}
                             </p>
-
-                            <!-- Badges optimizados -->
+                
                             <div class="flex flex-wrap gap-2">
                                 {% if oferta.precio %}
                                 <span class="px-3 py-1.5 bg-green-50 text-green-700 rounded-lg font-medium text-xs sm:text-sm">
@@ -107,13 +103,23 @@
                                 </span>
                                 {% endif %}
                             </div>
-
-                            <!-- Fecha más discreta -->
+                
                             {% if oferta.fecha_fin %}
                             <div class="pt-2 text-xs text-gray-400">
                                 Válido hasta: {{ oferta.fecha_fin.strftime('%d/%m/%Y') }}
                             </div>
                             {% endif %}
+                
+                            {% if oferta.sitio_web %}
+                            <div class="mt-3">
+                                <a href="{{ oferta.sitio_web }}" target="_blank"
+                                   class="inline-flex items-center px-2 py-1 border border-green-500 text-green-600 hover:bg-green-50 hover:text-green-700 rounded-md text-xs sm:text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
+                                    Ver Publicación
+                                    <svg class="ml-2 -mr-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                                </a>
+                            </div>
+                            {% endif %}
+                
                         </div>
                     </div>
                 </div>
