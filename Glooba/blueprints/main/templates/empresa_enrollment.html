@@ -3,6 +3,9 @@
 {% block content %}
 
 <head>
+    <!-- Añadir AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
     <!-- Estilos existentes -->
     <style>
         .gradient-border {
@@ -40,13 +43,13 @@
         <div class="flex flex-col md:flex-row items-center gap-12">
             <!-- Text Content -->
             <div class="md:w-1/2 space-y-6">
-                <h1 class="text-5xl md:text-6xl font-bold text-gray-900 leading-tight"
+                <h1 class="text-5xl md:text-6xl font-bold text-gray-900"
                     data-aos="fade-up"
                     data-aos-duration="800">
                     <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-green-500">Impulsa la sostenibilidad <br/>con nosotros</span>
                 </h1>
                 
-                <p class="text-xl text-gray-600 leading-relaxed"
+                <p class="text-lg lg:text-xl text-gray-700 leading-relaxed"
                    data-aos="fade-up"
                    data-aos-delay="300"
                    data-aos-duration="800">
@@ -250,5 +253,19 @@
         </div>
     </div>
 </section>
+
+<!-- AOS y Scripts de Interactividad -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    AOS.init({
+      offset: 120, // Distancia desde el borde inferior
+      delay: 0,
+      duration: 800,
+      easing: 'ease',
+      once: true,
+      mirror: false,
+      anchorPlacement: 'top-bottom'
+    });
+</script>
 
 {% endblock %}
