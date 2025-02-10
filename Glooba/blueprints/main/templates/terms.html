@@ -1,0 +1,78 @@
+{% extends "layout.html" %}
+
+{% block head %}
+<head>
+  <title>Términos de Servicio - Glooba</title>
+</head>
+{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto p-8">
+  <h1 class="text-3xl font-bold mb-6">Términos de Servicio</h1>
+  <p class="text-gray-600 mb-4">Última actualización: 09 de Febrero de 2025</p>
+
+  <!-- 1. Aceptación de los Términos -->
+  <section class="mb-6">
+    <h2 class="text-2xl font-semibold mb-2">1. Aceptación de los Términos</h2>
+    <p class="text-gray-700">
+      Al acceder y utilizar este sitio web, usted acepta cumplir con estos Términos de Servicio, así como con todas las leyes y regulaciones aplicables. Si no está de acuerdo con alguno de estos términos, le solicitamos que no utilice nuestro sitio.
+    </p>
+  </section>
+
+  <!-- 2. Uso del Sitio -->
+  <section class="mb-6">
+    <h2 class="text-2xl font-semibold mb-2">2. Uso del Sitio</h2>
+    <p class="text-gray-700">
+      Usted se compromete a utilizar este sitio de manera responsable y conforme a la legislación vigente. No deberá utilizar el sitio para fines ilegales ni interferir con el funcionamiento normal del mismo.
+    </p>
+  </section>
+
+  <!-- 3. Propiedad Intelectual -->
+  <section class="mb-6">
+    <h2 class="text-2xl font-semibold mb-2">3. Propiedad Intelectual</h2>
+    <p class="text-gray-700">
+      Todo el contenido incluido en este sitio, como textos, gráficos, logotipos, iconos, imágenes y software, es propiedad de Glooba o de sus proveedores de contenido y está protegido por las leyes de propiedad intelectual.
+    </p>
+  </section>
+
+  <!-- 4. Limitación de Responsabilidad -->
+  <section class="mb-6">
+    <h2 class="text-2xl font-semibold mb-2">4. Limitación de Responsabilidad</h2>
+    <p class="text-gray-700">
+      Glooba no será responsable por daños directos, indirectos, incidentales, especiales o consecuentes que resulten del uso o la imposibilidad de uso del sitio, incluso si hemos sido advertidos de la posibilidad de tales daños.
+    </p>
+  </section>
+
+  <!-- 5. Cambios en los Términos -->
+  <section class="mb-6">
+    <h2 class="text-2xl font-semibold mb-2">5. Cambios en los Términos</h2>
+    <p class="text-gray-700">
+      Nos reservamos el derecho a modificar o actualizar estos Términos de Servicio en cualquier momento. Los cambios serán efectivos una vez publicados en este sitio, por lo que le recomendamos revisarlos periódicamente.
+    </p>
+  </section>
+
+  <!-- 6. Política de Privacidad -->
+  <section class="mb-6">
+    <h2 class="text-2xl font-semibold mb-2">6. Política de Privacidad</h2>
+    <p class="text-gray-700">
+      El uso del sitio también se regirá por nuestra <a href="{{ url_for('main.politicas_privacidad') }}" class="text-blue-500 hover:underline">Política de Privacidad</a>, que forma parte integral de estos términos.
+    </p>
+  </section>
+
+  <!-- 7. Ley Aplicable -->
+  <section class="mb-6">
+    <h2 class="text-2xl font-semibold mb-2">7. Ley Aplicable</h2>
+    <p class="text-gray-700">
+      Estos Términos de Servicio se regirán e interpretarán de acuerdo con las leyes de Chile, sin tener en cuenta sus disposiciones sobre conflicto de leyes.
+    </p>
+  </section>
+
+  <!-- 8. Contacto -->
+  <section>
+    <h2 class="text-2xl font-semibold mb-2">8. Contacto</h2>
+    <p class="text-gray-700">
+      Si tiene alguna pregunta sobre estos Términos de Servicio, por favor contáctenos a través del correo electrónico: <a href="mailto: gloobacl@gmail.com" class="text-blue-500 hover:underline">Gloobacl@gmail.com</a>.
+    </p>
+  </section>
+</div>
+{% endblock %}

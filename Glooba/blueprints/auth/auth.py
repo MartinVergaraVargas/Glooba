@@ -242,3 +242,7 @@ def signup():
 def logout():
     logout_user()
     return redirect(url_for('main.index'))
+
+@auth_bp.route('/recuperar_contrasena')
+def recuperar_contrasena():
+    return redirect(url_for('main.en_desarrollo'))

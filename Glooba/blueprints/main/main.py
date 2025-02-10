@@ -26,6 +26,10 @@ def en_desarrollo():
 def politicas_privacidad():
     return render_template('privacy_policies.html')
 
+@main_bp.route("/terminos_servicio")
+def terminos_servicio():
+    return render_template('terms.html')
+
 @main_bp.route("/blog")
 def blog():
     return redirect(url_for('main.en_desarrollo'))
